@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import '../resources/list_model.dart';
 import '../resources/list_db.dart';
 
-class ClientsBloc {
+class ListBloc {
 
 
   final _clientController = StreamController<List<ListModel>>.broadcast();
@@ -20,45 +20,4 @@ class ClientsBloc {
     _name.close();
   }
 
-  getClients() async {
-    _clientController.sink.add(await DBProvider.db.getAllClients());
-  }
-
-  ClientsBloc() {
-    getClients();
-  }
-
-  blockUnblock(Client client) {
-    DBProvider.db.blockOrUnblock(client);
-    getClients();
-  }
-
-  delete(int id) {
-    DBProvider.db.deleteClient(id);
-    getClients();
-  }
-
-  add(Client client) {
-
-    DBProvider.db.newClient(client);
-    getClients();
-  }
-
-  submit(){
-
-    final firstName = _name.value;
-    print('name is $firstName');
-
-  }
-  add2(){
-
-    final firstName = _name.value;
-
-    Client client =
-    Client( firstName: firstName, lastName: "asdasdas", blocked: false);
-
-    DBProvider.db.newClient(client);
-    print('$firstName');
-    getClients();
-  }
 }

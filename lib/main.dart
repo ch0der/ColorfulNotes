@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'src/app.dart';
 import 'src/screens/homepage.dart';
+import 'src/bloc/provider.dart';
+import 'src/Animations/splash_screen_animation.dart';
 
 void main() {
   runApp(Provider(
@@ -11,14 +13,40 @@ void main() {
       initialRoute: '/',
       routes: {
         // When we navigate to the "/" route, build the FirstScreen Widget
-        '/': (context) => HomePage(),
+        '/': (context) => MyApp(),
+        '/second':(context) => HomePage(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
-        '/second': (context) => AddToList(),
-        '/third': (context) => ViewList(),
+
       },
     ),
   ));
 }
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(
+      Duration(seconds: 3),
+      (){
+        Navigator.pushNamed(context, '/second');
+      }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Home();
+  }
+}
+
 
 
 
