@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'src/app.dart';
 import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
-import 'src/Animations/splash_screen_animation.dart';
+import 'src/Animations/splace_screen_2.dart';
+import 'package:flare_flutter/flare_actor.dart';
+
 
 void main() {
   runApp(Provider(
@@ -34,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      Duration(seconds: 3),
+      Duration(seconds: 5),
       (){
         Navigator.pushNamed(context, '/second');
       }
@@ -43,7 +45,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Home();
+    return FlarePage();
   }
 }
 
