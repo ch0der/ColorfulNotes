@@ -15,7 +15,6 @@ class _FlareState extends State<FlarePage> {
         title: Text("Flare Animation"),
       ),
       body: Container(
-        color: Color(0xff18222c),
         child: Center(
           child: Center(
             child: FlareActor(

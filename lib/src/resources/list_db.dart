@@ -34,7 +34,7 @@ class DBProvider{
 
   newTask(ListModel newTask) async{
     final db = await database;
-    var table = await await db.rawQuery("SELECT MAX(id)+1 as id FROM ListModel");
+    var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM ListModel");
     int id = table.first["id"];
     var raw = await db.rawInsert("INSERT into ListModel(id,task,duration,completed)"
         " VALUES (?,?,?,?)",

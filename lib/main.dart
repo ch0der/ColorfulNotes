@@ -4,6 +4,8 @@ import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
 import 'src/Animations/splace_screen_2.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'dart:async';
+import 'src/screens/todo_list_builder.dart';
 
 
 void main() {
@@ -17,6 +19,7 @@ void main() {
         // When we navigate to the "/" route, build the FirstScreen Widget
         '/': (context) => MyApp(),
         '/second':(context) => HomePage(),
+        '/third':(context) => BuildList(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
       },

@@ -5,10 +5,22 @@ class HomePage extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      body: Container(
+        child: buildHomePage(context),
+      ),
       appBar: AppBar(
         title: Text('test'),
       ),
     );
   }
+  
+  Widget buildHomePage(context){
+    return RaisedButton(
+      onPressed: (){
+        Navigator.pushNamed(context, '/third');
+      }
+    );
+  }
+  
 
 }
