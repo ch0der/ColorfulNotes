@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'src/app.dart';
 import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
 import 'src/Animations/splace_screen_2.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'dart:async';
 import 'src/screens/todo_list_builder.dart';
-
+import 'package:flutter/rendering.dart';
 
 void main() {
+  debugPaintSizeEnabled=false;
   runApp(Provider(
     child: MaterialApp(
       title: 'Named Routes Demo',
@@ -39,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      Duration(seconds: 5),
+      Duration(seconds: 3),
       (){
         Navigator.pushNamed(context, '/second');
       }

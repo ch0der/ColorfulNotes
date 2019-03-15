@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import '../widgets/todo_day.dart';
+import 'package:flutter/rendering.dart';
+import '../Animations/todo_list_builder_animations/writing.dart';
 
 class BuildList extends StatelessWidget{
 
@@ -20,25 +21,38 @@ class BuildList extends StatelessWidget{
   }
   Widget title(){
     return Container(
-      padding: EdgeInsets.all(20.0),
-      child: Text('Add New Task',
+      padding: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 5),
+      child: Text('New Task',
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 50.0),
+        style: TextStyle(fontSize: 50.0,fontWeight: FontWeight.bold),
 
       ),
     );
   }
 
   Widget doListViewer(){
-    return TextField(
-      decoration: InputDecoration(
-        border:  OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.0),
+    return Container(
+      height: 75.0,
+      width: 350.0,
+      child: Theme(
+        data: ThemeData(
+          primaryColor: Colors.green,
+          primaryColorDark: Colors.purple
         ),
-        labelText: 'Enter Here',
+        child: TextField(
+          maxLines: 2,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+
+            border:  OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+
+            ),
+          ),
+
+
+        ),
       ),
-
-
     );
   }
 
@@ -56,34 +70,19 @@ class BuildList extends StatelessWidget{
             HelperTile(day: 'T'), HelperTile(day: 'F'), HelperTile(day: 'S'),
           ],
         ), //../widgets/todo_day
-      ],
-    );
-  }
-
-}
-class FlareWriter extends StatefulWidget {
-
-  @override
-  _FlareState createState() => _FlareState();
-}
-
-class _FlareState extends State<FlareWriter> {
-  bool animacontroller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 500,
-      width: 500,
-      child: Center(
-        child: FlareActor(
-
-//              ImagePath.SOLAR_FLARE,
-          "assets/zztest.flr",
-          animation: "animation",
-          isPaused: animacontroller,
+        Padding(padding: EdgeInsets.only(top: 20.0)),
+        Text('Duration',textAlign: TextAlign.center,style: TextStyle(fontSize: 25),),
+        Row(
+          children: <Widget>[Padding(padding: EdgeInsets.only(left: 50.0),),
+          TimeHelperTile(sDuration: '5',duration: 5.0,), TimeHelperTile(sDuration: '15',duration: 15.0,), TimeHelperTile(sDuration: '30',duration: 30.0,),
+          TimeHelperTile(sDuration: '45',duration: 45.0,), TimeHelperTile(sDuration: '60',duration: 60.0,),
+          ],
         ),
-      ),
+        FlareWriter()
+
+      ],
+
     );
   }
+
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'bloc.dart';
+import 'masterBloc.dart';
 
 class Provider extends InheritedWidget{
   final bloc = ListBloc();  //creates a new instance of a bloc everytime we call the provider

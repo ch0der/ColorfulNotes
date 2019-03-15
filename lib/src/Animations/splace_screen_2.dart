@@ -11,19 +11,23 @@ class _FlareState extends State<FlarePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flare Animation"),
-      ),
-      body: Container(
-        child: Center(
-          child: Center(
-            child: FlareActor(
-//              ImagePath.SOLAR_FLARE,
-              "assets/zztest.flr",
-              animation: "animation",
-            ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            child: Text('My Daily \n Productivity',textAlign: TextAlign.center,style: TextStyle(fontSize: 60.0),),
           ),
-        ),
+            Container(
+              height: 400,
+              width: 400,
+              child: Center(
+                child: FlareActor(
+//              ImagePath.SOLAR_FLARE,
+                  "assets/zztest.flr",
+                  animation: "animation",
+                ),
+              ),
+            ),
+          ],
       ),
     );
   }
