@@ -7,7 +7,7 @@ import 'src/screens/todo_list_builder.dart';
 import 'package:flutter/rendering.dart';
 
 void main() {
-  debugPaintSizeEnabled=false;
+  debugPaintSizeEnabled=true;
   runApp(Provider(
     child: MaterialApp(
       title: 'Named Routes Demo',

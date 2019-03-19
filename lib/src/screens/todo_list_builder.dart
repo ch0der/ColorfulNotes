@@ -3,7 +3,14 @@ import '../widgets/todo_day.dart';
 import 'package:flutter/rendering.dart';
 import '../Animations/todo_list_builder_animations/writing.dart';
 
-class BuildList extends StatelessWidget{
+
+class BuildList extends StatefulWidget{
+
+  @override
+  _BuildListState createState() => _BuildListState();
+}
+
+class _BuildListState extends State<BuildList> {
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +21,13 @@ class BuildList extends StatelessWidget{
           title(),
           doListViewer(),
           daySelect(),
+          FlareWriter(),
 
         ],
       ),
     );
   }
+
   Widget title(){
     return Container(
       padding: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 5),
@@ -70,19 +79,13 @@ class BuildList extends StatelessWidget{
             HelperTile(day: 'T'), HelperTile(day: 'F'), HelperTile(day: 'S'),
           ],
         ), //../widgets/todo_day
-        Padding(padding: EdgeInsets.only(top: 20.0)),
+        Padding(padding: EdgeInsets.only(top: 2.5)),
         Text('Duration',textAlign: TextAlign.center,style: TextStyle(fontSize: 25),),
-        Row(
-          children: <Widget>[Padding(padding: EdgeInsets.only(left: 50.0),),
-          TimeHelperTile(sDuration: '5',duration: 5.0,), TimeHelperTile(sDuration: '15',duration: 15.0,), TimeHelperTile(sDuration: '30',duration: 30.0,),
-          TimeHelperTile(sDuration: '45',duration: 45.0,), TimeHelperTile(sDuration: '60',duration: 60.0,),
-          ],
-        ),
-        FlareWriter()
+        TimeHelperTile(),
+
 
       ],
 
     );
   }
-
 }
