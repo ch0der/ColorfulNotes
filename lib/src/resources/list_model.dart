@@ -6,7 +6,7 @@ import 'dart:convert';
 
 ListModel listModelFromJson(String str) {
   final jsonData = json.decode(str);
-  return ListModel.fromJson(jsonData);
+  return ListModel.fromMap(jsonData);
 }
 
 String listModelToJson(ListModel data) {
@@ -41,7 +41,7 @@ class ListModel {
     this.saturday,
   });
 
-  factory ListModel.fromJson(Map<String, dynamic> json) => new ListModel(
+  factory ListModel.fromMap(Map<String, dynamic> json) => new ListModel(
     id: json["id"],
     task: json["task"],
     duration: json["duration"],

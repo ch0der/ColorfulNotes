@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../widgets/todo_day.dart';
 import 'package:flutter/rendering.dart';
 import '../Animations/todo_list_builder_animations/writing.dart';
+import '../bloc/masterBloc.dart';
+import '../bloc/provider.dart';
+import '../bloc/taskBloc.dart';
 
 
 class BuildList extends StatefulWidget{
@@ -14,12 +17,13 @@ class _BuildListState extends State<BuildList> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    final taskBloc = Provider.of(context).taskBloc;
+
     return Scaffold(
       body: Column(
         children: <Widget>[
           title(),
-          doListViewer(),
+          doListViewer(taskBloc),
           daySelect(),
           FlareWriter(),
 
@@ -39,29 +43,34 @@ class _BuildListState extends State<BuildList> {
     );
   }
 
-  Widget doListViewer(){
-    return Container(
-      height: 75.0,
-      width: 350.0,
-      child: Theme(
-        data: ThemeData(
-          primaryColor: Colors.green,
-          primaryColorDark: Colors.purple
-        ),
-        child: TextField(
-          maxLines: 2,
-          textAlign: TextAlign.center,
-          decoration: InputDecoration(
+  Widget doListViewer(TaskBloc taskBloc){
+    return StreamBuilder<Object>(
+      stream: taskBloc.tasks,
+      builder: (context, snapshot) {
+        return Container(
+          height: 75.0,
+          width: 350.0,
+          child: Theme(
+            data: ThemeData(
+              primaryColor: Colors.green,
+              primaryColorDark: Colors.purple
+            ),
+            child: TextField(
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
 
-            border:  OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+                border:  OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+
+                ),
+              ),
+
 
             ),
           ),
-
-
-        ),
-      ),
+        );
+      }
     );
   }
 

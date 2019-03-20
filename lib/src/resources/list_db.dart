@@ -28,18 +28,33 @@ class DBProvider{
               "task TEXT"
               "duration INTEGER"
               "completed BIT"
-          ")");
+              "sunday BIT"
+              "monday BIT"
+              "tuesday BIT"
+              "wednesday BIT"
+              "thursday BIT"
+              "friday BIT"
+              "saturday BIT"
+              ")");
         });
   }
 
-  newTask(ListModel newTask) async{
+  newItem(ListModel newItem) async{
     final db = await database;
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM ListModel");
     int id = table.first["id"];
     var raw = await db.rawInsert("INSERT into ListModel(id,task,duration,completed)"
-        " VALUES (?,?,?,?)",
-      [id, newTask.task, newTask.duration, newTask.completed]);
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+      [id, newItem.task, newItem.duration, newItem.completed,
+      newItem.sunday,newItem.monday,newItem.tuesday,newItem.wednesday,newItem.thursday,newItem.friday, newItem.saturday]);
     return raw;
+  }
+
+  Future<List<ListModel>> getTasks() async{
+    final db = await database;
+    var res = await db.query("task");
+    List<ListModel> list = res.isNotEmpty ? res.map((f)=> ListModel.fromMap(f)).toList() : [];
+    return list;
   }
 
 
