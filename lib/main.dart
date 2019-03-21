@@ -6,6 +6,7 @@ import 'dart:async';
 import 'src/screens/todo_list_builder.dart';
 import 'package:flutter/rendering.dart';
 import 'src/bloc/masterBloc.dart';
+import 'src/screens/todo_list_viewer.dart';
 
 void main() {
   debugPaintSizeEnabled=true;
@@ -20,6 +21,7 @@ void main() {
         '/': (context) => MyApp(),
         '/second':(context) => HomePage(),
         '/third':(context) => BuildList(),
+        '/fourth':(context) => ListViewer(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
       },

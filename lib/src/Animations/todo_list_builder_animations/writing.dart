@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flare_flutter/flare_actor.dart';
 import 'dart:async';
+import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
+import 'package:more_bloc_testing/src/bloc/provider.dart';
 
 class FlareWriter extends StatefulWidget {
   final bool isPaused;
@@ -15,12 +17,22 @@ class _FlareState extends State<FlareWriter> {
 
   @override
   Widget build(BuildContext context) {
-
-    return Stack( //TODO Rebuild folder animation every time it's pressed, also try to figure out how to make onTap work for S
+    final bloc = Provider.of(context).taskBloc;
+    return Stack(
       overflow: Overflow.visible,
       children: <Widget>[
         Positioned(child: flareWriter()),
-        Positioned(
+        submit(bloc),
+
+      ],
+    );
+  }
+
+  Widget submit(TaskBloc bloc){
+    return  StreamBuilder(
+      stream: bloc.task,
+      builder: (context, snapshot) {
+        return Positioned(
           left: 71.0,
           top: 42.0,
           child: Container(
@@ -30,15 +42,18 @@ class _FlareState extends State<FlareWriter> {
               onTap: (){
                 if(_animaName ==null){
                   onTap();
+
                 }else{
                   //return nothing
+                }
+                if (snapshot.hasData){
+                  bloc.submitTask();
                 }
               },
             ),
           ),
-        ),
-
-      ],
+        );
+      }
     );
   }
 

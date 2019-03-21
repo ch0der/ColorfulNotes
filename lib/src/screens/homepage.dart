@@ -15,10 +15,19 @@ class HomePage extends StatelessWidget{
   }
   
   Widget buildHomePage(context){
-    return RaisedButton(
-      onPressed: (){
-        Navigator.pushNamed(context, '/third');
-      }
+    return Column(
+      children: <Widget>[
+        RaisedButton(
+          onPressed: (){
+            Navigator.pushNamed(context, '/third');
+          }
+        ),
+        RaisedButton(
+          onPressed: (){
+            Navigator.pushNamed(context,'/fourth');
+          },
+        ),
+      ],
     );
   }
   

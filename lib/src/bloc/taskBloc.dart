@@ -21,6 +21,11 @@ class TaskBloc{
   getTasks() async{
     _taskController.sink.add(await DBProvider.db.getTasks());
   }
+  submitTask(){
+    final validTask = _task.value;
+
+    print('item is $validTask');
+  }
 
 
 }

@@ -20,6 +20,7 @@ class _BuildListState extends State<BuildList> {
     final taskBloc = Provider.of(context).taskBloc;
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Column(
         children: <Widget>[
           title(),
@@ -45,7 +46,7 @@ class _BuildListState extends State<BuildList> {
 
   Widget doListViewer(TaskBloc taskBloc){
     return StreamBuilder<Object>(
-      stream: taskBloc.tasks,
+      stream: taskBloc.task,
       builder: (context, snapshot) {
         return Container(
           height: 75.0,
@@ -56,6 +57,7 @@ class _BuildListState extends State<BuildList> {
               primaryColorDark: Colors.purple
             ),
             child: TextField(
+              onChanged: taskBloc.addTask,
               maxLines: 2,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
