@@ -46,7 +46,7 @@ class _BuildListState extends State<BuildList> {
 
   Widget doListViewer(TaskBloc taskBloc){
     return StreamBuilder<Object>(
-      stream: taskBloc.task,
+      stream: taskBloc.description,
       builder: (context, snapshot) {
         return Container(
           height: 75.0,

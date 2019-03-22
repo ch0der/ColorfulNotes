@@ -30,7 +30,7 @@ class _FlareState extends State<FlareWriter> {
 
   Widget submit(TaskBloc bloc){
     return  StreamBuilder(
-      stream: bloc.task,
+      stream: bloc.description,
       builder: (context, snapshot) {
         return Positioned(
           left: 71.0,
@@ -39,7 +39,7 @@ class _FlareState extends State<FlareWriter> {
             width: 110.0,
             height: 42.0,
             child: GestureDetector(
-              onTap: (){
+              onTap: ()async{
                 if(_animaName ==null){
                   onTap();
 
@@ -47,7 +47,7 @@ class _FlareState extends State<FlareWriter> {
                   //return nothing
                 }
                 if (snapshot.hasData){
-                  bloc.submitTask();
+                  bloc.add();
                 }
               },
             ),

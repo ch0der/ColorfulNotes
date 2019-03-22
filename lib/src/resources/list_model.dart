@@ -10,13 +10,13 @@ ListModel listModelFromJson(String str) {
 }
 
 String listModelToJson(ListModel data) {
-  final dyn = data.toJson();
+  final dyn = data.toMap();
   return json.encode(dyn);
 }
 
 class ListModel {
   int id;
-  String task;
+  String description;
   int duration;
   bool completed;
   bool sunday;
@@ -29,7 +29,7 @@ class ListModel {
 
   ListModel({
     this.id,
-    this.task,
+    this.description,
     this.duration,
     this.completed,
     this.sunday,
@@ -43,21 +43,21 @@ class ListModel {
 
   factory ListModel.fromMap(Map<String, dynamic> json) => new ListModel(
     id: json["id"],
-    task: json["task"],
+    description: json["description"],
     duration: json["duration"],
-    completed: json["completed"],
-    sunday: json["sunday"],
-    monday: json["monday"],
-    tuesday: json["tuesday"],
-    wednesday: json["wednesday"],
-    thursday: json["thursday"],
-    friday: json["friday"],
-    saturday: json["saturday"],
+    completed: json["completed"] == 1,
+    sunday: json["sunday"] == 1,
+    monday: json["monday"] == 1,
+    tuesday: json["tuesday"] == 1,
+    wednesday: json["wednesday"] == 1,
+    thursday: json["thursday"] == 1,
+    friday: json["friday"] == 1,
+    saturday: json["saturday"] == 1,
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
     "id": id,
-    "task": task,
+    "description": description,
     "duration": duration,
     "completed": completed,
     "sunday": sunday,

@@ -6,25 +6,40 @@ import '../resources/list_db.dart';
 class TaskBloc{
 
   final _taskController = StreamController<List<ListModel>>.broadcast();
-  final _task = BehaviorSubject<String>();
+  final _description = BehaviorSubject<String>();
+  final _allTasks = PublishSubject<List<int>>();
 
-  Stream<String> get task => _task.stream;
+  Stream<String> get description => _description.stream;
   get tasks => _taskController.stream;
 
-  Function(String)get addTask => _task.sink.add;
+  Function(String)get addTask => _description.sink.add;
 
   dispose(){
     _taskController.close();
-    _task.close();
+    _description.close();
+  }
+  TaskBloc(){
+    getItems();
   }
 
-  getTasks() async{
-    _taskController.sink.add(await DBProvider.db.getTasks());
+  getItems() async{
+    _taskController.sink.add(await DBProvider.db.getAllTasks());
   }
   submitTask(){
-    final validTask = _task.value;
+    final validTask = _description.value;
 
     print('item is $validTask');
+  }
+  add(){
+    final description = _description.value;
+    final duration = 1;
+
+    ListModel item = ListModel(description: description, duration: duration, completed: false, sunday: false,
+        monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false );
+
+    DBProvider.db.newItem(item);
+    print('description is $description duration is $duration');
+    getItems();
   }
 
 

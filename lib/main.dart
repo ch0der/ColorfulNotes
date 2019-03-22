@@ -9,7 +9,7 @@ import 'src/bloc/masterBloc.dart';
 import 'src/screens/todo_list_viewer.dart';
 
 void main() {
-  debugPaintSizeEnabled=true;
+  debugPaintSizeEnabled=false;
   runApp(Provider(
     child: MaterialApp(
       title: 'Named Routes Demo',

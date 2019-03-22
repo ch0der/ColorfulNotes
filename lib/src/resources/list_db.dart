@@ -20,20 +20,20 @@ class DBProvider{
 
   initDB()async{
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "TestDB1.db");
-    return await openDatabase(path,version: 1,onOpen: (db){},
-        onCreate: (Database db, int version)async{
+    String path = join(documentsDirectory.path, "newDB3.db");
+    return await openDatabase(path,version: 2,onOpen: (db){},
+        onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE ListModel ("
               "id INTEGER PRIMARY KEY,"
-              "task TEXT"
-              "duration INTEGER"
-              "completed BIT"
-              "sunday BIT"
-              "monday BIT"
-              "tuesday BIT"
-              "wednesday BIT"
-              "thursday BIT"
-              "friday BIT"
+              "description TEXT,"
+              "duration INTEGER,"
+              "completed BIT,"
+              "sunday BIT,"
+              "monday BIT,"
+              "tuesday BIT,"
+              "wednesday BIT,"
+              "thursday BIT,"
+              "friday BIT,"
               "saturday BIT"
               ")");
         });
@@ -43,19 +43,31 @@ class DBProvider{
     final db = await database;
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM ListModel");
     int id = table.first["id"];
-    var raw = await db.rawInsert("INSERT into ListModel(id,task,duration,completed)"
+    var raw = await db.rawInsert("INSERT into ListModel (id,description,duration,completed,sunday,monday,tuesday,wednesday,thursday,friday,saturday)"
         " VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-      [id, newItem.task, newItem.duration, newItem.completed,
+      [id, newItem.description, newItem.duration, newItem.completed,
       newItem.sunday,newItem.monday,newItem.tuesday,newItem.wednesday,newItem.thursday,newItem.friday, newItem.saturday]);
     return raw;
   }
-
-  Future<List<ListModel>> getTasks() async{
+  Future<List<ListModel>> getAllTasks() async {
     final db = await database;
-    var res = await db.query("task");
-    List<ListModel> list = res.isNotEmpty ? res.map((f)=> ListModel.fromMap(f)).toList() : [];
+    var res = await db.query("ListModel");
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
     return list;
   }
 
+    Future<List<ListModel>> getDescriptions() async {
+      final db = await database;
+      var res = await db.query("description");
+      List<ListModel> list = res.isNotEmpty ? res.map((c) =>
+          ListModel.fromMap(c)).toList() : [];
+      return list;
+    }
 
+    getListModel(int id) async{
+      final db = await database;
+      var res = await db.query("ListModel",where: "id = ?",whereArgs: [id]);
+      return res.isNotEmpty ? ListModel.fromMap(res.first) : null;
+    }
 }
