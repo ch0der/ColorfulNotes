@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/todo_day.dart';
 import 'package:flutter/rendering.dart';
 import '../Animations/todo_list_builder_animations/writing.dart';
-import '../bloc/masterBloc.dart';
 import '../bloc/provider.dart';
 import '../bloc/taskBloc.dart';
+
 
 
 class BuildList extends StatefulWidget{
@@ -14,6 +13,7 @@ class BuildList extends StatefulWidget{
 }
 
 class _BuildListState extends State<BuildList> {
+  bool checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class _BuildListState extends State<BuildList> {
         children: <Widget>[
           title(),
           doListViewer(taskBloc),
-          daySelect(),
           FlareWriter(),
 
         ],
@@ -73,30 +72,6 @@ class _BuildListState extends State<BuildList> {
           ),
         );
       }
-    );
-  }
-
-  Widget daySelect(){
-    return Column(
-      children: <Widget>[
-        Padding(padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
-          child: Text('Day',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 25),),
-        ),
-        Row(
-          children: <Widget>[Padding(padding: EdgeInsets.only(left: 14.0),),
-            HelperTile(day: 'S'), HelperTile(day: 'M'), HelperTile(day: 'T'), HelperTile(day: 'W'),
-            HelperTile(day: 'T'), HelperTile(day: 'F'), HelperTile(day: 'S'),
-          ],
-        ), //../widgets/todo_day
-        Padding(padding: EdgeInsets.only(top: 2.5)),
-        Text('Duration',textAlign: TextAlign.center,style: TextStyle(fontSize: 25),),
-        TimeHelperTile(),
-
-
-      ],
-
     );
   }
 }

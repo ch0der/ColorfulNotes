@@ -4,12 +4,10 @@ import 'src/bloc/provider.dart';
 import 'src/Animations/splace_screen_2.dart';
 import 'dart:async';
 import 'src/screens/todo_list_builder.dart';
-import 'package:flutter/rendering.dart';
-import 'src/bloc/masterBloc.dart';
 import 'src/screens/todo_list_viewer.dart';
 
 void main() {
-  debugPaintSizeEnabled=false;
+
   runApp(Provider(
     child: MaterialApp(
       title: 'Named Routes Demo',

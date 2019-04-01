@@ -57,10 +57,10 @@ class DBProvider{
     return list;
   }
 
-    Future<List<ListModel>> getDescriptions() async {
+    Future<List<String>> getDescriptions() async {
       final db = await database;
       var res = await db.query("description");
-      List<ListModel> list = res.isNotEmpty ? res.map((c) =>
+      List<String> list = res.isNotEmpty ? res.map((c) =>
           ListModel.fromMap(c)).toList() : [];
       return list;
     }
@@ -69,5 +69,10 @@ class DBProvider{
       final db = await database;
       var res = await db.query("ListModel",where: "id = ?",whereArgs: [id]);
       return res.isNotEmpty ? ListModel.fromMap(res.first) : null;
+    }
+    deleteTask(int id)async{
+      final db = await database;
+      return db.delete("ListModel", where: "id = ?", whereArgs: [id]);
+
     }
 }
