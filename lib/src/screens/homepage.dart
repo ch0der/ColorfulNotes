@@ -27,6 +27,12 @@ class HomePage extends StatelessWidget{
             Navigator.pushNamed(context,'/fourth');
           },
         ),
+        RaisedButton(
+          child: Text('sunday'),
+          onPressed: (){
+            Navigator.pushNamed(context,'/fifth');
+          },
+        )
       ],
     );
   }

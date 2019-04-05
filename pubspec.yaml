@@ -50,6 +50,9 @@ flutter:
     - assets/SubmitFolder3.flr
     - assets/SubmitFolder5.flr
     - assets/checkmark.flr
+    - assets/tree.jpg
+    - assets/tree1-1.jpg
+    - assets/tree1-2.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

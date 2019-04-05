@@ -6,25 +6,27 @@ import '../resources/list_db.dart';
 class TaskBloc{
 
   final _taskController = StreamController<List<ListModel>>.broadcast();
+  final _taskDayController = StreamController<List<ListModel>>.broadcast();
   final _description = BehaviorSubject<String>();
   final _allTasks = PublishSubject<List<ListModel>>();
-  final _sunday = StreamController<String>.broadcast();
-
-  Observable<String> get penis => _sunday.stream;
+  final _output = BehaviorSubject<Map<int, Future<ListModel>>>();
 
 
-  Stream<String> get sunday => _sunday.stream;
+
   Stream<String> get description => _description.stream;
+
   get tasks => _taskController.stream;
+  get taskDay =>_taskDayController.stream;
 
   Function(String)get addTask => _description.sink.add;
-  Function(String) get sunday1 => _sunday.sink.add;
+
 
   dispose(){
     _taskController.close();
     _description.close();
     _allTasks.close();
-    _sunday.close();
+    _taskDayController.close();
+
   }
   TaskBloc(){
     fetchTask();
@@ -55,7 +57,6 @@ class TaskBloc{
 
     DBProvider.db.newItem(item);
     fetchTask();
-    print('description is $description duration is $duration sunday is $day1 monday is $day2 friday is $day6' );
   }
   fetchTask()async{
     final ids = await DBProvider.db.getAllTasks();
@@ -65,7 +66,11 @@ class TaskBloc{
     DBProvider.db.deleteTask(id);
     fetchTask();
   }
-  addSunday(String day)async{
-    _sunday.sink.add(day);
+  getSundayTasks()async {
+    final ids = await DBProvider.db.getSunday();
+    _taskDayController.sink.add(ids);
+  }
+  taskBlocDay(){
+    getSundayTasks();
   }
 }

@@ -43,9 +43,10 @@ class _FlareState extends State<FlareWriter> {
 
           ],
         ),
+        Padding(padding: EdgeInsets.only(top: 10.0)),
         Row(
-          children: <Widget>[Padding(padding: EdgeInsets.only(left: 50.0),),
-          box(5),box(15),box(30),box(45),box(60),counter(),
+          children: <Widget>[Padding(padding: EdgeInsets.only(left: 15.0),),
+          box(5),box(15),box(30),box(45),box(60),Padding(padding: EdgeInsets.only(left: 2.5),),counter(),
           ],
         ),
         Stack(
@@ -337,36 +338,36 @@ class _FlareState extends State<FlareWriter> {
 
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
-      child: ButtonTheme(
-        minWidth: 50.0,
-        height: 50.0,
-        child: FlatButton(
-            child: Text("$sDuration",
-              style: TextStyle(
-                  fontSize: 20.0
-              ),
+      height: 50.0,
+      width: 55.0,
+      child: FlatButton(
+          child: Text("$sDuration",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold
             ),
-            color: Colors.yellow[100],
-            highlightColor: Colors.yellow[400] ,
-            onPressed: (){
-              setState(() {
-                if (_animation == "animation"){
+          ),
+          color: Colors.yellow[100],
+          highlightColor: Colors.yellow[400] ,
+          onPressed: (){
+            setState(() {
+              if (_animation == "animation"){
 
-                }else _animation1 ="assets/checkmark.flr";
-                _animation = "animation";
-              });
-              setState(() {
-                ticker = _defaultValue+tick;
-              });
-              setState(() {
-                _defaultValue = ticker;
-                newNumber = _defaultValue;
-              });
-              print (newNumber); //TODO add this to a sink ->bloc
+              }else _animation1 ="assets/checkmark.flr";
+              _animation = "animation";
+            });
+            setState(() {
+              ticker = _defaultValue+tick;
+            });
+            setState(() {
+              _defaultValue = ticker;
+              newNumber = _defaultValue;
+            });
+            print (newNumber); //TODO add this to a sink ->bloc
 
-            }
+          }
 
-        ),
       ),
     );
   }
@@ -378,9 +379,16 @@ class _FlareState extends State<FlareWriter> {
   }
   Widget counter(){
     return Container(
-      height: 40.0,
-      width: 40.0,
-      child: Text('$newNumber'),
+      decoration: BoxDecoration(
+        color: Colors.white70
+      ),
+      height: 50.0,
+      width: 105.0,
+      child: Center(
+        child: Text('$newNumber',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize:35.0 ) ,),
+      ),
     );
   }
 }

@@ -75,4 +75,12 @@ class DBProvider{
       return db.delete("ListModel", where: "id = ?", whereArgs: [id]);
 
     }
+    Future<List<ListModel>> getSunday() async{
+    final db = await database;
+    var res = await db.query("ListModel",where: "sunday = ?",whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c)=> ListModel.fromMap(c)).toList() : [];
+    return list;
+
+    }
 }

@@ -21,13 +21,19 @@ class _BuildListState extends State<BuildList> {
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: Column(
-        children: <Widget>[
-          title(),
-          doListViewer(taskBloc),
-          FlareWriter(),
+      body: Container(
+        decoration: BoxDecoration(image: DecorationImage(
+          fit: BoxFit.cover,
+            image: AssetImage('assets/tree1-2.jpg'))),
+        child: Column(
+          children: <Widget>[
+            title(),
+            doListViewer(taskBloc),
+            Padding(padding: EdgeInsets.only(top: 20.0)),
+            FlareWriter(),
 
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -48,6 +54,7 @@ class _BuildListState extends State<BuildList> {
       stream: taskBloc.description,
       builder: (context, snapshot) {
         return Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0),color: Colors.white70),
           height: 75.0,
           width: 350.0,
           child: Theme(
@@ -60,6 +67,7 @@ class _BuildListState extends State<BuildList> {
               maxLines: 2,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
+                fillColor: Colors.white,
 
                 border:  OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
