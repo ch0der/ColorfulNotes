@@ -24,6 +24,7 @@ dependencies:
   rxdart: ^0.21.0
   flare_flutter: ^1.3.2
   flutter_counter: ^1.0.3
+  intl: ^0.15.8
 
 
 dev_dependencies:
@@ -50,6 +51,8 @@ flutter:
     - assets/SubmitFolder3.flr
     - assets/SubmitFolder5.flr
     - assets/checkmark.flr
+    - assets/plane.flr
+    - assets/plane3.flr
     - assets/tree.jpg
     - assets/tree1-1.jpg
     - assets/tree1-2.jpg

@@ -6,13 +6,14 @@ import 'dart:async';
 import 'src/screens/todo_list_builder.dart';
 import 'src/screens/todo_list_viewer.dart';
 import 'src/screens/select_day.dart';
+import 'src/screens/clock_test.dart';
 
 
 void main() {
 
   runApp(Provider(
     child: MaterialApp(
-      title: 'Named Routes Demo',
+      title: 'TODO LIST',
       // Start the app with the "/" named route. In our case, the app will start
       // on the FirstScreen Widget
       initialRoute: '/',
@@ -22,7 +23,7 @@ void main() {
         '/second':(context) => HomePage(),
         '/third':(context) => BuildList(),
         '/fourth':(context) => ListViewer(),
-        '/fifth':(context) => SelectDay(),
+        '/fifth':(context) => MyHomePage(title: 'Test',),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
       },

@@ -14,6 +14,8 @@ class FlareWriter extends StatefulWidget {
 
 class _FlareState extends State<FlareWriter> {
   String _animaName;
+  bool planePaused = false;
+
   bool _selected = false;
   bool _selected1 = false;
   bool _selected2 = false;
@@ -52,8 +54,11 @@ class _FlareState extends State<FlareWriter> {
         Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-            Positioned(child: flareWriter()),
-            submit(bloc),
+            planeAnimation(),
+           Center(
+             child: Stack(children: <Widget>[ flareWriter(),
+             submit(bloc),],),
+           )
 
           ],
         ),
@@ -109,13 +114,19 @@ class _FlareState extends State<FlareWriter> {
       ),
     );
   }
+  Widget planeAnimation(){
+    return Container(
+      height: 50,
+      child: FlareActor("assets/plane3.flr", animation: "plane",isPaused: planePaused,),
+    );
+  }
   Widget flareStart(){
     return Container(
       height: 200,
       width: 250,
       child: Center(
         child: FlareActor("assets/SubmitFolder5.flr",
-          animation: "animation2",
+          animation: "animation2",isPaused: false,
         ),
       ),
     );
