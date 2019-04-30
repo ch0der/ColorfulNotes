@@ -11,23 +11,28 @@ class _FlareState extends State<FlarePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            child: Text('My Daily \n Productivity',textAlign: TextAlign.center,style: TextStyle(fontSize: 60.0),),
-          ),
+      body: Container(
+        decoration: BoxDecoration(image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage('assets/cork3.jpg'))),
+        child: Column(
+          children: <Widget>[
             Container(
-              height: 400,
-              width: 400,
-              child: Center(
-                child: FlareActor(
+              child: Text('My Daily \n Productivity',textAlign: TextAlign.center,style: TextStyle(fontSize: 60.0),),
+            ),
+              Container(
+                height: 400,
+                width: 400,
+                child: Center(
+                  child: FlareActor(
 //              ImagePath.SOLAR_FLARE,
-                  "assets/zztest.flr",
-                  animation: "animation",
+                    "assets/zztest.flr",
+                    animation: "animation",
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+        ),
       ),
     );
   }

@@ -3,6 +3,9 @@ import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
+import 'package:flare_flutter/flare_actor.dart';
+import 'clock_test.dart';
+import 'package:more_bloc_testing/src/Animations/checkmark.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -12,15 +15,13 @@ class ListViewer extends StatefulWidget {
 }
 
 class _ListViewerState extends State<ListViewer> {
+
+  String _animation; String _route;
   String _time;
+  bool _isPaused = false;
+
   final bloc = TaskBloc();
 
-  @override
-  void initState(){
-    _time = _formatDateTime(DateTime.now());
-    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -31,14 +32,18 @@ class _ListViewerState extends State<ListViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(height: 75,color: Colors.orange,),
       appBar: AppBar(
-        title: Text(_time),
+        title: MyHomePage(),
       ),
       body:CustomScrollView(
         slivers: <Widget>[
           SliverList(delegate: SliverChildListDelegate([
-            viewerTest(bloc)
-          ])),
+            viewerTest(bloc),
+
+          ]),
+          ),
+
         ],
       ),
     );
@@ -67,15 +72,20 @@ class _ListViewerState extends State<ListViewer> {
                     },
                     child: ListTile(
                       onLongPress:(){
-                        print('test');
+                        setState(() {
+                          _route = "assets/checkmark2.flr";
+                          _animation = "animation";
+                        });
+
                       } ,
                       title: Text(item.description),
-                      leading: Text(item.id.toString()),
+                      leading:  Checkmark(route: _route, animation: _animation,),
+                      trailing: Text('${item.duration}'),
                     ),
                   );
                 },
               ),
-              Container(height: 29,color: Colors.orange,),
+              Container(height: 29,color: Colors.green,),
             ],
           );
         } else {

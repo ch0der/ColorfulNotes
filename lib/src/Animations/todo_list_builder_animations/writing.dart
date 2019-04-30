@@ -3,10 +3,10 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/bloc/provider.dart';
+import 'package:more_bloc_testing/src/Animations/plane.dart';
+import 'dart:math';
 
 class FlareWriter extends StatefulWidget {
-  final bool isPaused;
-  FlareWriter({this.isPaused});
 
   @override
   _FlareState createState() => _FlareState();
@@ -27,9 +27,10 @@ class _FlareState extends State<FlareWriter> {
   String _animation1;
   String _animation;
   int sDuration;
-  int ticker;
+  int ticker = 0;
   double stepValue;
   int newNumber =0;
+  int newNumber2 =0;
   int _defaultValue = 0; //for timeSelector
 
 
@@ -54,7 +55,7 @@ class _FlareState extends State<FlareWriter> {
         Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-            planeAnimation(),
+            Plane(),
            Center(
              child: Stack(children: <Widget>[ flareWriter(),
              submit(bloc),],),
@@ -78,7 +79,7 @@ class _FlareState extends State<FlareWriter> {
             height: 42.0,
             child: GestureDetector(
               onTap: ()async{
-                if(_animaName ==null){
+                if(_animaName == null){
                   onTap();
 
                 }else{
@@ -346,6 +347,7 @@ class _FlareState extends State<FlareWriter> {
 
   Widget box(sDuration){
     final int tick = sDuration;
+    newNumber2 = sDuration;
 
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
@@ -375,6 +377,9 @@ class _FlareState extends State<FlareWriter> {
               _defaultValue = ticker;
               newNumber = _defaultValue;
             });
+            if (ticker >= 60){
+
+            }
             print (newNumber); //TODO add this to a sink ->bloc
 
           }
@@ -389,6 +394,18 @@ class _FlareState extends State<FlareWriter> {
     );
   }
   Widget counter(){
+    double hourTime = newNumber/60;
+    int test = hourTime.toInt();
+
+    int hourInt = 0;
+    int minute = ticker;
+
+    if (newNumber >= 60){
+      setState(() {
+        minute = 0;
+      });
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white70
@@ -396,7 +413,7 @@ class _FlareState extends State<FlareWriter> {
       height: 50.0,
       width: 105.0,
       child: Center(
-        child: Text('$newNumber',
+        child: Text('$test:$minute',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize:35.0 ) ,),
       ),

@@ -3,16 +3,16 @@ import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
 import 'src/Animations/splace_screen_2.dart';
 import 'dart:async';
-import 'src/screens/todo_list_builder.dart';
-import 'src/screens/todo_list_viewer.dart';
-import 'src/screens/select_day.dart';
-import 'src/screens/clock_test.dart';
+import 'src/screens/library.dart';
+import 'package:flutter/rendering.dart';
 
 
 void main() {
+  debugPaintSizeEnabled=false;
 
   runApp(Provider(
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TODO LIST',
       // Start the app with the "/" named route. In our case, the app will start
       // on the FirstScreen Widget
@@ -24,6 +24,8 @@ void main() {
         '/third':(context) => BuildList(),
         '/fourth':(context) => ListViewer(),
         '/fifth':(context) => MyHomePage(title: 'Test',),
+        '/monday':(context) => MondayList(),
+        '/tuesday':(context) => TuesdayList(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
       },
