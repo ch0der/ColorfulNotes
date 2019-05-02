@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:more_bloc_testing/src/screens/clock_test.dart';
 import 'package:more_bloc_testing/src/Animations/checkmark.dart';
+import 'package:more_bloc_testing/src/resources/quote_generator.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -20,7 +21,7 @@ class _ListViewerState extends State<MondayList> {
   String _animation;
   String _route;
   String _time;
-  bool _isPaused = false;
+  bool _isPaused = true;
 
   final bloc = TaskBloc();
 
@@ -48,13 +49,25 @@ class _ListViewerState extends State<MondayList> {
                 ),
               ],
             ),
-            Positioned(left: 8,top: 5,child: Hero(tag: 'monday', child: DayNote())),
+            Positioned(
+                left: 25,
+                top: 25,
+                child: Hero(tag: 'monday', child: DayNote())),
             Positioned(
               bottom: 22,
               left: 20,
               child: Container(
-                  height: 25,
-                  child: FittedBox(fit: BoxFit.cover, alignment: Alignment.center ,child: MyHomePage()),),
+                height: 25,
+                child: FittedBox(
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                    child: MyHomePage()),
+              ),
+            ),
+            Positioned(
+                top: 38,
+                left: 140,
+                child: QuoteBuddy(),
             ),
           ],
         ),
@@ -70,18 +83,24 @@ class _ListViewerState extends State<MondayList> {
           return Column(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.greenAccent)),
-                height: 100,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.transparent)),
+                height: 115,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.transparent)),
+                height: 25,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 22),
+                padding: EdgeInsets.only(left: 5),
                 child: Container(
-                  height: 500,
-                  width: 350,
+                  height: 450,
+                  width: 375,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Container(
-                          height: 1.0,
-                          color: Colors.blue,
+                          height: 5.0,
+                          color: Colors.grey[200],
                         ),
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
@@ -96,18 +115,26 @@ class _ListViewerState extends State<MondayList> {
                           bloc.delete(item.id);
                         },
                         child: ListTile(
-                          onLongPress: () {
-                            setState(() {
-                              _route = "assets/checkmark2.flr";
-                              _animation = "animation";
-                            });
-                          },
-                          title: Text(item.description),
-                          leading: Checkmark(
-                            route: _route,
-                            animation: _animation,
+                          title: Text(
+                            item.description,
+                            style: TextStyle(fontSize: 20),
                           ),
-                          trailing: Text('${item.duration}'),
+                          leading: Stack(
+                            children: <Widget>[
+                              Positioned(
+                                  left: 14,
+                                  top: 16,
+                                  child: Text(
+                                    '$index',
+                                    style: TextStyle(fontSize: 20),
+                                  )),
+                              new Checkmark(),
+                            ],
+                          ),
+                          trailing: Text(
+                            '${item.duration}',
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ),
                       );
                     },
@@ -115,8 +142,9 @@ class _ListViewerState extends State<MondayList> {
                 ),
               ),
               Container(
-                height: 2,
-                color: Colors.green,
+                color: Colors.greenAccent,
+                height: 20,
+                child: Text(snapshot.data.length.toString()),
               ),
             ],
           );
