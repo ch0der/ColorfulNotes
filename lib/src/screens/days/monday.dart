@@ -9,6 +9,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:more_bloc_testing/src/screens/clock_test.dart';
 import 'package:more_bloc_testing/src/Animations/checkmark.dart';
 import 'package:more_bloc_testing/src/resources/quote_generator.dart';
+import 'package:more_bloc_testing/src/widgets/progress_indictator.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -52,7 +53,8 @@ class _ListViewerState extends State<MondayList> {
             Positioned(
                 left: 25,
                 top: 25,
-                child: Hero(tag: 'monday', child: DayNote())),
+                child: Hero(
+                    tag: 'monday', child: DayNote(dayOf: 'assets/note2.png'))),
             Positioned(
               bottom: 22,
               left: 20,
@@ -61,13 +63,13 @@ class _ListViewerState extends State<MondayList> {
                 child: FittedBox(
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
-                    child: MyHomePage()),
+                    child: DigitalClock()),
               ),
             ),
             Positioned(
-                top: 38,
-                left: 140,
-                child: QuoteBuddy(),
+              top: 20,
+              left: 140,
+              child: QuoteBuddy(),
             ),
           ],
         ),
@@ -79,6 +81,9 @@ class _ListViewerState extends State<MondayList> {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
+
+        final double testnum = snapshot.data.length.toDouble();
+         double numb = 1/snapshot.data.length;
         if (snapshot.hasData) {
           return Column(
             children: <Widget>[
@@ -95,7 +100,7 @@ class _ListViewerState extends State<MondayList> {
               Padding(
                 padding: EdgeInsets.only(left: 5),
                 child: Container(
-                  height: 450,
+                  height: 425,
                   width: 375,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Container(
@@ -122,12 +127,13 @@ class _ListViewerState extends State<MondayList> {
                           leading: Stack(
                             children: <Widget>[
                               Positioned(
-                                  left: 14,
-                                  top: 16,
-                                  child: Text(
-                                    '$index',
-                                    style: TextStyle(fontSize: 20),
-                                  )),
+                                left: 14,
+                                top: 16,
+                                child: Text(
+                                  '$index',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
                               new Checkmark(),
                             ],
                           ),
@@ -141,11 +147,14 @@ class _ListViewerState extends State<MondayList> {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.greenAccent,
-                height: 20,
-                child: Text(snapshot.data.length.toString()),
-              ),
+              Padding(
+                  padding: EdgeInsets.only(top: 15),
+                  child: Column(
+                    children: <Widget>[
+                      progressBar(1/testnum),
+                      Text(testnum.toString()),
+                    ],
+                  ),)
             ],
           );
         } else {
@@ -189,5 +198,38 @@ class _ListViewerState extends State<MondayList> {
 
   String _formatDateTime(DateTime dateTime) {
     return DateFormat('EEEE MMMM d y, h:m:ss a').format(dateTime);
+  }
+
+  Widget progress(String str) {
+    return Container(
+      height: 40,
+      width: 300,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0), color: Colors.lightGreen),
+      child: Container(
+          child: Row(
+        children: <Widget>[
+          Text('Progress Indicator WIP'),
+          Padding(padding: EdgeInsets.only(right: 20)),
+          Text(
+            str,
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      )),
+    );
+  }
+  Widget progressBar(double val){
+    return Container(
+      height: 40,
+      width: 300,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0), color: Colors.lightGreen),
+      child: LinearProgressIndicator(
+        backgroundColor: Colors.blueGrey[100],
+        value: val,
+
+      ),
+    );
   }
 }

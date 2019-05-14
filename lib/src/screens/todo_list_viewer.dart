@@ -34,7 +34,7 @@ class _ListViewerState extends State<ListViewer> {
     return Scaffold(
       bottomNavigationBar: Container(height: 75,color: Colors.orange,),
       appBar: AppBar(
-        title: MyHomePage(),
+        title: DigitalClock(),
       ),
       body:CustomScrollView(
         slivers: <Widget>[

@@ -3,7 +3,7 @@ import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
 import 'src/Animations/splace_screen_2.dart';
 import 'dart:async';
-import 'src/screens/library.dart';
+import 'package:more_bloc_testing/src/screens/library.dart';
 import 'package:flutter/rendering.dart';
 
 
@@ -23,7 +23,7 @@ void main() {
         '/second':(context) => HomePage(),
         '/third':(context) => BuildList(),
         '/fourth':(context) => ListViewer(),
-        '/fifth':(context) => MyHomePage(title: 'Test',),
+        '/fifth':(context) => DigitalClock(title: 'Test',),
         '/monday':(context) => MondayList(),
         '/tuesday':(context) => TuesdayList(),
         // When we navigate to the "/second" route, build the SecondScreen Widget

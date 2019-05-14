@@ -21,7 +21,7 @@ class _TuesdayListState extends State<TuesdayList> {
                   left: 20,top: 20,
                   child: Hero(
                       tag: 'monday2',
-                      child: DayNote())),
+                      child: DayNote(dayOf:'assets/noteTuesday.png'))),
 
             ],
           ),

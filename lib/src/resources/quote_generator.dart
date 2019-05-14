@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math' as math;
+import 'dart:math';
+import 'package:more_bloc_testing/src/resources/quote_test.dart';
 
 class QuoteBuddy extends StatefulWidget {
   @override
@@ -10,12 +14,13 @@ class _QuoteBuddyState extends State<QuoteBuddy>with TickerProviderStateMixin {
   Animation<double> animation;
   AnimationController controller;
 
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     controller = AnimationController(vsync: this,
-    duration: Duration(seconds: 1));
+        duration: Duration(seconds: 1));
 
     animation = Tween(begin: 0.0, end: 1.0)
         .animate(
@@ -23,27 +28,27 @@ class _QuoteBuddyState extends State<QuoteBuddy>with TickerProviderStateMixin {
     );
 
     Future.delayed(Duration(milliseconds: 750),
-            (){
-     if (controller.status == AnimationStatus.dismissed){
-       controller.forward();
-     }
-
+            () {
+          if (controller.status == AnimationStatus.dismissed) {
+            controller.forward();
+          }
         }
     );
   }
+
   @override
-  void dispose(){
+  void dispose() {
     controller.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     return Container(
       width: 250,
+      height: 150,
       child: FadeTransition(
         opacity: animation,
-        child: Text(
-            '“People take different roads seeking fulfillment and happiness. Just because they are not on your road, '
-                'doesn’t mean they’ve gotten lost.” – Dalai Lama',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),textAlign: TextAlign.center,),
+        child: Quoter(),
       ),
     );
   }

@@ -2,16 +2,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class DigitalClock extends StatefulWidget {
+  DigitalClock({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DigitalClockState createState() => _DigitalClockState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _DigitalClockState extends State<DigitalClock> {
   String _timeString;
 
   @override
@@ -23,8 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+    return Align(
+      alignment: Alignment.center,
       child: Container(child: Text(_timeString),),
     );
   }

@@ -4,9 +4,10 @@ import 'dart:async';
 import 'package:page_transition/page_transition.dart';
 
 class DayNote extends StatefulWidget {
-  DayNote({Key key, this.day, this.test}) : super(key: key);
+  DayNote({Key key, this.dayOf, this.test,this.day}) : super(key: key);
 
   final String day;
+  final String dayOf;
   final Widget test;
 
   @override
@@ -19,8 +20,8 @@ class _DayNoteState extends State<DayNote> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 110,
-      width: 110,
+      height: 125,
+      width: 125,
       child: Material(
         color: Colors.transparent,
         child: GestureDetector(
@@ -43,9 +44,11 @@ class _DayNoteState extends State<DayNote> {
             }
           },
           child: Container(
-            decoration: BoxDecoration(image: DecorationImage(
+            decoration: BoxDecoration(
+                image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('assets/note2.png'))),
+                image: AssetImage(widget.dayOf)),
+            ),
           ),
         ),
       ),

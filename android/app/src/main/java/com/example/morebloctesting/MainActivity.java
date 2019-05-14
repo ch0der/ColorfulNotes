@@ -1,4 +1,4 @@
-package com.example.morebloctesting;
+package choder.app.log;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
