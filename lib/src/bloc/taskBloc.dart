@@ -9,7 +9,6 @@ class TaskBloc{
   final _taskDayController = StreamController<List<ListModel>>.broadcast();
   final _description = BehaviorSubject<String>();
   final _allTasks = PublishSubject<List<ListModel>>();
-  final _output = BehaviorSubject<Map<int, Future<ListModel>>>();
 
 
 

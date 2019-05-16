@@ -22,6 +22,11 @@ class _DigitalClockState extends State<DigitalClock> {
   }
 
   @override
+  void dispose(){
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,

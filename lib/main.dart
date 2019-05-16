@@ -23,7 +23,7 @@ void main() {
         '/second':(context) => HomePage(),
         '/third':(context) => BuildList(),
         '/fourth':(context) => ListViewer(),
-        '/fifth':(context) => DigitalClock(title: 'Test',),
+        '/fifth':(context) => NoteAdder(),
         '/monday':(context) => MondayList(),
         '/tuesday':(context) => TuesdayList(),
         // When we navigate to the "/second" route, build the SecondScreen Widget

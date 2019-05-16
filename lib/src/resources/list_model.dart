@@ -69,3 +69,33 @@ class ListModel {
     "saturday": saturday,
   };
 }
+
+HomeScreenNote homeScreenNoteFromJson(String str){
+  final jsonData = json.decode(str);
+  return HomeScreenNote.fromMap(jsonData);
+}
+
+String homeScreenNoteToJson(HomeScreenNote data){
+  final dyn = data.toMap();
+  return json.encode(dyn);
+}
+
+class HomeScreenNote {
+  int id2;
+  String note;
+
+  HomeScreenNote({
+    this.id2,
+    this.note,
+  });
+
+  factory HomeScreenNote.fromMap(Map<String, dynamic> json) => new HomeScreenNote(
+    id2: json["id2"],
+    note: json["note"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id2": id2,
+    "note": note,
+  };
+}

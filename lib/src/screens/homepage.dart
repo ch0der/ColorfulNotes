@@ -5,6 +5,8 @@ export 'package:more_bloc_testing/main.dart';
 import 'package:more_bloc_testing/src/screens/days/monday.dart';
 import 'package:more_bloc_testing/src/screens/days/tuesday.dart';
 import 'dart:async';
+import 'package:more_bloc_testing/src/resources/list_model.dart';
+import 'package:more_bloc_testing/src/bloc/noteBloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Color _color = Colors.indigo[200];
+
+  final bloc = NoteBloc();
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +99,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget bottomBar() {
     return Material(
+      color: Colors.transparent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -108,15 +118,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(padding: EdgeInsets.only(right: 10)),
-          RaisedButton(
-            child: Text('test'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/fourth');
-            },
-          ),
           Padding(padding: EdgeInsets.only(right: 10)),
           RaisedButton(
-            child: Text('test'),
+            child: Text('testnote'),
             onPressed: () {
               Navigator.pushNamed(context, '/fifth');
             },
@@ -183,23 +187,47 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.bottomCenter,
             child: bottomBar(),
           ),
-          boxNote(),
+          Positioned(
+            top: 29,
+            left: 15,
+            child: Container(
+              height: 90,
+              width: 325,
+              child: noteViewer(bloc),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget boxNote() {
-    return Container(
-      child: TextField(
-        onChanged: null,
-        maxLines: 4,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(borderSide: BorderSide.none),
-          fillColor: Colors.white,
-        ),
-      ),
+  Widget noteViewer(NoteBloc bloc) {
+    return StreamBuilder<List<HomeScreenNote>>(
+      stream: bloc.note,
+        builder:(BuildContext context, AsyncSnapshot<List<HomeScreenNote>> snapshot){
+        if(snapshot.hasData){
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (BuildContext context, int index) {
+              HomeScreenNote item = snapshot.data[index];
+              return Dismissible(
+                key: UniqueKey(),
+                background: Container(color: Colors.red),
+                onDismissed: (direction) {
+                  bloc.delete(item.id2);
+                },
+                child: ListTile(
+                  leading: Text(item.id2.toString()),
+                  title: Text(item.note),
+              ),
+              );
+            }
+          );
+        } else{
+          return Center(child: Text('not working'),);
+        }
+
+      }
     );
   }
 }

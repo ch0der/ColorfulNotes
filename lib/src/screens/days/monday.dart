@@ -81,9 +81,7 @@ class _ListViewerState extends State<MondayList> {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
-
         final double testnum = snapshot.data.length.toDouble();
-         double numb = 1/snapshot.data.length;
         if (snapshot.hasData) {
           return Column(
             children: <Widget>[
@@ -148,13 +146,14 @@ class _ListViewerState extends State<MondayList> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Column(
-                    children: <Widget>[
-                      progressBar(1/testnum),
-                      Text(testnum.toString()),
-                    ],
-                  ),)
+                padding: EdgeInsets.only(top: 15),
+                child: Column(
+                  children: <Widget>[
+                    progressBar(1 / testnum),
+                    Text(testnum.toString()),
+                  ],
+                ),
+              )
             ],
           );
         } else {
@@ -219,7 +218,8 @@ class _ListViewerState extends State<MondayList> {
       )),
     );
   }
-  Widget progressBar(double val){
+
+  Widget progressBar(double val) {
     return Container(
       height: 40,
       width: 300,
@@ -228,7 +228,6 @@ class _ListViewerState extends State<MondayList> {
       child: LinearProgressIndicator(
         backgroundColor: Colors.blueGrey[100],
         value: val,
-
       ),
     );
   }

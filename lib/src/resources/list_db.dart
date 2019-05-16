@@ -20,8 +20,8 @@ class DBProvider{
 
   initDB()async{
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "newDB3.db");
-    return await openDatabase(path,version: 2,onOpen: (db){},
+    String path = join(documentsDirectory.path, "newDB13.db");
+    return await openDatabase(path,version: 4,onOpen: (db){},
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE ListModel ("
               "id INTEGER PRIMARY KEY,"
@@ -36,6 +36,11 @@ class DBProvider{
               "friday BIT,"
               "saturday BIT"
               ")");
+
+          await db.execute("CREATE TABLE HomeScreenNote ("
+              "id2 INTEGER PRIMARY KEY,"
+              "note TEXT"
+              ")");
         });
   }
 
@@ -49,6 +54,7 @@ class DBProvider{
       newItem.sunday,newItem.monday,newItem.tuesday,newItem.wednesday,newItem.thursday,newItem.friday, newItem.saturday]);
     return raw;
   }
+
   Future<List<ListModel>> getAllTasks() async {
     final db = await database;
     var res = await db.query("ListModel");
@@ -83,4 +89,44 @@ class DBProvider{
     return list;
 
     }
+    // homescreen db
+
+  newNote(HomeScreenNote newNote) async{
+    final db = await database;
+    var table = await db.rawQuery("SELECT MAX(id2)+1 as id2 FROM HomeScreenNote");
+    int id2 = table.first["id2"];
+    var raw = await db.rawInsert("INSERT into HomeScreenNote (id2,note)"
+        " VALUES (?,?)",
+        [id2, newNote.note]);
+    return raw;
+
+  }
+  deleteNote(int id2)async {
+    final db = await database;
+    return db.delete("HomeScreenNote", where: "id2 = ?", whereArgs: [id2]);
+  }
+
+  Future<List<HomeScreenNote>> getNote() async {
+    final db = await database;
+    var res = await db.query("HomeScreenNote");
+    List<HomeScreenNote> list =
+    res.isNotEmpty ? res.map((c) => HomeScreenNote.fromMap(c)).toList() : [];
+    return list;
+  }
+
+  getTheNote(int id2) async {
+    final db = await database;
+    var res = await db.query("HomeScreenNote", where: "id2 = ?", whereArgs: [id2]);
+    return res.isNotEmpty ? HomeScreenNote.fromMap(res.first) : null;
+  }
+  updateNote(HomeScreenNote newNote) async {
+    final db = await database;
+    var res = await db.update("HomeScreenNote", newNote.toMap(),
+        where: "id2 = ?", whereArgs: [newNote.id2]);
+    return res;
+  }
+
+
+
+
 }

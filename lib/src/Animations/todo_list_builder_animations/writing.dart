@@ -7,7 +7,6 @@ import 'package:more_bloc_testing/src/Animations/plane.dart';
 import 'dart:math';
 
 class FlareWriter extends StatefulWidget {
-
   @override
   _FlareState createState() => _FlareState();
 }
@@ -29,11 +28,9 @@ class _FlareState extends State<FlareWriter> {
   int sDuration;
   int ticker = 0;
   double stepValue;
-  int newNumber =0;
-  int newNumber2 =0;
+  int newNumber = 0;
+  int newNumber2 = 0;
   int _defaultValue = 0; //for timeSelector
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,98 +38,125 @@ class _FlareState extends State<FlareWriter> {
     return Column(
       children: <Widget>[
         Row(
-          children: <Widget>[padder(),
-            dayButton(bloc, "S"),dayButton1(bloc, "M"),dayButton2(bloc, "T"),dayButton3(bloc, "W"),dayButton4(bloc, "T"),dayButton5(bloc, "F"),dayButton6(bloc, "S"),
-
+          children: <Widget>[
+            padder(),
+            dayButton(bloc, "S"),
+            dayButton1(bloc, "M"),
+            dayButton2(bloc, "T"),
+            dayButton3(bloc, "W"),
+            dayButton4(bloc, "T"),
+            dayButton5(bloc, "F"),
+            dayButton6(bloc, "S"),
           ],
         ),
         Padding(padding: EdgeInsets.only(top: 10.0)),
         Row(
-          children: <Widget>[Padding(padding: EdgeInsets.only(left: 15.0),),
-          box(5),box(15),box(30),box(45),box(60),Padding(padding: EdgeInsets.only(left: 2.5),),counter(),
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 15.0),
+            ),
+            box(5),
+            box(15),
+            box(30),
+            box(45),
+            box(60),
+            Padding(
+              padding: EdgeInsets.only(left: 2.5),
+            ),
+            counter(),
           ],
         ),
         Stack(
           overflow: Overflow.visible,
           children: <Widget>[
             Plane(),
-           Center(
-             child: Stack(children: <Widget>[ flareWriter(),
-             submit(bloc),],),
-           )
-
+            Center(
+              child: Stack(
+                children: <Widget>[
+                  flareWriter(),
+                  submit(bloc),
+                ],
+              ),
+            )
           ],
         ),
       ],
     );
   }
 
-  Widget submit(TaskBloc bloc){
-    return  StreamBuilder(
-      stream: bloc.description,
-      builder: (context, snapshot) {
-        return Positioned(
-          left: 71.0,
-          top: 42.0,
-          child: Container(
-            width: 110.0,
-            height: 42.0,
-            child: GestureDetector(
-              onTap: ()async{
-                if(_animaName == null){
-                  onTap();
-
-                }else{
-                  //return nothing
-                }
-                if (snapshot.hasData){
-                  bloc.add(_selected, _selected1, _selected2,_selected3,_selected4,_selected5,_selected6, newNumber);
-                  setState(() {
-                    _selected = false;
-                  });
-                }
-                newNumber = 0;
-                _defaultValue =0;
-                setState(() {
-                });
-              },
+  Widget submit(TaskBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.description,
+        builder: (context, snapshot) {
+          return Positioned(
+            left: 71.0,
+            top: 42.0,
+            child: Container(
+              width: 110.0,
+              height: 42.0,
+              child: GestureDetector(
+                onTap: () async {
+                  if (_animaName == null) {
+                    onTap();
+                  } else {
+                    //return nothing
+                  }
+                  if (snapshot.hasData) {
+                    bloc.add(_selected, _selected1, _selected2, _selected3,
+                        _selected4, _selected5, _selected6, newNumber);
+                    setState(() {
+                      _selected = false;
+                    });
+                  }
+                  newNumber = 0;
+                  _defaultValue = 0;
+                  setState(() {});
+                },
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 
-  Widget flareWriter(){
+  Widget flareWriter() {
     return Container(
       height: 200,
       width: 250,
       child: Center(
-        child: FlareActor("assets/SubmitFolder5.flr",
-            animation: _animaName,
-
-            ),
-      ),
-    );
-  }
-  Widget planeAnimation(){
-    return Container(
-      height: 50,
-      child: FlareActor("assets/plane3.flr", animation: "plane",isPaused: planePaused,),
-    );
-  }
-  Widget flareStart(){
-    return Container(
-      height: 200,
-      width: 250,
-      child: Center(
-        child: FlareActor("assets/SubmitFolder5.flr",
-          animation: "animation2",isPaused: false,
+        child: FlareActor(
+          "assets/SubmitFolder5.flr",
+          animation: _animaName,
         ),
       ),
     );
   }
-  onTap()async{
+
+  Widget planeAnimation() {
+    return Container(
+      height: 50,
+      child: FlareActor(
+        "assets/plane3.flr",
+        animation: "plane",
+        isPaused: planePaused,
+      ),
+    );
+  }
+
+  Widget flareStart() {
+    return Container(
+      height: 200,
+      width: 250,
+      child: Center(
+        child: FlareActor(
+          "assets/SubmitFolder5.flr",
+          animation: "animation2",
+          isPaused: false,
+        ),
+      ),
+    );
+  }
+
+  onTap() async {
     setState(() {
       _animaName = "animation2";
     });
@@ -142,210 +166,174 @@ class _FlareState extends State<FlareWriter> {
     });
   }
 
-  Widget padder(){
+  Widget padder() {
     return Padding(
       padding: EdgeInsets.only(left: 15.0),
     );
   }
 
-  Widget dayButton(TaskBloc bloc, String day){
-
-
+  Widget dayButton(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected = !_selected;
-
             });
           },
-
         ),
       ),
     );
   }
-  Widget dayButton1(TaskBloc bloc, String day){
 
-
+  Widget dayButton1(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected1 == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected1 == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected1 = !_selected1;
-
             });
           },
-
         ),
       ),
     );
   }
-  Widget dayButton2(TaskBloc bloc, String day){
 
-
+  Widget dayButton2(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected2 == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected2 == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected2 = !_selected2;
-
             });
           },
-
         ),
       ),
     );
   }
-  Widget dayButton3(TaskBloc bloc, String day){
 
-
+  Widget dayButton3(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected3 == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected3 == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected3 = !_selected3;
-
             });
           },
-
         ),
       ),
     );
   }
-  Widget dayButton4(TaskBloc bloc, String day){
 
-
+  Widget dayButton4(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected4 == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected4 == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected4 = !_selected4;
-
             });
           },
-
         ),
       ),
     );
   }
-  Widget dayButton5(TaskBloc bloc, String day){
 
-
+  Widget dayButton5(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected5 == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected5 == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected5 = !_selected5;
-
             });
           },
-
         ),
       ),
     );
   }
-  Widget dayButton6(TaskBloc bloc, String day){
 
-
+  Widget dayButton6(TaskBloc bloc, String day) {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-
         minWidth: 50.0,
         height: 50.0,
         child: FlatButton(
-          child: Text(day,
-            style: TextStyle(
-                fontSize: 20.0
-            ),
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
           ),
-          color: _selected6 == false? Colors.blue[100] : Colors.blue[400],
-          highlightColor: Colors.transparent ,
-          onPressed: ()async{
+          color: _selected6 == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () async {
             setState(() {
               _selected6 = !_selected6;
-
             });
           },
-
         ),
       ),
     );
   }
 
-  Widget box(sDuration){
+  Widget box(sDuration) {
     final int tick = sDuration;
     newNumber2 = sDuration;
 
@@ -354,68 +342,66 @@ class _FlareState extends State<FlareWriter> {
       height: 50.0,
       width: 55.0,
       child: FlatButton(
-          child: Text("$sDuration",
+          child: Text(
+            "$sDuration",
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
           ),
           color: Colors.yellow[100],
-          highlightColor: Colors.yellow[400] ,
-          onPressed: (){
+          highlightColor: Colors.yellow[400],
+          onPressed: () {
             setState(() {
-              if (_animation == "animation"){
-
-              }else _animation1 ="assets/checkmark.flr";
+              if (_animation == "animation") {
+              } else
+                _animation1 = "assets/checkmark.flr";
               _animation = "animation";
             });
             setState(() {
-              ticker = _defaultValue+tick;
+              ticker = _defaultValue + tick;
             });
             setState(() {
               _defaultValue = ticker;
               newNumber = _defaultValue;
             });
-            if (ticker >= 60){
+            if (ticker >= 60) {}
+            print(newNumber); //TODO add this to a sink ->bloc
+          }),
+    );
+  }
 
-            }
-            print (newNumber); //TODO add this to a sink ->bloc
-
-          }
-
+  Widget checkAnimation() {
+    return Container(
+      height: 50,
+      child: FlareActor(
+        _animation1,
+        animation: _animation,
       ),
     );
   }
-  Widget checkAnimation(){
-    return Container(
-      height: 50,
-      child: FlareActor(_animation1,animation: _animation,),
-    );
-  }
-  Widget counter(){
-    double hourTime = newNumber/60;
+
+  Widget counter() {
+    double hourTime = newNumber / 60;
     int test = hourTime.toInt();
 
     int hourInt = 0;
     int minute = ticker;
 
-    if (newNumber >= 60){
+    if (newNumber >= 60) {
       setState(() {
         minute = 0;
       });
     }
 
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white70
-      ),
+      decoration: BoxDecoration(color: Colors.white70),
       height: 50.0,
       width: 105.0,
       child: Center(
-        child: Text('$test:$minute',
+        child: Text(
+          '$test:$minute',
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize:35.0 ) ,),
+          style: TextStyle(fontSize: 35.0),
+        ),
       ),
     );
   }

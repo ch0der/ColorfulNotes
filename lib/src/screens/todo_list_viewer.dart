@@ -15,13 +15,12 @@ class ListViewer extends StatefulWidget {
 }
 
 class _ListViewerState extends State<ListViewer> {
-
-  String _animation; String _route;
+  String _animation;
+  String _route;
   String _time;
   bool _isPaused = false;
 
   final bloc = TaskBloc();
-
 
   @override
   void dispose() {
@@ -32,18 +31,20 @@ class _ListViewerState extends State<ListViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(height: 75,color: Colors.orange,),
+      bottomNavigationBar: Container(
+        height: 75,
+        color: Colors.orange,
+      ),
       appBar: AppBar(
         title: DigitalClock(),
       ),
-      body:CustomScrollView(
+      body: CustomScrollView(
         slivers: <Widget>[
-          SliverList(delegate: SliverChildListDelegate([
-            viewerTest(bloc),
-
-          ]),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              viewerTest(bloc),
+            ]),
           ),
-
         ],
       ),
     );
@@ -56,7 +57,10 @@ class _ListViewerState extends State<ListViewer> {
         if (snapshot.hasData) {
           return Column(
             children: <Widget>[
-              Container(height: 29,color: Colors.orange,),
+              Container(
+                height: 29,
+                color: Colors.orange,
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),
@@ -71,21 +75,26 @@ class _ListViewerState extends State<ListViewer> {
                       bloc.delete(item.id);
                     },
                     child: ListTile(
-                      onLongPress:(){
+                      onLongPress: () {
                         setState(() {
                           _route = "assets/checkmark2.flr";
                           _animation = "animation";
                         });
-
-                      } ,
+                      },
                       title: Text(item.description),
-                      leading:  Checkmark(route: _route, animation: _animation,),
+                      leading: Checkmark(
+                        route: _route,
+                        animation: _animation,
+                      ),
                       trailing: Text('${item.duration}'),
                     ),
                   );
                 },
               ),
-              Container(height: 29,color: Colors.green,),
+              Container(
+                height: 29,
+                color: Colors.green,
+              ),
             ],
           );
         } else {
@@ -100,19 +109,25 @@ class _ListViewerState extends State<ListViewer> {
       color: Colors.green[200],
       child: Text(
         'COMPLETED',
-        style: TextStyle(fontSize: 50.0, color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 50.0, color: Colors.white, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
     );
   }
-  Widget remove(){
+
+  Widget remove() {
     return Container(
       color: Colors.red[200],
       child: Text(
         'DELETED',
-        style: TextStyle(fontSize: 50.0, color: Colors.white,fontWeight: FontWeight.bold),textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 50.0, color: Colors.white, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
     );
   }
+
   void _getTime() {
     final DateTime now = DateTime.now();
     final String formattedDateTime = _formatDateTime(now);
@@ -120,6 +135,7 @@ class _ListViewerState extends State<ListViewer> {
       _time = formattedDateTime;
     });
   }
+
   String _formatDateTime(DateTime dateTime) {
     return DateFormat('EEEE MMMM d y, h:m:s a').format(dateTime);
   }
