@@ -19,6 +19,7 @@ class _ListViewerState extends State<ListViewer> {
   String _route;
   String _time;
   bool _isPaused = false;
+  bool _isChecked = false;
 
   final bloc = TaskBloc();
 

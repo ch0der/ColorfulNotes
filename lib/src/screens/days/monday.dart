@@ -23,8 +23,16 @@ class _ListViewerState extends State<MondayList> {
   String _route;
   String _time;
   bool _isPaused = true;
+  bool _isChecked = false;
+
+  void onChanged(bool value) {
+    setState(() {
+      _isChecked = value;
+    });
+  }
 
   final bloc = TaskBloc();
+  Stream stream;
 
   @override
   void dispose() {
@@ -81,8 +89,14 @@ class _ListViewerState extends State<MondayList> {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
-        final double testnum = snapshot.data.length.toDouble();
         if (snapshot.hasData) {
+          double testnum;
+          if (snapshot.data.length != null) {
+            testnum = snapshot.data.length +1.toDouble();
+          } else {
+            testnum = 0;
+          }
+
           return Column(
             children: <Widget>[
               Container(
@@ -110,6 +124,7 @@ class _ListViewerState extends State<MondayList> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       ListModel item = snapshot.data[index];
+                      int _ind = index + 1;
                       return Dismissible(
                         key: UniqueKey(),
                         secondaryBackground: remove(),
@@ -123,16 +138,21 @@ class _ListViewerState extends State<MondayList> {
                             style: TextStyle(fontSize: 20),
                           ),
                           leading: Stack(
+                            overflow: Overflow.visible,
                             children: <Widget>[
                               Positioned(
-                                left: 14,
-                                top: 16,
+                                top: 13,
                                 child: Text(
-                                  '$index',
+                                  '$_ind',
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
-                              new Checkmark(),
+                              Positioned(
+                                child: Checkmark(
+                                  route: _route,
+                                  animation: _animation,
+                                ),
+                              ),
                             ],
                           ),
                           trailing: Text(
@@ -156,9 +176,14 @@ class _ListViewerState extends State<MondayList> {
               )
             ],
           );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
+        } else {return Padding(
+          padding: EdgeInsets.only(top: 300),
+          child: Container(
+            height: 25,
+            width: 36,
+            child: CircularProgressIndicator(),
+          ),
+        );}
       },
     );
   }
@@ -228,6 +253,41 @@ class _ListViewerState extends State<MondayList> {
       child: LinearProgressIndicator(
         backgroundColor: Colors.blueGrey[100],
         value: val,
+      ),
+    );
+  }
+
+  onChecked() {
+    if (_isChecked == false) {
+      _isChecked = !_isChecked;
+    }
+    if (_isChecked == true) {
+      _isChecked = !_isChecked;
+    }
+  }
+
+  wiggins(TaskBloc bloc) {
+    return Container(
+      child: StreamBuilder<List<ListModel>>(
+        stream: bloc.tasks,
+        builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
+          if (snapshot.hasData) {
+            return viewerTest(bloc);
+          } else {
+            return Container(
+              child: Padding(
+                padding: EdgeInsets.only(top: 500),
+                child: Center(
+                  child: new Container(
+                    height: 100,
+                    width: 100,
+                    color: Colors.redAccent,
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

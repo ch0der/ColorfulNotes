@@ -20,7 +20,7 @@ class DBProvider{
 
   initDB()async{
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "newDB13.db");
+    String path = join(documentsDirectory.path, "newDB17.db");
     return await openDatabase(path,version: 4,onOpen: (db){},
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE ListModel ("
@@ -38,7 +38,7 @@ class DBProvider{
               ")");
 
           await db.execute("CREATE TABLE HomeScreenNote ("
-              "id2 INTEGER PRIMARY KEY,"
+              "id2 INTEGER PRIMARY KEY AUTOINCREMENT,"
               "note TEXT"
               ")");
         });
@@ -110,7 +110,7 @@ class DBProvider{
     final db = await database;
     var res = await db.query("HomeScreenNote");
     List<HomeScreenNote> list =
-    res.isNotEmpty ? res.map((c) => HomeScreenNote.fromMap(c)).toList() : [];
+    res.isNotEmpty ? res.map((a) => HomeScreenNote.fromMap(a)).toList() : [];
     return list;
   }
 
@@ -124,6 +124,11 @@ class DBProvider{
     var res = await db.update("HomeScreenNote", newNote.toMap(),
         where: "id2 = ?", whereArgs: [newNote.id2]);
     return res;
+  }
+  nuke()async{
+    final db = await database;
+    return db.delete("HomeScreenNote");
+
   }
 
 

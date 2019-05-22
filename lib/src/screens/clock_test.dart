@@ -7,24 +7,32 @@ class DigitalClock extends StatefulWidget {
 
   final String title;
 
+
+
   @override
   _DigitalClockState createState() => _DigitalClockState();
+
+
 }
+
 
 class _DigitalClockState extends State<DigitalClock> {
   String _timeString;
 
   @override
-  void initState() {
-    _timeString = _formatDateTime(DateTime.now());
-    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
-    super.initState();
+  void initState(){
+    if(mounted){
+      _timeString = _formatDateTime(DateTime.now());
+      Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+      super.initState();
+    }
   }
 
   @override
   void dispose(){
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +45,11 @@ class _DigitalClockState extends State<DigitalClock> {
   void _getTime() {
     final DateTime now = DateTime.now();
     final String formattedDateTime = _formatDateTime(now);
-    setState(() {
-      _timeString = formattedDateTime;
-    });
+    if(mounted){
+      setState(() {
+        _timeString = formattedDateTime;
+      });
+    }
   }
 
   String _formatDateTime(DateTime dateTime) {

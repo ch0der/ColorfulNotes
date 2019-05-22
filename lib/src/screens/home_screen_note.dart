@@ -14,9 +14,6 @@ class _NoteAdderState extends State<NoteAdder> {
     final noteBloc = Provider.of(context).noteBloc;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('hello'),
-      ),
       body: Column(
         children: <Widget>[
           addText(noteBloc),
@@ -63,7 +60,6 @@ class _NoteAdderState extends State<NoteAdder> {
             onPressed:()async{
               String str = snapshot.data;
               noteBloc.add(str);
-              noteBloc.getNote();
             }
           );
         }

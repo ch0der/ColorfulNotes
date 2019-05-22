@@ -36,6 +36,7 @@ class NoteBloc{
 
     HomeScreenNote item = HomeScreenNote(note: str);
 
+    DBProvider.db.nuke();
     DBProvider.db.newNote(item);
     getNote();
   }
@@ -43,5 +44,21 @@ class NoteBloc{
     final validTask = _description.value;
 
     print('item is $validTask');
+  }
+  getThis(int id2){
+    DBProvider.db.getTheNote(id2);
+
+
+  }
+  update(String str, int id2){
+    HomeScreenNote item = HomeScreenNote(id2: id2, note: str);
+
+    DBProvider.db.updateNote(item);
+    getNote();
+
+  }
+  erase()async{
+    DBProvider.db.nuke();
+    getNote();
   }
 }

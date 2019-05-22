@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Color _color = Colors.indigo[200];
+  Color _color = Colors.indigo[50];
 
   final bloc = NoteBloc();
   @override
@@ -41,13 +41,15 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 75),
+            padding: EdgeInsets.only(top: 25),
           ),
           notes(),
           Padding(
-            padding: EdgeInsets.only(bottom: 15),
+            padding: EdgeInsets.only(bottom: 12),
           ),
           whiteBoard(),
+          Padding(padding: EdgeInsets.only(top: 17)),
+          addButton(),
         ],
       ),
     );
@@ -101,49 +103,27 @@ class _HomePageState extends State<HomePage> {
     return Material(
       color: Colors.transparent,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              setState(() {
-                _color = Colors.pink;
-              });
-
-              Navigator.pushNamed(context, '/third');
+              bloc.erase();
             },
             child: Icon(
-              Icons.add_circle,
-              size: 70,
-              color: _color,
+              Icons.delete_forever,
+              size: 55,
+              color: Colors.redAccent[100],
             ),
           ),
-          Padding(padding: EdgeInsets.only(right: 10)),
-          Padding(padding: EdgeInsets.only(right: 10)),
-          RaisedButton(
-            child: Text('testnote'),
-            onPressed: () {
+          Padding(padding: EdgeInsets.only(left: 244)),
+          GestureDetector(
+            onTap: () {
               Navigator.pushNamed(context, '/fifth');
             },
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10),
-          ),
-          Material(
-            borderRadius: BorderRadius.circular(35),
-            color: Colors.white.withOpacity(.5),
-            child: Container(
-                child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  _color = Colors.lightGreen;
-                });
-              },
-              child: Icon(
-                Icons.settings,
-                size: 60,
-                color: Colors.indigoAccent,
-              ),
-            )),
+            child: Icon(
+              Icons.add_box,
+              size: 50,
+              color: Colors.lightGreenAccent[100],
+            ),
           ),
         ],
       ),
@@ -167,14 +147,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      height: 200,
+      height: 180,
       width: 370,
       child: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
           Positioned(
             left: 5,
-            bottom: 150,
+            bottom: 130,
             child: Text(
               'Quick Notes:',
               style: TextStyle(
@@ -188,11 +168,11 @@ class _HomePageState extends State<HomePage> {
             child: bottomBar(),
           ),
           Positioned(
-            top: 29,
+            top: 15,
             left: 15,
             child: Container(
-              height: 90,
-              width: 325,
+              height: 110,
+              width: 290,
               child: noteViewer(bloc),
             ),
           ),
@@ -202,32 +182,61 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget noteViewer(NoteBloc bloc) {
+    bloc.getNote();
     return StreamBuilder<List<HomeScreenNote>>(
-      stream: bloc.note,
-        builder:(BuildContext context, AsyncSnapshot<List<HomeScreenNote>> snapshot){
-        if(snapshot.hasData){
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (BuildContext context, int index) {
-              HomeScreenNote item = snapshot.data[index];
-              return Dismissible(
-                key: UniqueKey(),
-                background: Container(color: Colors.red),
-                onDismissed: (direction) {
-                  bloc.delete(item.id2);
-                },
-                child: ListTile(
-                  leading: Text(item.id2.toString()),
-                  title: Text(item.note),
-              ),
-              );
-            }
-          );
-        } else{
-          return Center(child: Text('not working'),);
-        }
+        stream: bloc.note,
+        builder: (BuildContext context,
+            AsyncSnapshot<List<HomeScreenNote>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  HomeScreenNote item = snapshot.data[index];
+                  return Text(item.note);
+                });
+          } else {
+            return Container();
+          }
+        });
+  }
 
-      }
+  addButton() {
+    return InkWell(
+      highlightColor: Colors.green,
+      onTap: () {
+        Navigator.pushNamed(context, '/third');
+      },
+      child: Container(
+        height: 60,
+        width: 250,
+        decoration: BoxDecoration(
+          color: Colors.lightGreen[200],
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.8),
+              offset: Offset.fromDirection(5.0, -6.0),
+              blurRadius: 5.0,
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            'NEW TASK',
+            style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Colors.black.withOpacity(.8),
+                shadows: [
+                  Shadow(
+                      blurRadius: 2.0,
+                      offset: Offset(-2, 2),
+                      color: Colors.white24),
+                ]),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -27,7 +27,7 @@ class _BuildListState extends State<BuildList> {
             image: AssetImage('assets/tree1-2.jpg'))),
         child: Column(
           children: <Widget>[
-            title(),
+            Padding(padding: EdgeInsets.only(top: 30)),
             doListViewer(taskBloc),
             Padding(padding: EdgeInsets.only(top: 20.0)),
             FlareWriter(),
@@ -56,7 +56,7 @@ class _BuildListState extends State<BuildList> {
         return Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0),color: Colors.white70),
           height: 75.0,
-          width: 350.0,
+          width: 380.0,
           child: Theme(
             data: ThemeData(
               primaryColor: Colors.green,

@@ -69,7 +69,6 @@ class _FlareState extends State<FlareWriter> {
         Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-            Plane(),
             Center(
               child: Stack(
                 children: <Widget>[
@@ -77,7 +76,8 @@ class _FlareState extends State<FlareWriter> {
                   submit(bloc),
                 ],
               ),
-            )
+            ),
+            Plane(),
           ],
         ),
       ],
