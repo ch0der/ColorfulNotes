@@ -34,6 +34,7 @@ class _ListViewerState extends State<MondayList> {
   final bloc = TaskBloc();
   Stream stream;
 
+
   @override
   void dispose() {
     bloc.dispose();
@@ -61,8 +62,10 @@ class _ListViewerState extends State<MondayList> {
             Positioned(
                 left: 25,
                 top: 25,
-                child: Hero(
-                    tag: 'monday', child: DayNote(dayOf: 'assets/note2.png'))),
+                child: IgnorePointer(
+                  child: Hero(
+                      tag: 'monday', child: DayNote(dayOf: 'assets/note2.png',)),
+                )),
             Positioned(
               bottom: 22,
               left: 20,
@@ -170,7 +173,7 @@ class _ListViewerState extends State<MondayList> {
                 child: Column(
                   children: <Widget>[
                     progressBar(1 / testnum),
-                    Text(testnum.toString()),
+                    Container(child: totals(bloc),),
                   ],
                 ),
               )
@@ -251,8 +254,8 @@ class _ListViewerState extends State<MondayList> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0), color: Colors.lightGreen),
       child: LinearProgressIndicator(
-        backgroundColor: Colors.blueGrey[100],
-        value: val,
+            backgroundColor: Colors.blueGrey[100],
+            value: val,
       ),
     );
   }
@@ -289,6 +292,19 @@ class _ListViewerState extends State<MondayList> {
           }
         },
       ),
+    );
+  }
+totals(TaskBloc bloc){
+    bloc.totalTime();
+    return StreamBuilder(
+      stream: bloc.sum,
+      builder: (context, snapshot){
+        if (snapshot.hasData){
+          return Container(child: Text(snapshot.data));
+        } else {
+          return Container(child: Text('no data'),);
+        }
+      }
     );
   }
 }

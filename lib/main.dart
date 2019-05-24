@@ -26,6 +26,7 @@ void main() {
         '/fifth':(context) => NoteAdder(),
         '/monday':(context) => MondayList(),
         '/tuesday':(context) => TuesdayList(),
+        '/temp':(context) => LogoScreen(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
       },
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return FlarePage();
+    return LogoScreen();
   }
 }
 

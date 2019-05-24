@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             DayNote(dayOf: 'assets/noteSat.png'),
-            DayNote(dayOf: 'assets/noteSun.png')
+            DayNote(dayOf: 'assets/noteSun.png',)
           ],
         ),
       ],
@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         height: 60,
-        width: 250,
+        width: 200,
         decoration: BoxDecoration(
           color: Colors.lightGreen[200],
           borderRadius: BorderRadius.circular(10.0),
@@ -223,7 +223,7 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Center(
           child: Text(
-            'NEW TASK',
+            '+',
             style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,

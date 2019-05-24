@@ -9,15 +9,18 @@ class TaskBloc{
   final _taskDayController = StreamController<List<ListModel>>.broadcast();
   final _description = BehaviorSubject<String>();
   final _allTasks = PublishSubject<List<ListModel>>();
+  final _total = BehaviorSubject<String>();
 
 
 
   Stream<String> get description => _description.stream;
+  Stream<String> get sum => _total.stream;
 
   get tasks => _taskController.stream;
   get taskDay =>_taskDayController.stream;
 
   Function(String)get addTask => _description.sink.add;
+  Function(String)get total => _total.sink.add;
 
 
   dispose(){
@@ -25,6 +28,7 @@ class TaskBloc{
     _description.close();
     _allTasks.close();
     _taskDayController.close();
+    _total.close();
 
   }
   TaskBloc(){
@@ -71,5 +75,10 @@ class TaskBloc{
   }
   taskBlocDay(){
     getSundayTasks();
+  }
+  totalTime()async{
+    var _totaal = await DBProvider.db.calculateTotal();
+    _total.sink.add(_totaal);
+    print(_total.value);
   }
 }

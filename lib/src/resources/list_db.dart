@@ -89,6 +89,12 @@ class DBProvider{
     return list;
 
     }
+  Future <String> calculateTotal() async {
+    var db = await database;
+    var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel");
+    int value = result[0]["SUM(duration)"];
+    return value.toString();
+  }
     // homescreen db
 
   newNote(HomeScreenNote newNote) async{

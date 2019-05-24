@@ -97,5 +97,8 @@ flutter:
     - family: Brownbag
       fonts:
         - asset: assets/fonts/BrownBagLunch.ttf
+    - family: Coiny
+      fonts:
+        - asset: assets/fonts/coiny.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
