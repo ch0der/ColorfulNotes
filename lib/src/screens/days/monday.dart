@@ -34,7 +34,6 @@ class _ListViewerState extends State<MondayList> {
   final bloc = TaskBloc();
   Stream stream;
 
-
   @override
   void dispose() {
     bloc.dispose();
@@ -64,7 +63,10 @@ class _ListViewerState extends State<MondayList> {
                 top: 25,
                 child: IgnorePointer(
                   child: Hero(
-                      tag: 'monday', child: DayNote(dayOf: 'assets/note2.png',)),
+                      tag: 'monday',
+                      child: DayNote(
+                        dayOf: 'assets/note2.png',
+                      )),
                 )),
             Positioned(
               bottom: 22,
@@ -95,7 +97,7 @@ class _ListViewerState extends State<MondayList> {
         if (snapshot.hasData) {
           double testnum;
           if (snapshot.data.length != null) {
-            testnum = snapshot.data.length +1.toDouble();
+            testnum = snapshot.data.length + 1.toDouble();
           } else {
             testnum = 0;
           }
@@ -105,7 +107,7 @@ class _ListViewerState extends State<MondayList> {
               Container(
                 decoration: BoxDecoration(
                     border: Border.all(width: 1, color: Colors.transparent)),
-                height: 115,
+                height: 130, //padding above list
               ),
               Container(
                 decoration: BoxDecoration(
@@ -115,7 +117,7 @@ class _ListViewerState extends State<MondayList> {
               Padding(
                 padding: EdgeInsets.only(left: 5),
                 child: Container(
-                  height: 425,
+                  height: 380,
                   width: 375,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Container(
@@ -168,25 +170,41 @@ class _ListViewerState extends State<MondayList> {
                   ),
                 ),
               ),
+              Container(
+                height: 4,
+                width: 374,
+                color: Colors.grey.withOpacity(.5),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  progressBar(1 / testnum),
+                  Container(
+                    height: 30,
+                    width: 55,
+                    child: totals(bloc),
+                  ),
+
+                ],
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
-                child: Column(
-                  children: <Widget>[
-                    progressBar(1 / testnum),
-                    Container(child: totals(bloc),),
-                  ],
-                ),
               )
             ],
           );
-        } else {return Padding(
-          padding: EdgeInsets.only(top: 300),
-          child: Container(
-            height: 25,
-            width: 36,
-            child: CircularProgressIndicator(),
-          ),
-        );}
+        } else {
+          return Padding(
+            padding: EdgeInsets.only(top: 300),
+            child: Container(
+              height: 25,
+              width: 36,
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
       },
     );
   }
@@ -249,13 +267,13 @@ class _ListViewerState extends State<MondayList> {
 
   Widget progressBar(double val) {
     return Container(
-      height: 40,
-      width: 300,
+      height: 30,
+      width: 293,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0), color: Colors.lightGreen),
       child: LinearProgressIndicator(
-            backgroundColor: Colors.blueGrey[100],
-            value: val,
+        backgroundColor: Colors.blueGrey[100],
+        value: val,
       ),
     );
   }
@@ -269,42 +287,18 @@ class _ListViewerState extends State<MondayList> {
     }
   }
 
-  wiggins(TaskBloc bloc) {
-    return Container(
-      child: StreamBuilder<List<ListModel>>(
-        stream: bloc.tasks,
-        builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
-          if (snapshot.hasData) {
-            return viewerTest(bloc);
-          } else {
-            return Container(
-              child: Padding(
-                padding: EdgeInsets.only(top: 500),
-                child: Center(
-                  child: new Container(
-                    height: 100,
-                    width: 100,
-                    color: Colors.redAccent,
-                  ),
-                ),
-              ),
-            );
-          }
-        },
-      ),
-    );
-  }
-totals(TaskBloc bloc){
+  totals(TaskBloc bloc) {
     bloc.totalTime();
     return StreamBuilder(
-      stream: bloc.sum,
-      builder: (context, snapshot){
-        if (snapshot.hasData){
-          return Container(child: Text(snapshot.data));
-        } else {
-          return Container(child: Text('no data'),);
-        }
-      }
-    );
+        stream: bloc.sum,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Container(child: Text(snapshot.data,textAlign: TextAlign.right,style: TextStyle(fontSize: 20.0),));
+          } else {
+            return Container(
+              child: Text('no data'),
+            );
+          }
+        });
   }
 }

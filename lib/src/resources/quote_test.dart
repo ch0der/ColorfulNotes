@@ -47,7 +47,7 @@ class _QuoterState extends State<Quoter> {
       ],
     );
   }
-  var rndNum = math.Random().nextInt(7);
+  var rndNum = math.Random().nextInt(12);
 }
 
 class Record {
