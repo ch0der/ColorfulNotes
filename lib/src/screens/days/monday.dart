@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:more_bloc_testing/src/Animations/homepage_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
-import 'package:intl/intl.dart';
 import 'dart:async';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:more_bloc_testing/src/screens/clock_test.dart';
-import 'package:more_bloc_testing/src/Animations/checkmark.dart';
 import 'package:more_bloc_testing/src/resources/quote_generator.dart';
-import 'package:more_bloc_testing/src/widgets/progress_indictator.dart';
+
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -19,10 +15,6 @@ class MondayList extends StatefulWidget {
 }
 
 class _ListViewerState extends State<MondayList> {
-  String _animation;
-  String _route;
-  String _time;
-  bool _isPaused = true;
   bool _isChecked = false;
 
   void onChanged(bool value) {
@@ -54,7 +46,8 @@ class _ListViewerState extends State<MondayList> {
                 SliverList(
                   delegate: SliverChildListDelegate([
                     viewerTest(bloc),
-                  ]),
+                  ],
+                  ),
                 ),
               ],
             ),
@@ -130,6 +123,15 @@ class _ListViewerState extends State<MondayList> {
                     itemBuilder: (BuildContext context, int index) {
                       ListModel item = snapshot.data[index];
                       int _ind = index + 1;
+                      Widget iscompleted;
+
+                      Duration timeDuration = new Duration(minutes: item.duration);
+                      if (item.completed == true) {
+                        iscompleted = Container(height: 25,width: 25,child: Icon(Icons.check_circle,color: Colors.green,),);
+                      } else {
+                        iscompleted = Container(height: 25,width: 25,);
+                      }
+
                       return Dismissible(
                         key: UniqueKey(),
                         secondaryBackground: remove(),
@@ -138,30 +140,36 @@ class _ListViewerState extends State<MondayList> {
                           bloc.delete(item.id);
                         },
                         child: ListTile(
+                          contentPadding: EdgeInsets.only(left: 0),
                           title: Text(
                             item.description,
                             style: TextStyle(fontSize: 20),
                           ),
-                          leading: Stack(
-                            overflow: Overflow.visible,
-                            children: <Widget>[
-                              Positioned(
-                                top: 13,
-                                child: Text(
-                                  '$_ind',
-                                  style: TextStyle(fontSize: 20),
-                                ),
+                          leading: Container(height: 40,width: 40,
+                            child: GestureDetector(
+                              onTap: (){
+                                bloc.complete(item);
+                              },
+                              child: Stack(
+                                overflow: Overflow.visible,
+                                children: <Widget>[
+                                  Center(
+                                    child: Padding(
+                                      child: Text(
+                                        '$_ind',
+                                        style: TextStyle(fontSize: 20,),
+                                      ), padding: EdgeInsets.only(left: 20),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    child: iscompleted,
+                                  ),
+                                ],
                               ),
-                              Positioned(
-                                child: Checkmark(
-                                  route: _route,
-                                  animation: _animation,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                           trailing: Text(
-                            '${item.duration}',
+                            '${timeDuration.inHours}:${timeDuration.inMinutes % 60}',
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -187,7 +195,6 @@ class _ListViewerState extends State<MondayList> {
                     width: 55,
                     child: totals(bloc),
                   ),
-
                 ],
               ),
               Padding(
@@ -233,17 +240,7 @@ class _ListViewerState extends State<MondayList> {
     );
   }
 
-  void _getTime() {
-    final DateTime now = DateTime.now();
-    final String formattedDateTime = _formatDateTime(now);
-    setState(() {
-      _time = formattedDateTime;
-    });
-  }
 
-  String _formatDateTime(DateTime dateTime) {
-    return DateFormat('EEEE MMMM d y, h:m:ss a').format(dateTime);
-  }
 
   Widget progress(String str) {
     return Container(
@@ -293,7 +290,12 @@ class _ListViewerState extends State<MondayList> {
         stream: bloc.sum,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Container(child: Text(snapshot.data,textAlign: TextAlign.right,style: TextStyle(fontSize: 20.0),));
+            return Container(
+                child: Text(
+              snapshot.data,
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 20.0),
+            ));
           } else {
             return Container(
               child: Text('no data'),

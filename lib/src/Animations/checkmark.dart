@@ -11,27 +11,20 @@ class Checkmark extends StatefulWidget {
 }
 
 class _FlareState extends State<Checkmark> {
-  bool isPaused = true;
+  bool isPaused = false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: (){
-        setState(() {
-         isPaused = false;
-        });
-      },
-      child: Container(
-        color: Colors.transparent,
-        height: 50,
-        width: 50,
-        child: Center(
-          child: FlareActor(
+    return Container(
+      color: Colors.transparent,
+      height: 50,
+      width: 50,
+      child: Center(
+        child: FlareActor(
 //              ImagePath.SOLAR_FLARE,
-            "assets/checkmark2.flr",
-            animation: "animation",
-            isPaused: isPaused,
-          ),
+          "assets/checkmarkF.flr",
+          animation: widget.animation,
+          isPaused: isPaused,
         ),
       ),
     );

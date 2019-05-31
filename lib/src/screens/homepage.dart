@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:more_bloc_testing/src/Animations/homepage_helper.dart';
-import 'package:more_bloc_testing/src/Animations/plane.dart';
 export 'package:more_bloc_testing/main.dart';
 import 'package:more_bloc_testing/src/screens/days/monday.dart';
-import 'package:more_bloc_testing/src/screens/days/tuesday.dart';
-import 'dart:async';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:more_bloc_testing/src/bloc/noteBloc.dart';
 
@@ -14,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Color _color = Colors.indigo[50];
+  //Color _color = Colors.indigo[50];
 
   final bloc = NoteBloc();
   @override

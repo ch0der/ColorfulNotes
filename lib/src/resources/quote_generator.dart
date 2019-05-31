@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:math' as math;
-import 'dart:math';
 import 'package:more_bloc_testing/src/resources/quote_test.dart';
+import 'dart:async';
 
 class QuoteBuddy extends StatefulWidget {
   @override

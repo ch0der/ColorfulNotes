@@ -31,7 +31,6 @@ class NoteBloc{
   }
   add(String str)async{
 
-    final description = _description.value;
 
 
     HomeScreenNote item = HomeScreenNote(note: str);

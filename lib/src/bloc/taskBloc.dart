@@ -81,4 +81,8 @@ class TaskBloc{
     _total.sink.add(_totaal);
     print(_total.value);
   }
+  complete(ListModel item){
+    DBProvider.db.complete(item);
+    fetchTask();
+  }
 }

@@ -53,6 +53,6 @@ class _DigitalClockState extends State<DigitalClock> {
   }
 
   String _formatDateTime(DateTime dateTime) {
-    return DateFormat('EEEE MMMM d y, h:m:s a').format(dateTime);
+    return DateFormat('EEEE MMMM d y, h:mm:ss a').format(dateTime);
   }
 }

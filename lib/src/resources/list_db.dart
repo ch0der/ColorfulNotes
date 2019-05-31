@@ -95,6 +95,25 @@ class DBProvider{
     int value = result[0]["SUM(duration)"];
     return value.toString();
   }
+  complete(ListModel item)async{
+    final db = await database;
+    ListModel completed = ListModel(
+      id: item.id,
+      description: item.description,
+      duration: item.duration,
+      completed: !item.completed,
+      sunday: item.sunday,
+      monday: item.monday,
+      tuesday: item.tuesday,
+      wednesday: item.wednesday,
+      thursday: item.thursday,
+      friday: item.friday,
+      saturday: item.saturday);
+    var res = await db.update("ListModel", completed.toMap(),
+    where: "id = ?", whereArgs: [item.id]);
+    return res;
+  }
+
     // homescreen db
 
   newNote(HomeScreenNote newNote) async{

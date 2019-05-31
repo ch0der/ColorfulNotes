@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/bloc/provider.dart';
 import 'package:more_bloc_testing/src/Animations/plane.dart';
-import 'dart:math';
 
 class FlareWriter extends StatefulWidget {
   @override
@@ -30,7 +29,9 @@ class _FlareState extends State<FlareWriter> {
   double stepValue;
   int newNumber = 0;
   int newNumber2 = 0;
-  int _defaultValue = 0; //for timeSelector
+  int _defaultValue = 0;//for timeSelector
+  bool _ignore = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,7 @@ class _FlareState extends State<FlareWriter> {
   }
 
   Widget submit(TaskBloc bloc) {
+
     return StreamBuilder(
         stream: bloc.description,
         builder: (context, snapshot) {
@@ -94,24 +96,27 @@ class _FlareState extends State<FlareWriter> {
             child: Container(
               width: 110.0,
               height: 42.0,
-              child: GestureDetector(
-                onTap: () async {
-                  if (_animaName == null) {
-                    onTap();
-                  } else {
-                    //return nothing
-                  }
-                  if (snapshot.hasData) {
-                    bloc.add(_selected, _selected1, _selected2, _selected3,
-                        _selected4, _selected5, _selected6, newNumber);
-                    setState(() {
-                      _selected = false;
-                    });
-                  }
-                  newNumber = 0;
-                  _defaultValue = 0;
-                  setState(() {});
-                },
+              child: IgnorePointer(
+                ignoring: _ignore,
+                child: GestureDetector(
+                  onTap: () async {
+                    if (_animaName == null) {
+                      onTap();
+                    } else {
+                      //return nothing
+                    }
+                    if (snapshot.hasData) {
+                      bloc.add(_selected, _selected1, _selected2, _selected3,
+                          _selected4, _selected5, _selected6, newNumber);
+                      setState(() {
+                        _selected = false;
+                      });
+                    } else {}
+                    newNumber = 0;
+                    _defaultValue = 0;
+                    setState(() {});
+                  },
+                ),
               ),
             ),
           );
@@ -158,11 +163,13 @@ class _FlareState extends State<FlareWriter> {
 
   onTap() async {
     setState(() {
+      _ignore = true;
       _animaName = "animation2";
     });
     await Future.delayed(Duration(seconds: 2));
     setState(() {
       _animaName = null;
+      _ignore = false;
     });
   }
 
@@ -380,17 +387,10 @@ class _FlareState extends State<FlareWriter> {
   }
 
   Widget counter() {
-    double hourTime = newNumber / 60;
-    int test = hourTime.toInt();
+    Duration timeDuration = new Duration(minutes: newNumber);
 
-    int hourInt = 0;
-    int minute = ticker;
 
-    if (newNumber >= 60) {
-      setState(() {
-        minute = 0;
-      });
-    }
+
 
     return Container(
       decoration: BoxDecoration(color: Colors.white70),
@@ -398,7 +398,7 @@ class _FlareState extends State<FlareWriter> {
       width: 105.0,
       child: Center(
         child: Text(
-          '$test:$minute',
+          '${timeDuration.inHours}:${timeDuration.inMinutes % 60}',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 35.0),
         ),
@@ -406,3 +406,4 @@ class _FlareState extends State<FlareWriter> {
     );
   }
 }
+

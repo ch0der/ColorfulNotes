@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
-import 'src/Animations/splace_screen_2.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/screens/library.dart';
 import 'package:flutter/rendering.dart';
