@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
-import 'package:intl/intl.dart';
-import 'dart:async';
-import 'package:flare_flutter/flare_actor.dart';
 import 'clock_test.dart';
 import 'package:more_bloc_testing/src/Animations/checkmark.dart';
 
@@ -17,9 +14,7 @@ class ListViewer extends StatefulWidget {
 class _ListViewerState extends State<ListViewer> {
   String _animation;
   String _route;
-  String _time;
-  bool _isPaused = false;
-  bool _isChecked = false;
+
 
   final bloc = TaskBloc();
 
@@ -127,17 +122,5 @@ class _ListViewerState extends State<ListViewer> {
         textAlign: TextAlign.center,
       ),
     );
-  }
-
-  void _getTime() {
-    final DateTime now = DateTime.now();
-    final String formattedDateTime = _formatDateTime(now);
-    setState(() {
-      _time = formattedDateTime;
-    });
-  }
-
-  String _formatDateTime(DateTime dateTime) {
-    return DateFormat('EEEE MMMM d y, h:m:s a').format(dateTime);
   }
 }

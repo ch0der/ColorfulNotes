@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import '../bloc/provider.dart';
 import '../bloc/noteBloc.dart';
+import 'dart:async';
 
 class NoteAdder extends StatefulWidget {
   @override
@@ -14,11 +14,15 @@ class _NoteAdderState extends State<NoteAdder> {
     final noteBloc = Provider.of(context).noteBloc;
 
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          addText(noteBloc),
-          submit(noteBloc),
-        ],
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(top: 50)),
+            addText(noteBloc),
+            Padding(padding: EdgeInsets.only(top: 15)),
+            submit(noteBloc),
+          ],
+        ),
       ),
     );
   }
@@ -27,27 +31,28 @@ class _NoteAdderState extends State<NoteAdder> {
     return StreamBuilder<Object>(
         stream: noteBloc.description,
         builder: (context, snapshot) {
-          return Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.white70),
-            height: 75.0,
-            width: 350.0,
-            child: Theme(
-              data: ThemeData(
-                  primaryColor: Colors.green, primaryColorDark: Colors.purple),
-              child: TextField(
-                onChanged: noteBloc.addNote,
-                maxLines: 4,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+          return Stack(
+            children: [
+              whiteBoard(),
+              Positioned(
+                left: 25,
+                top: 40,
+                child: Container(
+                  width: 330,
+                  height: 130,
+                  child: TextField(
+                    autofocus: true,
+                    onChanged: noteBloc.addNote,
+                    maxLines: 4,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           );
         });
   }
@@ -56,13 +61,64 @@ class _NoteAdderState extends State<NoteAdder> {
     return StreamBuilder(
         stream: noteBloc.description,
         builder: (context, snapshot) {
-          return RaisedButton(
-            onPressed:()async{
-              String str = snapshot.data;
-              noteBloc.add(str);
-            }
+          return Container(
+            width: 90,
+            height: 50,
+            child: RaisedButton(
+                color: Colors.green[200],
+                elevation: 5,
+                shape: CircleBorder(),
+                child: Icon(
+                  Icons.done,
+                  size: 40,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  String str = snapshot.data;
+                  noteBloc.add(str);
+                  Future.delayed(Duration(milliseconds: 100), () {
+                    Navigator.pushNamed(context, '/second');
+                  });
+                }),
           );
-        }
-        );
+        });
+  }
+
+  Widget whiteBoard() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.grey[350],
+          width: 8.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.8),
+            offset: Offset.fromDirection(5.0, -6.0),
+            blurRadius: 5.0,
+          ),
+        ],
+      ),
+      height: 180,
+      width: 370,
+      child: Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          Positioned(
+            left: 5,
+            bottom: 130,
+            child: Text(
+              'Notes:',
+              style: TextStyle(
+                fontFamily: "Brownbag",
+                fontSize: 40,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

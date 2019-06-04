@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   //Color _color = Colors.indigo[50];
 
   final bloc = NoteBloc();
+
   @override
   void dispose() {
     bloc.dispose();
@@ -45,8 +46,15 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(bottom: 12),
           ),
           whiteBoard(),
-          Padding(padding: EdgeInsets.only(top: 17)),
-          addButton(),
+          Padding(
+            padding: EdgeInsets.only(top: 17),
+          ),
+          Row(
+            children: <Widget>[
+              Container(width: 330,),
+              addButton(),
+            ],
+          )
         ],
       ),
     );
@@ -79,7 +87,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             DayNote(dayOf: 'assets/noteSat.png'),
-            DayNote(dayOf: 'assets/noteSun.png',)
+            DayNote(
+              dayOf: 'assets/noteSun.png',
+            )
           ],
         ),
       ],
@@ -101,26 +111,30 @@ class _HomePageState extends State<HomePage> {
       color: Colors.transparent,
       child: Row(
         children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              bloc.erase();
-            },
-            child: Icon(
-              Icons.delete_forever,
-              size: 55,
-              color: Colors.redAccent[100],
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(left: 244)),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/fifth');
-            },
-            child: Icon(
-              Icons.add_box,
-              size: 50,
-              color: Colors.lightGreenAccent[100],
-            ),
+          Padding(padding: EdgeInsets.only(left: 312)),
+          Column(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/fifth');
+                },
+                child: Icon(
+                  Icons.add_box,
+                  size: 40,
+                  color: Colors.lightGreenAccent[100],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  bloc.erase();
+                },
+                child: Icon(
+                  Icons.delete_forever,
+                  size: 40,
+                  color: Colors.redAccent[100],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -153,7 +167,7 @@ class _HomePageState extends State<HomePage> {
             left: 5,
             bottom: 130,
             child: Text(
-              'Quick Notes:',
+              'Notes:',
               style: TextStyle(
                 fontFamily: "Brownbag",
                 fontSize: 40,
@@ -200,16 +214,15 @@ class _HomePageState extends State<HomePage> {
 
   addButton() {
     return InkWell(
-      highlightColor: Colors.green,
       onTap: () {
         Navigator.pushNamed(context, '/third');
       },
       child: Container(
         height: 60,
-        width: 200,
+        width: 60,
         decoration: BoxDecoration(
           color: Colors.lightGreen[200],
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(.8),
@@ -233,6 +246,17 @@ class _HomePageState extends State<HomePage> {
                 ]),
           ),
         ),
+      ),
+    );
+  }
+
+  addButton2() {
+    return GestureDetector(
+      onTap: () {},
+      child: Icon(
+        Icons.add_circle,
+        size: 72,
+        color: Colors.green,
       ),
     );
   }
