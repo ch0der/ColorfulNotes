@@ -4,6 +4,7 @@ export 'package:more_bloc_testing/main.dart';
 import 'package:more_bloc_testing/src/screens/days/monday.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:more_bloc_testing/src/bloc/noteBloc.dart';
+import 'package:more_bloc_testing/src/screens/days/tuesday_test(click_wednesday).dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -70,15 +71,25 @@ class _HomePageState extends State<HomePage> {
                 tag: 'monday',
                 child: DayNote(
                     day: '/monday',
-                    test: MondayList(),
+                    test: DayList(heroDay: 'monday',noteImg: 'assets/note2.png',),
                     dayOf: 'assets/note2.png')),
-            DayNote(dayOf: 'assets/noteTuesday.png'),
+            Hero(
+                tag: 'tuesday',
+                child: DayNote(
+                    day: '/tuesday',
+                    test: DayList(heroDay: 'tuesday',noteImg: 'assets/noteTuesday.png',),
+                    dayOf: 'assets/noteTuesday.png')),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DayNote(dayOf: 'assets/noteWed.png'),
+            Hero(
+                tag: 'wednesday',
+                child: DayNote(
+                    day: '/wednesday',
+                    test: TuesdayList(heroDay: 'wednesday',noteImg: 'assets/noteWed.png',),
+                    dayOf: 'assets/noteWed.png'),),
             DayNote(dayOf: 'assets/noteThur.png'),
             DayNote(dayOf: 'assets/noteFri.png')
           ],

@@ -20,7 +20,7 @@ class DBProvider{
 
   initDB()async{
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "newDB17.db");
+    String path = join(documentsDirectory.path, "newDB4.db");
     return await openDatabase(path,version: 4,onOpen: (db){},
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE ListModel ("
@@ -89,11 +89,11 @@ class DBProvider{
     return list;
 
     }
-  Future <String> calculateTotal() async {
+  Future <int> calculateTotal() async {
     var db = await database;
     var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel");
     int value = result[0]["SUM(duration)"];
-    return value.toString();
+    return value.toInt();
   }
   complete(ListModel item)async{
     final db = await database;
@@ -113,6 +113,26 @@ class DBProvider{
     where: "id = ?", whereArgs: [item.id]);
     return res;
   }
+  Future <List<ListModel>> tuesday() async{
+    final db = await database;
+    var res = await db.query("ListModel", where: "tuesday = ?", whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
+    return list;
+  }
+  deleteTest(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET tuesday = ${item.tuesday} WHERE id = ${item.id}');
+    return res;
+  }
+  deleteTest2(ListModel item)async{
+    final db = await database;
+    var res = await db.update("ListModel", item.toMap(), where: "id = ?", whereArgs: [item.id]);
+    return res;
+  }
+
+
+
 
     // homescreen db
 

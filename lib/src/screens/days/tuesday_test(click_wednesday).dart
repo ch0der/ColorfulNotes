@@ -8,17 +8,17 @@ import 'package:more_bloc_testing/src/resources/quote_generator.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
-class DayList extends StatefulWidget {
+class TuesdayList extends StatefulWidget {
   final String heroDay;
   final String noteImg;
 
-  DayList({this.heroDay, this.noteImg});
+  TuesdayList({this.heroDay, this.noteImg});
 
   @override
   _ListViewerState createState() => _ListViewerState();
 }
 
-class _ListViewerState extends State<DayList> {
+class _ListViewerState extends State<TuesdayList> {
   bool _isChecked = false;
 
   void onChanged(bool value) {
@@ -27,7 +27,7 @@ class _ListViewerState extends State<DayList> {
     });
   }
 
-  final bloc = TaskBloc();
+  final bloc = TuesdayBloc();
   Stream stream;
 
   @override
@@ -109,7 +109,7 @@ class _ListViewerState extends State<DayList> {
     );
   }
 
-  Widget viewerTest(TaskBloc bloc) {
+  Widget viewerTest(TuesdayBloc bloc) {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
@@ -120,7 +120,6 @@ class _ListViewerState extends State<DayList> {
           } else {
             testnum = 0;
           }
-
 
           return Column(
             children: <Widget>[
@@ -179,7 +178,7 @@ class _ListViewerState extends State<DayList> {
                         },
                         child: ListTile(
                           onLongPress: () {
-                            bloc.update(false, item.id);
+                            bloc.update2(item);
                           },
                           contentPadding: EdgeInsets.only(left: 0),
                           title: Text(
@@ -331,24 +330,24 @@ class _ListViewerState extends State<DayList> {
     }
   }
 
-  totals(TaskBloc bloc) {
+  totals(TuesdayBloc bloc) {
     bloc.totalTime();
 
     return StreamBuilder(
-        stream: bloc.sum,
-        builder: (context, snapshot) {
-          Duration totalDuration = new Duration(minutes: snapshot.data);
-          if (snapshot.hasData) {
-            return Container(
-                child: Text(
-              '${totalDuration.inHours.toInt()}:${totalDuration.inMinutes.toInt() % 60}',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 20.0),
-            ));
-          } else {
-            return Container(
-            );
-          }
-        });
+      stream: bloc.sum,
+      builder: (context, snapshot) {
+        Duration totalDuration = new Duration(minutes: snapshot.data);
+        if (snapshot.hasData) {
+          return Container(
+              child: Text(
+            '${totalDuration.inHours.toInt()}:${totalDuration.inMinutes.toInt() % 60}',
+            textAlign: TextAlign.right,
+            style: TextStyle(fontSize: 20.0),
+          ));
+        } else {
+          return Container();
+        }
+      },
+    );
   }
 }
