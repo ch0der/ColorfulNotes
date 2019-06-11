@@ -133,7 +133,7 @@ class TuesdayBloc{
     fetchTask();
   }
   totalTime()async{
-    var _totaal = await DBProvider.db.calculateTotal();
+    int _totaal = await DBProvider.db.calculateTotal2();
     _total.sink.add(_totaal);
     print(_total.value);
   }

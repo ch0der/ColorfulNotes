@@ -20,6 +20,7 @@ class TuesdayList extends StatefulWidget {
 
 class _ListViewerState extends State<TuesdayList> {
   bool _isChecked = false;
+  int total = 0;
 
   void onChanged(bool value) {
     setState(() {
@@ -67,14 +68,13 @@ class _ListViewerState extends State<TuesdayList> {
                       )),
                 )),
             Positioned(
-              bottom: 22,
-              left: 20,
+              bottom: 24,
+              left: 31,
               child: Container(
-                height: 25,
-                child: FittedBox(
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                    child: DigitalClock()),
+                color: Colors.orangeAccent,
+                height: 30,
+                width: 350,
+                child: DigitalClock(),
               ),
             ),
             Positioned(
@@ -251,8 +251,6 @@ class _ListViewerState extends State<TuesdayList> {
           return Padding(
             padding: EdgeInsets.only(top: 300),
             child: Container(
-              height: 25,
-              width: 36,
               child: CircularProgressIndicator(),
             ),
           );
@@ -336,8 +334,8 @@ class _ListViewerState extends State<TuesdayList> {
     return StreamBuilder(
       stream: bloc.sum,
       builder: (context, snapshot) {
-        Duration totalDuration = new Duration(minutes: snapshot.data);
         if (snapshot.hasData) {
+          Duration totalDuration = new Duration(minutes: snapshot.data);
           return Container(
               child: Text(
             '${totalDuration.inHours.toInt()}:${totalDuration.inMinutes.toInt() % 60}',
@@ -345,7 +343,7 @@ class _ListViewerState extends State<TuesdayList> {
             style: TextStyle(fontSize: 20.0),
           ));
         } else {
-          return Container();
+          return Container(child: Text('0',textAlign: TextAlign.right,style: TextStyle(fontSize: 20),),);
         }
       },
     );

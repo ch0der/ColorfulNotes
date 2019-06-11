@@ -38,7 +38,7 @@ class _DigitalClockState extends State<DigitalClock> {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Container(child: Text(_timeString),),
+      child: Container(child: Text(_timeString,style: TextStyle(fontSize: 17),),),
     );
   }
 

@@ -20,7 +20,7 @@ class DBProvider{
 
   initDB()async{
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "newDB4.db");
+    String path = join(documentsDirectory.path, "newDB5.db");
     return await openDatabase(path,version: 4,onOpen: (db){},
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE ListModel ("
@@ -93,7 +93,17 @@ class DBProvider{
     var db = await database;
     var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel");
     int value = result[0]["SUM(duration)"];
-    return value.toInt();
+    if(result.length > 0){
+      return value.toInt();
+    } else {return null;}
+  }
+  Future <int> calculateTotal2() async {
+    var db = await database;
+    var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel WHERE tuesday = ${1}");
+    if(result.length > 0){
+      int value = result[0]["SUM(duration)"];
+      return value;
+    } else {return 0;}
   }
   complete(ListModel item)async{
     final db = await database;
