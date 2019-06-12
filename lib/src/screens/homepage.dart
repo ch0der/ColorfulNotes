@@ -12,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double deleteColor1 = 0;
+  final double deleteColor2 = 0;
   //Color _color = Colors.indigo[50];
 
   final bloc = NoteBloc();
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                fit: BoxFit.cover, image: AssetImage('assets/cork3.jpg'))),
+                fit: BoxFit.cover, image: AssetImage('assets/cork3.jpg'),colorFilter: ColorFilter.mode(Colors.black87.withOpacity(deleteColor1), BlendMode.darken)),),
         child: buildHomePage(context),
       ),
     );
@@ -52,7 +54,9 @@ class _HomePageState extends State<HomePage> {
           ),
           Row(
             children: <Widget>[
-              Container(width: 330,),
+              Container(width: 220,),
+              eraser(),
+              Container(width: 30,),
               addButton(),
             ],
           )
@@ -268,6 +272,29 @@ class _HomePageState extends State<HomePage> {
         Icons.add_circle,
         size: 72,
         color: Colors.green,
+      ),
+    );
+  }
+  eraser(){
+    return GestureDetector(
+      onTap: (){
+        if(deleteColor1 == 0){
+          setState(() {
+            deleteColor1 = .5;
+          });
+        } else{
+          setState(() {
+            deleteColor1 = 0;
+          });
+        }
+      },
+      child: Container(
+        width: 70,
+        height: 60,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fitHeight, image: AssetImage('assets/eraser.png'),)
+        ),
       ),
     );
   }

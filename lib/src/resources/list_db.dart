@@ -130,11 +130,38 @@ class DBProvider{
     res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
     return list;
   }
-  deleteTest(ListModel item)async{
+  delete2(ListModel item)async{
     final db = await database;
     var res = await db.rawUpdate('UPDATE ListModel SET tuesday = ${item.tuesday} WHERE id = ${item.id}');
     return res;
   }
+  delete3(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET wednesday = ${item.wednesday} WHERE id = ${item.id}');
+    return res;
+  }
+  delete4(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET thursday = ${item.thursday} WHERE id = ${item.id}');
+    return res;
+  }
+  delete5(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET friday = ${item.friday} WHERE id = ${item.id}');
+    return res;
+  }
+  delete6(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET saturday = ${item.saturday} WHERE id = ${item.id}');
+    return res;
+  }
+  delete7(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET sunday = ${item.sunday} WHERE id = ${item.id}');
+    return res;
+  }
+
+
   deleteTest2(ListModel item)async{
     final db = await database;
     var res = await db.update("ListModel", item.toMap(), where: "id = ?", whereArgs: [item.id]);

@@ -179,7 +179,6 @@ class _ListViewerState extends State<DayList> {
                         },
                         child: ListTile(
                           onLongPress: () {
-                            bloc.update(false, item.id);
                           },
                           contentPadding: EdgeInsets.only(left: 0),
                           title: Text(

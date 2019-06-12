@@ -79,12 +79,6 @@ class TaskBloc{
     DBProvider.db.complete(item);
     fetchTask();
   }
-  update(bool yes, int id){
-    ListModel item = ListModel(id: id, tuesday: yes);
-
-    DBProvider.db.deleteTest(item);
-    fetchTask();
-  }
 }
 class TuesdayBloc{
 
@@ -144,7 +138,7 @@ class TuesdayBloc{
   update(bool yes, int id){
     ListModel item = ListModel(id: id, tuesday: yes);
 
-    DBProvider.db.deleteTest(item);
+    DBProvider.db.delete2(item);
     fetchTask();
   }
   update2(ListModel item){
