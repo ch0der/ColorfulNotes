@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:more_bloc_testing/src/Animations/drawer_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:more_bloc_testing/src/Animations/homepage_helper.dart';
 export 'package:more_bloc_testing/main.dart';
@@ -30,8 +32,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover, image: AssetImage('assets/cork3.jpg'),colorFilter: ColorFilter.mode(Colors.black87.withOpacity(deleteColor1), BlendMode.darken)),),
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/cork3.jpg'),
+              colorFilter: ColorFilter.mode(
+                  Colors.black87.withOpacity(deleteColor1), BlendMode.darken)),
+        ),
         child: buildHomePage(context),
       ),
     );
@@ -52,14 +58,21 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: EdgeInsets.only(top: 17),
           ),
-          Row(
-            children: <Widget>[
-              Container(width: 220,),
-              eraser(),
-              Container(width: 30,),
-              addButton(),
-            ],
-          )
+          Container(
+            height: 70,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  top: 10,
+                  child: SlidingDrawer(),
+                ),
+                Positioned(
+                  left: 300,
+                  child: addButton(),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -75,13 +88,19 @@ class _HomePageState extends State<HomePage> {
                 tag: 'monday',
                 child: DayNote(
                     day: '/monday',
-                    test: DayList(heroDay: 'monday',noteImg: 'assets/note2.png',),
+                    test: DayList(
+                      heroDay: 'monday',
+                      noteImg: 'assets/note2.png',
+                    ),
                     dayOf: 'assets/note2.png')),
             Hero(
                 tag: 'tuesday',
                 child: DayNote(
                     day: '/tuesday',
-                    test: DayList(heroDay: 'tuesday',noteImg: 'assets/noteTuesday.png',),
+                    test: DayList(
+                      heroDay: 'tuesday',
+                      noteImg: 'assets/noteTuesday.png',
+                    ),
                     dayOf: 'assets/noteTuesday.png')),
           ],
         ),
@@ -89,11 +108,15 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Hero(
-                tag: 'wednesday',
-                child: DayNote(
-                    day: '/wednesday',
-                    test: TuesdayList(heroDay: 'wednesday',noteImg: 'assets/noteWed.png',),
-                    dayOf: 'assets/noteWed.png'),),
+              tag: 'wednesday',
+              child: DayNote(
+                  day: '/wednesday',
+                  test: TuesdayList(
+                    heroDay: 'wednesday',
+                    noteImg: 'assets/noteWed.png',
+                  ),
+                  dayOf: 'assets/noteWed.png'),
+            ),
             DayNote(dayOf: 'assets/noteThur.png'),
             DayNote(dayOf: 'assets/noteFri.png')
           ],
@@ -275,14 +298,15 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  eraser(){
+
+  eraser() {
     return GestureDetector(
-      onTap: (){
-        if(deleteColor1 == 0){
+      onTap: () {
+        if (deleteColor1 == 0) {
           setState(() {
             deleteColor1 = .5;
           });
-        } else{
+        } else {
           setState(() {
             deleteColor1 = 0;
           });
@@ -292,9 +316,28 @@ class _HomePageState extends State<HomePage> {
         width: 70,
         height: 60,
         decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fitHeight, image: AssetImage('assets/eraser.png'),)
-        ),
+            image: DecorationImage(
+          fit: BoxFit.fitHeight,
+          image: AssetImage('assets/eraser.png'),
+        )),
+      ),
+    );
+  }
+
+  eraserBox() {
+    return Container(
+      height: 100,
+      width: 100,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(color: Colors.redAccent, width: 5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white10,
+            spreadRadius: 5,
+            blurRadius: 10.0,
+          ),
+        ],
       ),
     );
   }
