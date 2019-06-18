@@ -7,6 +7,7 @@ import 'package:more_bloc_testing/src/screens/days/monday.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:more_bloc_testing/src/bloc/noteBloc.dart';
 import 'package:more_bloc_testing/src/screens/days/tuesday_test(click_wednesday).dart';
+import 'package:more_bloc_testing/src/resources/stickynote.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -125,9 +126,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             DayNote(dayOf: 'assets/noteSat.png'),
-            DayNote(
-              dayOf: 'assets/noteSun.png',
-            )
+            StickyNote(text: "SUN",color1: Colors.orange[200],color2: Colors.orange[400],)
           ],
         ),
       ],
