@@ -28,6 +28,7 @@ dependencies:
   page_transition: ^1.0.9
   cloud_firestore: ^0.10.1
   animated_text_kit: ^1.2.0
+  random_color: ^1.0.3
 
 
 dev_dependencies:
