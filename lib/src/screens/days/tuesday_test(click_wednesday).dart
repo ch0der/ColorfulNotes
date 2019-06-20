@@ -5,14 +5,14 @@ import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/screens/clock_test.dart';
 import 'package:more_bloc_testing/src/resources/quote_generator.dart';
+import 'package:more_bloc_testing/src/resources/stickynote.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
 class TuesdayList extends StatefulWidget {
   final String heroDay;
-  final String noteImg;
 
-  TuesdayList({this.heroDay, this.noteImg});
+  TuesdayList({this.heroDay});
 
   @override
   _ListViewerState createState() => _ListViewerState();
@@ -58,15 +58,19 @@ class _ListViewerState extends State<TuesdayList> {
               ],
             ),
             Positioned(
-                left: 25,
-                top: 25,
-                child: IgnorePointer(
-                  child: Hero(
-                      tag: widget.heroDay,
-                      child: DayNote(
-                        dayOf: widget.noteImg,
-                      )),
-                )),
+              left: 25,
+              top: 25,
+              child: IgnorePointer(
+                child: Hero(
+                  tag: widget.heroDay,
+                  child: StickyNote(
+                    text: 'WED',
+                    color1: Colors.orange[300],
+
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               bottom: 24,
               left: 31,
@@ -343,7 +347,13 @@ class _ListViewerState extends State<TuesdayList> {
             style: TextStyle(fontSize: 20.0),
           ));
         } else {
-          return Container(child: Text('0',textAlign: TextAlign.right,style: TextStyle(fontSize: 20),),);
+          return Container(
+            child: Text(
+              '0',
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 20),
+            ),
+          );
         }
       },
     );

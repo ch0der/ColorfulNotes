@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(top: 17),
           ),
           Container(
-            height: 70,
+            height: 65,
             child: Stack(
               children: <Widget>[
                 Positioned(
@@ -91,7 +91,6 @@ class _HomePageState extends State<HomePage> {
                     day: '/monday',
                     test: DayList(
                       heroDay: 'monday',
-                      noteImg: 'assets/note2.png',
                     ),
                     dayOf: 'assets/note2.png')),
             Hero(
@@ -100,7 +99,6 @@ class _HomePageState extends State<HomePage> {
                     day: '/tuesday',
                     test: DayList(
                       heroDay: 'tuesday',
-                      noteImg: 'assets/noteTuesday.png',
                     ),
                     dayOf: 'assets/noteTuesday.png')),
           ],
@@ -110,13 +108,13 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Hero(
               tag: 'wednesday',
-              child: DayNote(
-                  day: '/wednesday',
-                  test: TuesdayList(
+              child: StickyNote(
+                color1: Colors.orange[300],
+                text: 'WED',
+                  route: TuesdayList(
                     heroDay: 'wednesday',
-                    noteImg: 'assets/noteWed.png',
                   ),
-                  dayOf: 'assets/noteWed.png'),
+              ),
             ),
             DayNote(dayOf: 'assets/noteThur.png'),
             DayNote(dayOf: 'assets/noteFri.png')
@@ -126,7 +124,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             DayNote(dayOf: 'assets/noteSat.png'),
-            StickyNote(text: "SUN",color1: Colors.orange[200],color2: Colors.orange[400],)
+            StickyNote(text: "SUN",route: DayList() ,color1: Colors.blueGrey,)
           ],
         ),
       ],
