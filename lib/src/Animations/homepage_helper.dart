@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:page_transition/page_transition.dart';
-import 'dart:math'as math;
 
 class DayNote extends StatefulWidget {
   DayNote({Key key, this.dayOf, this.test, this.day}) : super(key: key);

@@ -13,8 +13,8 @@ class _NoteAdderState extends State<NoteAdder> {
   Widget build(BuildContext context) {
     final noteBloc = Provider.of(context).noteBloc;
 
-    return Scaffold(
-      body: Center(
+    return Material(
+      child: Center(
         child: Column(
           children: <Widget>[
             Padding(padding: EdgeInsets.only(top: 50)),
@@ -77,7 +77,7 @@ class _NoteAdderState extends State<NoteAdder> {
                   String str = snapshot.data;
                   noteBloc.add(str);
                   Future.delayed(Duration(milliseconds: 100), () {
-                    Navigator.pushNamed(context, '/second');
+                    Navigator.pop(context);
                   });
                 }),
           );

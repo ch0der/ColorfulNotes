@@ -99,3 +99,32 @@ class HomeScreenNote {
     "note": note,
   };
 }
+NoteColors colorsFromJson(String str){
+  final jsonData = json.decode(str);
+  return NoteColors.fromMap(jsonData);
+}
+
+String noteColorsToJson(NoteColors data){
+  final dyn = data.toMap();
+  return json.encode(dyn);
+}
+
+class NoteColors {
+  int id3;
+  String color;
+
+  NoteColors({
+    this.id3,
+    this.color,
+  });
+
+  factory NoteColors.fromMap(Map<String, dynamic> json) => new NoteColors(
+    id3: json["id3"],
+    color: json["color"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id3": id3,
+    "color": color,
+  };
+}

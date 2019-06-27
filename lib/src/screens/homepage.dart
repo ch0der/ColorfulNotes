@@ -8,6 +8,14 @@ import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:more_bloc_testing/src/bloc/noteBloc.dart';
 import 'package:more_bloc_testing/src/screens/days/tuesday_test(click_wednesday).dart';
 import 'package:more_bloc_testing/src/resources/stickynote.dart';
+import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
+import 'package:more_bloc_testing/src/bloc/color_provider.dart';
+import 'package:random_color/random_color.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:more_bloc_testing/src/screens/home_screen_note.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,17 +28,33 @@ class _HomePageState extends State<HomePage> {
   //Color _color = Colors.indigo[50];
 
   final bloc = NoteBloc();
-
+  final colorsBloc = ColorsBloc();
   @override
   void dispose() {
     bloc.dispose();
     super.dispose();
   }
+  @override
+  void initState() {
+    super.initState();
+    colorsBloc.getColor1();
+    colorsBloc.getColor2();
+  }
+
+  String _noteColor1 = 'bdb3c7';
+  Color _testColor = Colors.yellow[200];
+  Color _testColor2 = Colors.green[200];
+  final prefs = SharedPreferences.getInstance();
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -51,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: EdgeInsets.only(top: 25),
           ),
-          notes(),
+          notes(colorsBloc),
           Padding(
             padding: EdgeInsets.only(bottom: 12),
           ),
@@ -79,56 +103,100 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget notes() {
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+  Widget notes(ColorsBloc bloc2) {
+        return Column(
           children: <Widget>[
-            Hero(
-                tag: 'monday',
-                child: DayNote(
-                    day: '/monday',
-                    test: DayList(
-                      heroDay: 'monday',
-                    ),
-                    dayOf: 'assets/note2.png')),
-            Hero(
-                tag: 'tuesday',
-                child: DayNote(
-                    day: '/tuesday',
-                    test: DayList(
-                      heroDay: 'tuesday',
-                    ),
-                    dayOf: 'assets/noteTuesday.png')),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Hero(
-              tag: 'wednesday',
-              child: StickyNote(
-                color1: Colors.orange[300],
-                text: 'WED',
-                  route: TuesdayList(
-                    heroDay: 'wednesday',
-                  ),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Hero(
+                    tag: 'monday',
+                    child: DayNote(
+                        day: '/monday',
+                        test: DayList(
+                          heroDay: 'monday',
+                        ),
+                        dayOf: 'assets/note2.png')),
+                Hero(
+                    tag: 'tuesday',
+                    child: DayNote(
+                        day: '/tuesday',
+                        test: DayList(
+                          heroDay: 'tuesday',
+                        ),
+                        dayOf: 'assets/noteTuesday.png')),
+              ],
             ),
-            DayNote(dayOf: 'assets/noteThur.png'),
-            DayNote(dayOf: 'assets/noteFri.png')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                StreamBuilder(
+                  stream:bloc2.color4 ,
+                  builder: (context, AsyncSnapshot<int> snapshot){
+                    if (snapshot.hasData){
+                      return GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onDoubleTap: (){
+                          bloc2.changeColor1();
+                          bloc2.getColor1();
+                          print('${Colors.yellow[200].value}');
+
+
+                        } ,
+                        child: StickyNote(
+                          color1: Colors.redAccent,
+                          noteColor: Color(snapshot.data),
+                          text: 'WED',
+                          route: '/tuesday',
+                        ),
+                      );
+                    } else {
+                      return GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onDoubleTap: (){
+                          bloc2.changeColor1();
+                          print('${Colors.yellow[200].value}');
+
+
+                        } ,
+                        child: StickyNote(
+                          color1: Colors.redAccent,
+                          noteColor: _testColor,
+                          text: 'WED',
+                          route: '/tuesday',
+                        ),
+                      );
+                    }
+                  },
+                  
+                ),
+                DayNote(dayOf: 'assets/noteThur.png'),
+                DayNote(dayOf: 'assets/noteFri.png')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                DayNote(dayOf: 'assets/noteSat.png'),
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onDoubleTap: (){
+                    bloc2.changeColor2();
+                    print('${Colors.yellow[200].value}');
+
+
+                  } ,
+                  child: StickyNote(
+                    color1: Colors.redAccent,
+                    noteColor: _testColor2,
+                    text: 'SUN',
+                    route: '/tuesday',
+                  ),
+                ),
+              ],
+            ),
           ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            DayNote(dayOf: 'assets/noteSat.png'),
-            StickyNote(text: "SUN",route: DayList() ,color1: Colors.blueGrey,)
-          ],
-        ),
-      ],
-    );
+        );
   }
 
   Widget heroHelper(String tag, String day, Widget day1) {
@@ -142,37 +210,34 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget bottomBar() {
-    return Material(
-      color: Colors.transparent,
-      child: Row(
-        children: <Widget>[
-          Padding(padding: EdgeInsets.only(left: 312)),
-          Column(
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/fifth');
-                },
-                child: Icon(
-                  Icons.add_box,
-                  size: 40,
-                  color: Colors.lightGreenAccent[100],
-                ),
+    return Row(
+      children: <Widget>[
+        Padding(padding: EdgeInsets.only(left: 312)),
+        Column(
+          children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/fifth');
+              },
+              child: Icon(
+                Icons.add_box,
+                size: 40,
+                color: Colors.lightGreenAccent[100],
               ),
-              GestureDetector(
-                onTap: () {
-                  bloc.erase();
-                },
-                child: Icon(
-                  Icons.delete_forever,
-                  size: 40,
-                  color: Colors.redAccent[100],
-                ),
+            ),
+            GestureDetector(
+              onTap: () {
+                bloc.erase();
+              },
+              child: Icon(
+                Icons.delete_forever,
+                size: 40,
+                color: Colors.redAccent[100],
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -204,6 +269,7 @@ class _HomePageState extends State<HomePage> {
             child: Text(
               'Notes:',
               style: TextStyle(
+                color: _testColor,
                 fontFamily: "Brownbag",
                 fontSize: 40,
               ),
@@ -256,7 +322,7 @@ class _HomePageState extends State<HomePage> {
         height: 60,
         width: 60,
         decoration: BoxDecoration(
-          color: Colors.lightGreen[200],
+          color: _testColor,
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(

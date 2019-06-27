@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
+
 class DBProvider{
   DBProvider._();
   static final DBProvider db = DBProvider._();
@@ -20,8 +21,8 @@ class DBProvider{
 
   initDB()async{
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "newDB5.db");
-    return await openDatabase(path,version: 4,onOpen: (db){},
+    String path = join(documentsDirectory.path, "newDB1.db");
+    return await openDatabase(path,version: 1,onOpen: (db){},
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE ListModel ("
               "id INTEGER PRIMARY KEY,"
@@ -41,7 +42,15 @@ class DBProvider{
               "id2 INTEGER PRIMARY KEY AUTOINCREMENT,"
               "note TEXT"
               ")");
+
+          await db.execute("CREATE TABLE Colors ("
+              "id3 INTEGER PRIMARY KEY,"
+              "color TEXT NOT NULL"
+              ")");
+
+
         });
+
   }
 
   newItem(ListModel newItem) async{
@@ -213,7 +222,37 @@ class DBProvider{
 
   }
 
+  //colors
 
 
+  Future newNoteColor(NoteColors newNoteColor) async{
+    final db = await database;
+    var table = await db.rawQuery("SELECT MAX(id3)+1 as id3 FROM Colors");
+    int id3 = table.first["id3"];
+    var raw = await db.rawInsert("INSERT into Colors (id3,color)"
+        " VALUES (?,?)",
+        [id3, newNoteColor.color]);
+    return raw;
 
+  }
+
+  Future getAcolor<String>(int id3)async{
+    final db = await database;
+    var res = await db.rawQuery("SELECT color FROM Colors WHERE id3 = $id3");
+    return res.isNotEmpty ? res : null;
+  }
+  Future<NoteColors> getColors() async {
+    final db = await database;
+    var res = await db.query("Colors");
+    NoteColors list =
+    res.isNotEmpty ? res.map((a) => NoteColors.fromMap(a)) : [];
+    return list;
+  }
+  getoneColor(int id3) async {
+    final db = await database;
+    var res = await db.query("Colors", where: "id3 = ?", whereArgs: [id3]);
+    return res.isNotEmpty ? NoteColors.fromMap(res.first) : null;
+  }
 }
+
+

@@ -4,6 +4,6 @@ export 'select_day.dart';
 export 'todo_list_builder.dart';
 export 'todo_list_viewer.dart';
 export 'package:more_bloc_testing/src/screens/days/monday.dart';
-export 'package:more_bloc_testing/src/screens/days/tuesday.dart';
 export 'package:more_bloc_testing/src/screens/home_screen_note.dart';
 export 'package:more_bloc_testing/src/screens/logo_screen.dart';
+export 'package:more_bloc_testing/src/screens/days/tuesday_test(click_wednesday).dart';

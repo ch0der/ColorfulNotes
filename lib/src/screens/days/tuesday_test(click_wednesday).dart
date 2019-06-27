@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:more_bloc_testing/src/Animations/homepage_helper.dart';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/screens/clock_test.dart';
 import 'package:more_bloc_testing/src/resources/quote_generator.dart';
 import 'package:more_bloc_testing/src/resources/stickynote.dart';
+import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:random_color/random_color.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -19,6 +21,25 @@ class TuesdayList extends StatefulWidget {
 }
 
 class _ListViewerState extends State<TuesdayList> {
+  RandomColor _randomColor = RandomColor();
+  Color _testColor = Colors.yellow[200];
+  @override
+  void initState() {
+    super.initState();
+    _getColor1();
+
+  }
+  _getColor1() async{
+    final prefs = await SharedPreferences.getInstance();
+    final color1 = prefs.getInt('color1');
+    if (color1 == Colors.yellow[200].value){return null;}
+    else {
+      setState(() {
+        _testColor = Color(color1);
+      });
+    }
+  }
+
   bool _isChecked = false;
   int total = 0;
 
@@ -29,6 +50,7 @@ class _ListViewerState extends State<TuesdayList> {
   }
 
   final bloc = TuesdayBloc();
+  final colorBloc = ColorBloc();
   Stream stream;
 
   @override
@@ -61,13 +83,10 @@ class _ListViewerState extends State<TuesdayList> {
               left: 25,
               top: 25,
               child: IgnorePointer(
-                child: Hero(
-                  tag: widget.heroDay,
-                  child: StickyNote(
-                    text: 'WED',
-                    color1: Colors.orange[300],
+                child: StickyNote(
+                  text: 'WED',
+                  noteColor: _testColor,
 
-                  ),
                 ),
               ),
             ),
