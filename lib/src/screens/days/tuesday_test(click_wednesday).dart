@@ -94,7 +94,6 @@ class _ListViewerState extends State<TuesdayList> {
               bottom: 24,
               left: 31,
               child: Container(
-                color: Colors.orangeAccent,
                 height: 30,
                 width: 350,
                 child: DigitalClock(),

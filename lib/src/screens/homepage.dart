@@ -89,7 +89,16 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Positioned(
                   top: 10,
-                  child: SlidingDrawer(),
+                  child: Stack(
+                    children: <Widget>[
+                      SlidingDrawer(),
+                      Positioned(
+                        top: 5,
+                        left: 150,
+                        child: eraser(),),
+                      
+                    ],
+                  )
                 ),
                 Positioned(
                   left: 300,
@@ -363,8 +372,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   eraser() {
-    return GestureDetector(
-      onTap: () {
+    return Draggable(
+
+      onDragStarted: (){
         if (deleteColor1 == 0) {
           setState(() {
             deleteColor1 = .5;
@@ -375,9 +385,19 @@ class _HomePageState extends State<HomePage> {
           });
         }
       },
+      childWhenDragging: Container(),
+      feedback: Container(
+        width: 50,
+        height: 40,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage('assets/eraser.png'),
+            ),),
+      ),
       child: Container(
-        width: 70,
-        height: 60,
+        width: 50,
+        height: 40,
         decoration: BoxDecoration(
             image: DecorationImage(
           fit: BoxFit.fitHeight,
