@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "826263638840",
+    "firebase_url": "https://log-cc7a5.firebaseio.com",
+    "project_id": "log-cc7a5",
+    "storage_bucket": "log-cc7a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826263638840:android:8740166c263eaa73",
+        "android_client_info": {
+          "package_name": "choder.app.log"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826263638840-osksvkoi8jnrq6f8pkko0om6s6l5fa3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4YOyeXSMirYytqJOpgXv6k4RZd2pqnFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826263638840-osksvkoi8jnrq6f8pkko0om6s6l5fa3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
