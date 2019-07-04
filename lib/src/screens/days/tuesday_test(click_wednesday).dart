@@ -22,22 +22,19 @@ class TuesdayList extends StatefulWidget {
 
 class _ListViewerState extends State<TuesdayList> {
   RandomColor _randomColor = RandomColor();
-  Color _testColor = Colors.yellow[200];
+  Color _testColor;
   @override
   void initState() {
     super.initState();
     _getColor1();
 
   }
-  _getColor1() async{
+  Future<void>_getColor1() async{
     final prefs = await SharedPreferences.getInstance();
     final color1 = prefs.getInt('color1');
-    if (color1 == Colors.yellow[200].value){return null;}
-    else {
-      setState(() {
-        _testColor = Color(color1);
-      });
-    }
+    setState(() {
+      _testColor = Color(color1);
+    });
   }
 
   bool _isChecked = false;

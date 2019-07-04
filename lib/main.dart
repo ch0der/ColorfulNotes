@@ -6,6 +6,7 @@ import 'package:more_bloc_testing/src/screens/library.dart';
 import 'package:flutter/rendering.dart';
 import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:random_color/random_color.dart';
 
 void main() {
   debugPaintSizeEnabled=false;
@@ -41,6 +42,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  RandomColor _randomColor;
+
 
 
 
@@ -48,26 +51,32 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _getColor1();
-    _getColor2();
 
   }
 
-  Future<int> _getColor1() async{
+  Future _getColors() async{
+    final prefs = await SharedPreferences.getInstance();
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final int test = Colors.pink.value;
+    await prefs.setInt('color1',test);
+    await prefs.setInt('color2',test);
+  }
+  Future _getColor1() async{
     final prefs = await SharedPreferences.getInstance();
     final color1 = prefs.getInt('color1');
+    final int test = Colors.pink.value;
     if (color1 == null){
-      return Colors.yellow[200].value;
-    } return color1;
+      await prefs.setInt('color1', test);
+    } else {}
 
   }
-  Future<int> _getColor2() async{
+  Future _getColor2() async{
     final prefs = await SharedPreferences.getInstance();
     final color1 = prefs.getInt('color2');
+    final int test = Colors.yellowAccent.value;
     if (color1 == null){
-      return Colors.green[200].value;
-    } return color1;
-
+      await prefs.setInt('color2', test);
+    } else {}
   }
 
 

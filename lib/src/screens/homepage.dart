@@ -34,17 +34,17 @@ class _HomePageState extends State<HomePage> {
     bloc.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
-    colorsBloc.getColor1();
-    colorsBloc.getColor2();
+    colorsBloc.getColors();
   }
 
   String _noteColor1 = 'bdb3c7';
-  Color _testColor = Colors.yellow[200];
-  Color _testColor2 = Colors.green[200];
-  final prefs = SharedPreferences.getInstance();
+  Color _testColor = Colors.orangeAccent[200];
+  final _rnd = RandomColor();
+
 
 
 
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
           ),
           whiteBoard(),
           Padding(
-            padding: EdgeInsets.only(top: 17),
+            padding: EdgeInsets.only(top: 14),
           ),
           Container(
             height: 65,
@@ -112,101 +112,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget notes(ColorsBloc bloc2) {
-        return Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Hero(
-                    tag: 'monday',
-                    child: DayNote(
-                        day: '/monday',
-                        test: DayList(
-                          heroDay: 'monday',
-                        ),
-                        dayOf: 'assets/note2.png')),
-                Hero(
-                    tag: 'tuesday',
-                    child: DayNote(
-                        day: '/tuesday',
-                        test: DayList(
-                          heroDay: 'tuesday',
-                        ),
-                        dayOf: 'assets/noteTuesday.png')),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                StreamBuilder(
-                  stream:bloc2.color4 ,
-                  builder: (context, AsyncSnapshot<int> snapshot){
-                    if (snapshot.hasData){
-                      return GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onDoubleTap: (){
-                          bloc2.changeColor1();
-                          bloc2.getColor1();
-                          print('${Colors.yellow[200].value}');
-
-
-                        } ,
-                        child: StickyNote(
-                          color1: Colors.redAccent,
-                          noteColor: Color(snapshot.data),
-                          text: 'WED',
-                          route: '/tuesday',
-                        ),
-                      );
-                    } else {
-                      return GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onDoubleTap: (){
-                          bloc2.changeColor1();
-                          print('${Colors.yellow[200].value}');
-
-
-                        } ,
-                        child: StickyNote(
-                          color1: Colors.redAccent,
-                          noteColor: _testColor,
-                          text: 'WED',
-                          route: '/tuesday',
-                        ),
-                      );
-                    }
-                  },
-                  
-                ),
-                DayNote(dayOf: 'assets/noteThur.png'),
-                DayNote(dayOf: 'assets/noteFri.png')
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                DayNote(dayOf: 'assets/noteSat.png'),
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onDoubleTap: (){
-                    bloc2.changeColor2();
-                    print('${Colors.yellow[200].value}');
-
-
-                  } ,
-                  child: StickyNote(
-                    color1: Colors.redAccent,
-                    noteColor: _testColor2,
-                    text: 'SUN',
-                    route: '/tuesday',
-                  ),
-                ),
-              ],
-            ),
-          ],
-        );
-  }
 
   Widget heroHelper(String tag, String day, Widget day1) {
     return Hero(
@@ -423,5 +328,257 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+  Widget notes(ColorsBloc bloc2) {
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            StreamBuilder(
+                stream: bloc2.color1,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor1('color1');
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'MON',
+                        route: '/monday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor1('color1');
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+            notePaddingR(),
+            notePaddingL(),
+            StreamBuilder(
+                stream: bloc2.color2,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor2('color2');
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'TUE',
+                        route: '/tuesday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor2('color2');
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            StreamBuilder(
+                stream: bloc2.color3,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor3('color3');
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'WED',
+                        route: '/tuesday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor3('color3');
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+            notePaddingR(),
+            notePaddingL(),
+            StreamBuilder(
+                stream: bloc2.color4,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor4('color4');
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'THU',
+                        route: '/tuesday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor4('color4');
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+            notePaddingR(),
+            notePaddingL(),
+            StreamBuilder(
+                stream: bloc2.color5,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor5('color5');
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'FRI',
+                        route: '/tuesday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor5('color5');
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            StreamBuilder(
+                stream: bloc2.color6,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor6('color6');
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'SAT',
+                        route: '/tuesday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor6('color6');
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+            notePaddingR(),
+            notePaddingL(),
+            StreamBuilder<Object>(
+                stream: bloc2.color7,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if(snapshot.hasData) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onDoubleTap: () {
+                        bloc2.changeColor7();
+                      },
+                      child: StickyNote(
+                        color1: Colors.redAccent,
+                        noteColor: Color(snapshot.data),
+                        text: 'SUN',
+                        route: '/tuesday',
+                      ),
+                    );
+                  } else return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: (){
+                      bloc2.changeColor7();
+
+                    } ,
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      text:'TST',
+                      route: '/tuesday',
+                    ),
+                  );
+                }
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+  notePaddingR(){
+    return Padding(padding: EdgeInsets.only(right: 7),);
+  }
+  notePaddingL(){
+    return Padding(padding: EdgeInsets.only(left: 7),);
   }
 }
