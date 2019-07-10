@@ -359,7 +359,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'FAL',
                       route: '/tuesday',
                     ),
@@ -392,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'FAL',
                       route: '/tuesday',
                     ),
@@ -428,7 +428,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'FAL',
                       route: '/tuesday',
                     ),
@@ -461,7 +461,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'FAL',
                       route: '/tuesday',
                     ),
@@ -494,7 +494,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'FAL',
                       route: '/tuesday',
                     ),
@@ -530,7 +530,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'FAL',
                       route: '/tuesday',
                     ),
@@ -563,7 +563,7 @@ class _HomePageState extends State<HomePage> {
                     } ,
                     child: StickyNote(
                       color1: Colors.redAccent,
-                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light),
+                      noteColor: _rnd.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light),
                       text:'TST',
                       route: '/tuesday',
                     ),

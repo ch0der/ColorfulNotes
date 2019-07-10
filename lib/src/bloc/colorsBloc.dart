@@ -27,49 +27,49 @@ class ColorsBloc{
 
   Future<void> changeColor1(String color) async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt(color, rndcolor);
     _color1.sink.add(rndcolor);
 
   }
   Future<void> changeColor2(String color) async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt(color, rndcolor);
     _color2.sink.add(rndcolor);
 
   }
   Future<void> changeColor3(String color) async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt(color, rndcolor);
     _color3.sink.add(rndcolor);
 
   }
   Future<void> changeColor4(String color) async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt(color, rndcolor);
     _color4.sink.add(rndcolor);
 
   }
   Future<void> changeColor5(String color) async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt(color, rndcolor);
     _color5.sink.add(rndcolor);
 
   }
   Future<void> changeColor6(String color) async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt(color, rndcolor);
     _color6.sink.add(rndcolor);
 
   }
   Future<void> changeColor7() async{
     final prefs = await SharedPreferences.getInstance();
-    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
     await prefs.setInt('color7', rndcolor);
     _color7.sink.add(rndcolor);
 
@@ -106,7 +106,7 @@ class ColorsBloc{
     getColors();
   }
   Future getColors()async{
-    int color = _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value;
+    int color = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
 
     final prefs = await SharedPreferences.getInstance();
     final color1 = prefs.getInt('color1');
@@ -131,8 +131,8 @@ class ColorsBloc{
     final color1 = prefs.getInt('color1');
     final color2 = prefs.getInt('color2');
     if (color1 == null){
-      await prefs.setInt('color1', _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value);
-      await prefs.setInt('color2', _randomColor.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light).value);
+      await prefs.setInt('color1', _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value);
+      await prefs.setInt('color2', _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value);
 
     }else return null;
 
