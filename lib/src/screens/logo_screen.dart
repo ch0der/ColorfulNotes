@@ -64,8 +64,7 @@ class _LogoScreenState extends State<LogoScreen> {
           children: <Widget>[
             Container(
               width: 50,
-              height: 6.5,
-              color: Colors.transparent,
+              height: 15,
             ),
             Stack(
               children: <Widget>[
@@ -88,7 +87,7 @@ class _LogoScreenState extends State<LogoScreen> {
                       str,
                       style: TextStyle(
                         fontFamily: "Brownbag",
-                        fontSize: 40,
+                        fontSize: 45,
                         height: 1,
                       ),
                     ),
@@ -108,11 +107,11 @@ class _LogoScreenState extends State<LogoScreen> {
         ),
         Positioned(
           left: 25,
-          bottom: 10,
+          bottom: 35,
           child: Container(
             child: Transform.scale(
                 scale:.8,
-                child: thumbtack(color: Colors.lime)),
+                child: thumbtack(color: rndColor.randomColor(colorBrightness: ColorBrightness.light,colorSaturation: ColorSaturation.mediumSaturation),),),
           ),
         ),
       ],
@@ -152,7 +151,7 @@ class _LogoScreenState extends State<LogoScreen> {
                       height: 17,
                       width: 17,
                       decoration: BoxDecoration(
-                        color: Colors.black38.withOpacity(.3),
+                        color: Colors.black38.withOpacity(.6),
                         shape: BoxShape.circle,
                       ),
                     ),

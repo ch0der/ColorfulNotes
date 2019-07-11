@@ -477,7 +477,7 @@ class _HomePageState extends State<HomePage> {
                     return GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onDoubleTap: () {
-                        bloc2.changeColor5('color5');
+                        bloc2.changeColor5();
                       },
                       child: StickyNote(
                         color1: Colors.redAccent,
@@ -489,7 +489,7 @@ class _HomePageState extends State<HomePage> {
                   } else return GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onDoubleTap: (){
-                      bloc2.changeColor5('color5');
+                      bloc2.changeColor5();
 
                     } ,
                     child: StickyNote(

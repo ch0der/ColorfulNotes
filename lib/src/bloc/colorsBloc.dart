@@ -53,10 +53,10 @@ class ColorsBloc{
     _color4.sink.add(rndcolor);
 
   }
-  Future<void> changeColor5(String color) async{
+  Future<void> changeColor5() async{
     final prefs = await SharedPreferences.getInstance();
     final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
-    await prefs.setInt(color, rndcolor);
+    await prefs.setInt('color5', rndcolor);
     _color5.sink.add(rndcolor);
 
   }
@@ -121,7 +121,7 @@ class ColorsBloc{
     _color2.sink.add(color2);
     _color3.sink.add(color3);
     _color4.sink.add(color4);
-    _color5.sink.add(color4);
+    _color5.sink.add(color5);
     _color6.sink.add(color6);
     _color7.sink.add(color7);
 
