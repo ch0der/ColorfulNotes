@@ -42,7 +42,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   String _noteColor1 = 'bdb3c7';
-  Color _testColor = Colors.orangeAccent[200];
+  Color _testColor = Colors.black54;
+  Color _buttonColor = Colors.lime[400];
   final _rnd = RandomColor();
 
 
@@ -232,11 +233,16 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         Navigator.pushNamed(context, '/third');
       },
+      onLongPress: (){
+        setState(() {
+          _buttonColor = _rnd.randomColor();
+        });
+      },
       child: Container(
         height: 60,
         width: 60,
         decoration: BoxDecoration(
-          color: _testColor,
+          color: _buttonColor,
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(
@@ -450,7 +456,7 @@ class _HomePageState extends State<HomePage> {
                         color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'THU',
-                        route: '/tuesday',
+                        route: '/thursday',
                       ),
                     );
                   } else return GestureDetector(

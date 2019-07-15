@@ -8,6 +8,7 @@ import 'package:more_bloc_testing/src/resources/stickynote.dart';
 import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:random_color/random_color.dart';
+import 'dart:math';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -21,7 +22,6 @@ class TuesdayList extends StatefulWidget {
 }
 
 class _ListViewerState extends State<TuesdayList> {
-  RandomColor _randomColor = RandomColor();
   Color _testColor;
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _ListViewerState extends State<TuesdayList> {
   }
   Future<void>_getColor1() async{
     final prefs = await SharedPreferences.getInstance();
-    final color1 = prefs.getInt('color3');
+    final color1 = prefs.getInt('color3'); // note color
     setState(() {
       _testColor = Color(color1);
     });
@@ -233,7 +233,7 @@ class _ListViewerState extends State<TuesdayList> {
                             ),
                           ),
                           trailing: Text(
-                            '${timeDuration.inHours}:${timeDuration.inMinutes % 60}',
+                            '${timeDuration.inHours}:${(timeDuration.inMinutes % 60).toString().padLeft(2,'0')}',
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -253,7 +253,13 @@ class _ListViewerState extends State<TuesdayList> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  progressBar(1 / testnum),
+                  Container(
+                    height: 30,
+                    width: 293,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30),
+                  ),
                   Container(
                     height: 30,
                     width: 55,
@@ -357,7 +363,7 @@ class _ListViewerState extends State<TuesdayList> {
           Duration totalDuration = new Duration(minutes: snapshot.data);
           return Container(
               child: Text(
-            '${totalDuration.inHours.toInt()}:${totalDuration.inMinutes.toInt() % 60}',
+            '${totalDuration.inHours.toInt()}:${(totalDuration.inMinutes.toInt() % 60).toString().padLeft(2,'0')}',
             textAlign: TextAlign.right,
             style: TextStyle(fontSize: 20.0),
           ));

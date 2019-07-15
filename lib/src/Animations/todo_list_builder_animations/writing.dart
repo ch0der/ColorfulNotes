@@ -398,7 +398,7 @@ class _FlareState extends State<FlareWriter> {
       width: 105.0,
       child: Center(
         child: Text(
-          '${timeDuration.inHours}:${timeDuration.inMinutes % 60}',
+          '${timeDuration.inHours}:${(timeDuration.inMinutes % 60).toString().padLeft(2,'0')}',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 35.0),
         ),

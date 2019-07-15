@@ -27,6 +27,7 @@ void main() {
         '/fifth':(context) => NoteAdder(),
         '/monday':(context) => DayList(),
         '/tuesday':(context) => TuesdayList(heroDay: 'wednesday',),
+        '/thursday':(context) => ThursdayList(heroDay: 'thursday',),
         '/temp':(context) => LogoScreen(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
