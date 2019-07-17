@@ -43,7 +43,7 @@ class _ListViewerState extends State<ThursdayList> {
     });
   }
 
-  final bloc = WednesdayBloc();
+  final bloc = ThursdayBloc();
   final colorBloc = ColorBloc();
   Stream stream;
 
@@ -125,7 +125,7 @@ class _ListViewerState extends State<ThursdayList> {
     );
   }
 
-  Widget viewerTest(WednesdayBloc bloc) {
+  Widget viewerTest(ThursdayBloc bloc) {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
@@ -350,7 +350,7 @@ class _ListViewerState extends State<ThursdayList> {
     }
   }
 
-  totals(WednesdayBloc bloc) {
+  totals(ThursdayBloc bloc) {
     bloc.totalTime();
 
     return StreamBuilder(

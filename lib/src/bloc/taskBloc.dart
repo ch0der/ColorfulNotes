@@ -79,6 +79,9 @@ class TaskBloc{
     DBProvider.db.complete(item);
     fetchTask();
   }
+
+
+
 }
 class TuesdayBloc{
 
@@ -127,7 +130,7 @@ class TuesdayBloc{
     fetchTask();
   }
   totalTime()async{
-    int _totaal = await DBProvider.db.calculateTotal2();
+    int _totaal = await DBProvider.db.calculateTotal2('tuesday');
     _total.sink.add(_totaal);
     print(_total.value);
   }
@@ -154,7 +157,7 @@ class WednesdayBloc{
   final _description = BehaviorSubject<String>();
   final _allTasks = PublishSubject<List<ListModel>>();
   final _total = BehaviorSubject<int>();
-  final _wed = StreamController<List<ListModel>>.broadcast();
+  final _day = StreamController<List<ListModel>>.broadcast();
 
 
 
@@ -162,7 +165,7 @@ class WednesdayBloc{
   Stream<int> get sum => _total.stream;
 
   get tasks => _taskController.stream;
-  get tuesday => _wed.stream;
+  get day => _day.stream;
 
   Function(String)get addTask => _description.sink.add;
   Function(int)get total => _total.sink.add;
@@ -173,17 +176,11 @@ class WednesdayBloc{
     _description.close();
     _allTasks.close();
     _total.close();
-    _wed.close();
+    _day.close();
 
   }
   WednesdayBloc(){
     fetchTask();
-  }
-
-  submitTask(){
-    final validTask = _description.value;
-
-    print('item is $validTask');
   }
 
   fetchTask()async{
@@ -195,17 +192,11 @@ class WednesdayBloc{
     fetchTask();
   }
   totalTime()async{
-    int _totaal = await DBProvider.db.calculateTotal3();
+    int _totaal = await DBProvider.db.calculateTotal2('wednesday');
     _total.sink.add(_totaal);
   }
   complete(ListModel item){
     DBProvider.db.complete(item);
-    fetchTask();
-  }
-  update(bool yes, int id){
-    ListModel item = ListModel(id: id, wednesday: yes);
-
-    DBProvider.db.delete2(item);
     fetchTask();
   }
   update2(ListModel item){
@@ -213,15 +204,15 @@ class WednesdayBloc{
         completed: item.completed,monday: item.monday,tuesday: item.tuesday,wednesday: false,thursday: item.thursday,friday: item.friday,saturday: item.saturday,sunday: item.sunday));
     fetchTask();
   }
-
 }
+
 class ThursdayBloc{
 
   final _taskController = StreamController<List<ListModel>>.broadcast();
   final _description = BehaviorSubject<String>();
   final _allTasks = PublishSubject<List<ListModel>>();
   final _total = BehaviorSubject<int>();
-  final _tuesday = StreamController<List<ListModel>>.broadcast();
+  final _day = StreamController<List<ListModel>>.broadcast();
 
 
 
@@ -229,7 +220,7 @@ class ThursdayBloc{
   Stream<int> get sum => _total.stream;
 
   get tasks => _taskController.stream;
-  get tuesday => _tuesday.stream;
+  get day => _day.stream;
 
   Function(String)get addTask => _description.sink.add;
   Function(int)get total => _total.sink.add;
@@ -240,10 +231,10 @@ class ThursdayBloc{
     _description.close();
     _allTasks.close();
     _total.close();
-    _tuesday.close();
+    _day.close();
 
   }
-  TuesdayBloc(){
+  ThursdayBloc(){
     fetchTask();
   }
 
@@ -254,7 +245,7 @@ class ThursdayBloc{
   }
 
   fetchTask()async{
-    final ids = await DBProvider.db.tuesday();
+    final ids = await DBProvider.db.thursday();
     _taskController.sink.add(ids);
   }
   delete(int id){
@@ -262,7 +253,7 @@ class ThursdayBloc{
     fetchTask();
   }
   totalTime()async{
-    int _totaal = await DBProvider.db.calculateTotal2();
+    int _totaal = await DBProvider.db.calculateTotal2('thursday');
     _total.sink.add(_totaal);
     print(_total.value);
   }
@@ -278,9 +269,64 @@ class ThursdayBloc{
   }
   update2(ListModel item){
     DBProvider.db.deleteTest2(ListModel(id: item.id,description: item.description,duration: item.duration,
-        completed: item.completed,monday: item.monday,tuesday: false,wednesday: item.wednesday,thursday: item.thursday,friday: item.friday,saturday: item.saturday,sunday: item.sunday));
+        completed: item.completed,monday: item.monday,tuesday: item.tuesday,wednesday: item.wednesday,thursday: false,friday: item.friday,saturday: item.saturday,sunday: item.sunday));
     fetchTask();
   }
 
 }
+class FridayBloc{
+
+  final _taskController = StreamController<List<ListModel>>.broadcast();
+  final _description = BehaviorSubject<String>();
+  final _allTasks = PublishSubject<List<ListModel>>();
+  final _total = BehaviorSubject<int>();
+  final _day = StreamController<List<ListModel>>.broadcast();
+
+
+
+  Stream<String> get description => _description.stream;
+  Stream<int> get sum => _total.stream;
+
+  get tasks => _taskController.stream;
+  get day => _day.stream;
+
+  Function(String)get addTask => _description.sink.add;
+  Function(int)get total => _total.sink.add;
+
+
+  dispose(){
+    _taskController.close();
+    _description.close();
+    _allTasks.close();
+    _total.close();
+    _day.close();
+
+  }
+  FridayBloc(){
+    fetchTask();
+  }
+
+  fetchTask()async{
+    final ids = await DBProvider.db.friday();
+    _taskController.sink.add(ids);
+  }
+  delete(int id){
+    DBProvider.db.deleteTask(id);
+    fetchTask();
+  }
+  totalTime()async{
+    int _totaal = await DBProvider.db.calculateTotal2('friday');
+    _total.sink.add(_totaal);
+  }
+  complete(ListModel item){
+    DBProvider.db.complete(item);
+    fetchTask();
+  }
+  update2(ListModel item){
+    DBProvider.db.deleteTest2(ListModel(id: item.id,description: item.description,duration: item.duration,
+        completed: item.completed,monday: item.monday,tuesday: item.tuesday,wednesday: item.wednesday,thursday: item.thursday,friday: false,saturday: item.saturday,sunday: item.sunday));
+    fetchTask();
+  }
+}
+
 

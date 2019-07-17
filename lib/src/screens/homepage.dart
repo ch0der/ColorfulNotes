@@ -423,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                         color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'WED',
-                        route: '/tuesday',
+                        route: '/wednesday',
                       ),
                     );
                   } else return GestureDetector(

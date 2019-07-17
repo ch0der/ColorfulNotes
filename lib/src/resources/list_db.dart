@@ -106,17 +106,12 @@ class DBProvider{
       return value.toInt();
     } else {return null;}
   }
-  Future <int> calculateTotal2() async {
+
+  Future <int> calculateTotal2(String str1) async {
+    List<String> str = ['1'];
+    String test = str1;
     var db = await database;
-    var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel WHERE tuesday = ${1}");
-    if(result.length > 0){
-      int value = result[0]["SUM(duration)"];
-      return value;
-    } else {return 0;}
-  }
-  Future <int> calculateTotal3() async {
-    var db = await database;
-    var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel WHERE wednesday = ${1}");
+    var result = await db.rawQuery("SELECT SUM(duration) FROM $ListModel WHERE $test = ? ",str);
     if(result.length > 0){
       int value = result[0]["SUM(duration)"];
       return value;
@@ -140,6 +135,13 @@ class DBProvider{
     where: "id = ?", whereArgs: [item.id]);
     return res;
   }
+  Future <List<ListModel>> monday() async{
+    final db = await database;
+    var res = await db.query("ListModel", where: "monday = ?", whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
+    return list;
+  }
   Future <List<ListModel>> tuesday() async{
     final db = await database;
     var res = await db.query("ListModel", where: "tuesday = ?", whereArgs: [1]);
@@ -154,9 +156,43 @@ class DBProvider{
     res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
     return list;
   }
+  Future <List<ListModel>> thursday() async{
+    final db = await database;
+    var res = await db.query("ListModel", where: "thursday = ?", whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
+    return list;
+  }
+  Future <List<ListModel>> friday() async{
+    final db = await database;
+    var res = await db.query("ListModel", where: "friday = ?", whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
+    return list;
+  }
+  Future <List<ListModel>> saturday() async{
+    final db = await database;
+    var res = await db.query("ListModel", where: "saturday = ?", whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
+    return list;
+  }
+  Future <List<ListModel>> sunday() async{
+    final db = await database;
+    var res = await db.query("ListModel", where: "sunday = ?", whereArgs: [1]);
+    List<ListModel> list =
+    res.isNotEmpty ? res.map((c) => ListModel.fromMap(c)).toList() : [];
+    return list;
+  }
+  delete1(ListModel item)async{
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET monday = ${item.monday} WHERE id = ${item.id}');
+    return res;
+  }
+
   delete2(ListModel item)async{
     final db = await database;
-    var res = await db.rawUpdate('UPDATE ListModel SET wednesday = ${item.wednesday} WHERE id = ${item.id}');
+    var res = await db.rawUpdate('UPDATE ListModel SET tuesday = ${item.wednesday} WHERE id = ${item.id}');
     return res;
   }
   delete3(ListModel item)async{
