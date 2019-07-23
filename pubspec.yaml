@@ -30,6 +30,7 @@ dependencies:
   animated_text_kit: ^1.2.0
   random_color: ^1.0.3
   shared_preferences: ^0.5.2
+  avatar_glow: ^0.2.0
 
 
 dev_dependencies:

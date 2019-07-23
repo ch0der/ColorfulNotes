@@ -16,6 +16,7 @@ import 'package:more_bloc_testing/src/screens/home_screen_note.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
   String _noteColor1 = 'bdb3c7';
   Color _testColor = Colors.black54;
   Color _buttonColor = Colors.lime[400];
+  Color deleteAllColor = Colors.white54;
   final _rnd = RandomColor();
   bool eraserVisible = false;
 
@@ -196,14 +198,6 @@ class _HomePageState extends State<HomePage> {
               child: noteViewer(bloc),
             ),
           ),
-          Positioned(
-            left: 100,
-            top: 5,
-            child: Visibility(
-              visible: eraserVisible,
-              child: eraseTarget(),
-            ),
-          ),
         ],
       ),
     );
@@ -300,7 +294,10 @@ class _HomePageState extends State<HomePage> {
         });
       },
       onDragCompleted: () {
-        print('test');
+        setState(() {
+          deleteColor1 = 0;
+          eraserVisible = false;
+        });
       },
       onDraggableCanceled: (Velocity velocity, Offset offset) {
         setState(() {
@@ -357,71 +354,77 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             StreamBuilder(
-                stream: bloc2.color1,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor1('color1');
-                      },
-                      child: StickyNote(
-                        color1: Colors.redAccent,
-                        noteColor: Color(snapshot.data),
-                        text: 'MON',
-                        route: '/monday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor1('color1');
-                      },
-                      child: StickyNote(
-                        color1: Colors.redAccent,
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'FAL',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+              stream: bloc2.color1,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: () {
+                      bloc2.changeColor1('color1');
+                    },
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: Color(snapshot.data),
+                      text: 'MON',
+                      route: '/monday',
+                    ),
+                  );
+                } else
+                  return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: () {
+                      bloc2.changeColor1('color1');
+                    },
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(
+                          colorSaturation: ColorSaturation.mediumSaturation,
+                          colorBrightness: ColorBrightness.light),
+                      text: 'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+              },
+            ),
             notePaddingR(),
+            Visibility(
+              child: eraseTarget(),
+              visible: eraserVisible,
+            ),
             notePaddingL(),
             StreamBuilder(
-                stream: bloc2.color2,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor2('color2');
-                      },
-                      child: StickyNote(
-                        color1: Colors.redAccent,
-                        noteColor: Color(snapshot.data),
-                        text: 'TUE',
-                        route: '/tuesday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor2('color2');
-                      },
-                      child: StickyNote(
-                        color1: Colors.redAccent,
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'FAL',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+              stream: bloc2.color2,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: () {
+                      bloc2.changeColor2('color2');
+                    },
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: Color(snapshot.data),
+                      text: 'TUE',
+                      route: '/tuesday',
+                    ),
+                  );
+                } else
+                  return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onDoubleTap: () {
+                      bloc2.changeColor2('color2');
+                    },
+                    child: StickyNote(
+                      color1: Colors.redAccent,
+                      noteColor: _rnd.randomColor(
+                          colorSaturation: ColorSaturation.mediumSaturation,
+                          colorBrightness: ColorBrightness.light),
+                      text: 'FAL',
+                      route: '/tuesday',
+                    ),
+                  );
+              },
+            ),
           ],
         ),
         Row(
@@ -619,29 +622,53 @@ class _HomePageState extends State<HomePage> {
   eraseAll() {
     return Stack(
       children: <Widget>[
-        Container(
-          height: 40,
-          width: 160,
-          decoration: BoxDecoration(
-            color: Colors.red,
+        AvatarGlow(
+          glowColor: Colors.red,
+          endRadius: 60,
+          duration: Duration(milliseconds: 1100),
+          repeat: true,
+          showTwoGlows: true,
+          repeatPauseDuration: Duration(milliseconds: 200),
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: deleteAllColor
+            ),
+            child: Center(
+              child: Text(
+                'DELETE \n   ALL',
+                style:
+                    TextStyle(fontFamily: "Coiny", fontWeight: FontWeight.bold,color: Colors.black),
+              ),
+            ),
           ),
-          child: Center(child: Text('ERASE ALL')),
         ),
       ],
     );
   }
-  eraseTarget(){
+
+  eraseTarget() {
     return DragTarget(
-      builder: (BuildContext context, List<int> candidateData, List<dynamic> rejectedData){
+      builder: (BuildContext context, List<int> candidateData,
+          List<dynamic> rejectedData) {
         return eraseAll();
       },
-      onWillAccept: (data){
+      onWillAccept: (data) {
+        setState(() {
+          deleteAllColor = Colors.redAccent;
+        });
         return data == 1;
-    },
-    onAccept: (data){
-      bloc.erase();
-      print('working');
-    },
+      },
+      onLeave: (data){
+        setState(() {
+          deleteAllColor = Colors.white;
+        });
+      },
+      onAccept: (data) {
+        bloc.erase();
+        print('working');
+      },
     );
   }
 }
