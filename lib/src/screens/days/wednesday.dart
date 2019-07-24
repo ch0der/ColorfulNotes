@@ -28,7 +28,7 @@ class _ListViewerState extends State<WednesdayList> {
   }
   Future<void>_getColor1() async{
     final prefs = await SharedPreferences.getInstance();
-    final color1 = prefs.getInt('color4'); // note color
+    final color1 = prefs.getInt('color3'); // note color
     setState(() {
       _thisColor = Color(color1);
     });

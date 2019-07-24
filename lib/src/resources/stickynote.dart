@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
 import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
 import 'dart:async';
+import 'package:random_color/random_color.dart';
 
 class StickyNote extends StatefulWidget {
   StickyNote({
@@ -164,7 +165,7 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
                 left: 45,
                 bottom: 97,
                 child: Container(
-                  child: thumbtack(color: Colors.lime),
+                  child: thumbtack(color: RandomColor().randomColor(colorBrightness: ColorBrightness.light,colorSaturation: ColorSaturation.mediumSaturation),),
                 ),
               ),
             ],
@@ -182,7 +183,7 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: 8,
+              top: 10,
               left: 7,
               child: Transform.rotate(
                 angle: pi / 5.0,
@@ -207,7 +208,7 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
                       height: 17,
                       width: 17,
                       decoration: BoxDecoration(
-                        color: Colors.black38.withOpacity(.3),
+                        color: Colors.black38.withOpacity(.4),
                         shape: BoxShape.circle,
                       ),
                     ),

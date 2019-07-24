@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   String _noteColor1 = 'bdb3c7';
   Color _testColor = Colors.black54;
   Color _buttonColor = Colors.lime[400];
-  Color deleteAllColor = Colors.white54;
+  Color deleteAllColor = Colors.white;
   final _rnd = RandomColor();
   bool eraserVisible = false;
 
@@ -363,7 +363,6 @@ class _HomePageState extends State<HomePage> {
                       bloc2.changeColor1('color1');
                     },
                     child: StickyNote(
-                      color1: Colors.redAccent,
                       noteColor: Color(snapshot.data),
                       text: 'MON',
                       route: '/monday',
@@ -376,7 +375,6 @@ class _HomePageState extends State<HomePage> {
                       bloc2.changeColor1('color1');
                     },
                     child: StickyNote(
-                      color1: Colors.redAccent,
                       noteColor: _rnd.randomColor(
                           colorSaturation: ColorSaturation.mediumSaturation,
                           colorBrightness: ColorBrightness.light),
@@ -402,7 +400,6 @@ class _HomePageState extends State<HomePage> {
                       bloc2.changeColor2('color2');
                     },
                     child: StickyNote(
-                      color1: Colors.redAccent,
                       noteColor: Color(snapshot.data),
                       text: 'TUE',
                       route: '/tuesday',
@@ -415,7 +412,6 @@ class _HomePageState extends State<HomePage> {
                       bloc2.changeColor2('color2');
                     },
                     child: StickyNote(
-                      color1: Colors.redAccent,
                       noteColor: _rnd.randomColor(
                           colorSaturation: ColorSaturation.mediumSaturation,
                           colorBrightness: ColorBrightness.light),
@@ -440,7 +436,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor3('color3');
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'WED',
                         route: '/wednesday',
@@ -453,7 +448,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor3('color3');
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
@@ -474,7 +468,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor4('color4');
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'THU',
                         route: '/thursday',
@@ -487,7 +480,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor4('color4');
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
@@ -508,7 +500,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor5();
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'FRI',
                         route: '/tuesday',
@@ -521,7 +512,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor5();
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
@@ -545,7 +535,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor6('color6');
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'SAT',
                         route: '/tuesday',
@@ -558,7 +547,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor6('color6');
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
@@ -579,7 +567,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor7();
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: Color(snapshot.data),
                         text: 'SUN',
                         route: '/tuesday',
@@ -592,7 +579,6 @@ class _HomePageState extends State<HomePage> {
                         bloc2.changeColor7();
                       },
                       child: StickyNote(
-                        color1: Colors.redAccent,
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
@@ -620,31 +606,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   eraseAll() {
-    return Stack(
-      children: <Widget>[
-        AvatarGlow(
-          glowColor: Colors.red,
-          endRadius: 60,
-          duration: Duration(milliseconds: 1100),
-          repeat: true,
-          showTwoGlows: true,
-          repeatPauseDuration: Duration(milliseconds: 200),
-          child: Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              color: deleteAllColor
-            ),
-            child: Center(
-              child: Text(
-                'DELETE \n   ALL',
-                style:
-                    TextStyle(fontFamily: "Coiny", fontWeight: FontWeight.bold,color: Colors.black),
-              ),
-            ),
-          ),
-        ),
-      ],
+    return StickyNote(
+      text: 'DEL', noteColor: deleteAllColor,
     );
   }
 
@@ -668,6 +631,9 @@ class _HomePageState extends State<HomePage> {
       onAccept: (data) {
         bloc.erase();
         print('working');
+        setState(() {
+          deleteAllColor = Colors.white;
+        });
       },
     );
   }
