@@ -72,9 +72,9 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(parent: deleteController, curve: Curves.linear),
     );
-    deleteAnimation.addStatusListener((status){
-      if (status == AnimationStatus.completed){
-        Future.delayed(Duration(seconds: 2),(){
+    deleteAnimation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Future.delayed(Duration(seconds: 2), () {
           deleteController.reverse();
         });
       } else {}
@@ -132,13 +132,13 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
                           ),
                           child: Center(
                             child: Text(
-                                    widget.text,
-                                    style: TextStyle(
-                                      fontFamily: "Brownbag",
-                                      fontSize: 65,
-                                      height: 1,
-                                    ),
-                                  ),
+                              widget.text,
+                              style: TextStyle(
+                                fontFamily: "Brownbag",
+                                fontSize: 65,
+                                height: 1,
+                              ),
+                            ),
                           ),
                         ),
                         Container(
@@ -165,7 +165,9 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
                 left: 45,
                 bottom: 97,
                 child: Container(
-                  child: thumbtack(color: RandomColor().randomColor(colorBrightness: ColorBrightness.light,colorSaturation: ColorSaturation.mediumSaturation),),
+                  child: thumbtack(
+                    color: Colors.lime[400],
+                  ),
                 ),
               ),
             ],

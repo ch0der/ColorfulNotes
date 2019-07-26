@@ -353,37 +353,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            StreamBuilder(
-              stream: bloc2.color1,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onDoubleTap: () {
-                      bloc2.changeColor1('color1');
-                    },
-                    child: StickyNote(
-                      noteColor: Color(snapshot.data),
-                      text: 'MON',
-                      route: '/monday',
-                    ),
-                  );
-                } else
-                  return GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onDoubleTap: () {
-                      bloc2.changeColor1('color1');
-                    },
-                    child: StickyNote(
-                      noteColor: _rnd.randomColor(
-                          colorSaturation: ColorSaturation.mediumSaturation,
-                          colorBrightness: ColorBrightness.light),
-                      text: 'FAL',
-                      route: '/tuesday',
-                    ),
-                  );
-              },
-            ),
+            note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday'),
             notePaddingR(),
             Visibility(
               child: eraseTarget(),
@@ -426,36 +396,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            StreamBuilder(
-                stream: bloc2.color3,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor3('color3');
-                      },
-                      child: StickyNote(
-                        noteColor: Color(snapshot.data),
-                        text: 'WED',
-                        route: '/wednesday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor3('color3');
-                      },
-                      child: StickyNote(
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'FAL',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+            note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday'),
             notePaddingR(),
             notePaddingL(),
             StreamBuilder(
@@ -607,7 +548,8 @@ class _HomePageState extends State<HomePage> {
 
   eraseAll() {
     return StickyNote(
-      text: 'DEL', noteColor: deleteAllColor,
+      text: 'ALL',
+      noteColor: deleteAllColor,
     );
   }
 
@@ -623,7 +565,7 @@ class _HomePageState extends State<HomePage> {
         });
         return data == 1;
       },
-      onLeave: (data){
+      onLeave: (data) {
         setState(() {
           deleteAllColor = Colors.white;
         });
@@ -634,6 +576,72 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           deleteAllColor = Colors.white;
         });
+      },
+    );
+  }
+
+  deleteWrapper(Widget child, String text, Color color1) {
+    return DragTarget(
+      builder: (BuildContext context, List<int> candidateData,
+          List<dynamic> rejectedData) {
+        return child;
+      },
+      onWillAccept: (data) {
+        print('hello');
+        color1 = Colors.redAccent;
+        text = 'DEL';
+        return data == 1;
+      },
+    );
+  }
+  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route){
+    return StreamBuilder(
+      stream: stream,
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          String text = day;
+          Color noteColor = Color(snapshot.data);
+
+          return DragTarget(
+            builder: (BuildContext context, List<int> candidateData,
+                List<dynamic> rejectData) {
+              return GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onDoubleTap: () {
+                  color(color2);
+                },
+                child: StickyNote(
+                  noteColor: noteColor,
+                  text: text,
+                  route: route,
+                ),
+              );
+            },
+            onLeave: (data) {
+              text = day;
+              noteColor = Color(snapshot.data);
+            },
+            onWillAccept: (data) {
+              print('hello');
+              noteColor = Colors.redAccent;
+              text = 'DEL';
+              return data == 1;
+            },
+          );
+        } else
+          return GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onDoubleTap: () {
+              bloc2.changeColor1('color1');
+            },
+            child: StickyNote(
+              noteColor: _rnd.randomColor(
+                  colorSaturation: ColorSaturation.mediumSaturation,
+                  colorBrightness: ColorBrightness.light),
+              text: 'FAL',
+              route: '/tuesday',
+            ),
+          );
       },
     );
   }
