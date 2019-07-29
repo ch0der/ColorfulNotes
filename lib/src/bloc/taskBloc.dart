@@ -79,6 +79,15 @@ class TaskBloc{
     DBProvider.db.complete(item);
     fetchTask();
   }
+  deleteDay(String today){
+    DBProvider.db.deleteADay(today);
+    fetchTask();
+
+  }
+  deleteALL(){
+    DBProvider.db.deleteALL();
+    fetchTask();
+  }
 
 
 
@@ -203,6 +212,11 @@ class WednesdayBloc{
     DBProvider.db.deleteTest2(ListModel(id: item.id,description: item.description,duration: item.duration,
         completed: item.completed,monday: item.monday,tuesday: item.tuesday,wednesday: false,thursday: item.thursday,friday: item.friday,saturday: item.saturday,sunday: item.sunday));
     fetchTask();
+  }
+  deleteDay(String today){
+    DBProvider.db.deleteADay(today);
+    fetchTask();
+
   }
 }
 

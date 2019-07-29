@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -353,7 +354,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday'),
+            note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1'),
             notePaddingR(),
             Visibility(
               child: eraseTarget(),
@@ -385,7 +386,7 @@ class _HomePageState extends State<HomePage> {
                       noteColor: _rnd.randomColor(
                           colorSaturation: ColorSaturation.mediumSaturation,
                           colorBrightness: ColorBrightness.light),
-                      text: 'FAL',
+                      text: 'TUE',
                       route: '/tuesday',
                     ),
                   );
@@ -396,7 +397,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday'),
+            note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3'),
             notePaddingR(),
             notePaddingL(),
             StreamBuilder(
@@ -424,7 +425,7 @@ class _HomePageState extends State<HomePage> {
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
-                        text: 'FAL',
+                        text: 'THU',
                         route: '/tuesday',
                       ),
                     );
@@ -456,7 +457,7 @@ class _HomePageState extends State<HomePage> {
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
-                        text: 'FAL',
+                        text: 'FRI',
                         route: '/tuesday',
                       ),
                     );
@@ -491,7 +492,7 @@ class _HomePageState extends State<HomePage> {
                         noteColor: _rnd.randomColor(
                             colorSaturation: ColorSaturation.mediumSaturation,
                             colorBrightness: ColorBrightness.light),
-                        text: 'FAL',
+                        text: 'SAT',
                         route: '/tuesday',
                       ),
                     );
@@ -554,6 +555,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   eraseTarget() {
+    final bloc3 = TaskBloc();
     return DragTarget(
       builder: (BuildContext context, List<int> candidateData,
           List<dynamic> rejectedData) {
@@ -572,6 +574,7 @@ class _HomePageState extends State<HomePage> {
       },
       onAccept: (data) {
         bloc.erase();
+        bloc3.deleteALL();
         print('working');
         setState(() {
           deleteAllColor = Colors.white;
@@ -594,7 +597,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route){
+  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route,Function swap1, String swap2){
     return StreamBuilder(
       stream: stream,
       builder: (context, AsyncSnapshot snapshot) {
@@ -614,6 +617,8 @@ class _HomePageState extends State<HomePage> {
                   noteColor: noteColor,
                   text: text,
                   route: route,
+                  swap1: swap1,
+                  swap2: swap2,
                 ),
               );
             },
@@ -627,18 +632,22 @@ class _HomePageState extends State<HomePage> {
               text = 'DEL';
               return data == 1;
             },
+            onAccept:(data){
+              bloc2.deleteDay('wednesday');
+
+            } ,
           );
         } else
           return GestureDetector(
             behavior: HitTestBehavior.translucent,
             onDoubleTap: () {
-              bloc2.changeColor1('color1');
+              color(color2);
             },
             child: StickyNote(
               noteColor: _rnd.randomColor(
                   colorSaturation: ColorSaturation.mediumSaturation,
                   colorBrightness: ColorBrightness.light),
-              text: 'FAL',
+              text: 'SUN',
               route: '/tuesday',
             ),
           );

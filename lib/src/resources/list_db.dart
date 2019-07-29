@@ -116,6 +116,19 @@ class DBProvider{
       int value = result[0]["SUM(duration)"];
       return value;
     } else {return 0;}
+
+  }
+  deleteADay(String day1)async{
+    String day = day1;
+    final db = await database;
+    db.delete("ListModel",where: "$day = ?", whereArgs: [1]);
+  }
+  deleteADay2(String day1)async{
+    String day = day1;
+    final db = await database;
+    var res = await db.rawUpdate('UPDATE ListModel SET $day = ?',[0]);
+    return res;
+
   }
   complete(ListModel item)async{
     final db = await database;
@@ -222,9 +235,15 @@ class DBProvider{
   }
 
 
+
   deleteTest2(ListModel item)async{
     final db = await database;
     var res = await db.update("ListModel", item.toMap(), where: "id = ?", whereArgs: [item.id]);
+    return res;
+  }
+  deleteALL()async{
+    final db = await database;
+    var res = await db.delete('ListModel');
     return res;
   }
 

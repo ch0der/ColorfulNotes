@@ -137,6 +137,10 @@ class ColorsBloc{
     }else return null;
 
   }
+  deleteDay(String today){
+    DBProvider.db.deleteADay2(today);
+
+  }
 
 
 }

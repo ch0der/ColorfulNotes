@@ -20,6 +20,8 @@ class WednesdayList extends StatefulWidget {
 
 class _ListViewerState extends State<WednesdayList> {
   Color _thisColor;
+  final String color = 'color3';
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +30,7 @@ class _ListViewerState extends State<WednesdayList> {
   }
   Future<void>_getColor1() async{
     final prefs = await SharedPreferences.getInstance();
-    final color1 = prefs.getInt('color3'); // note color
+    final color1 = prefs.getInt(color); // note color
     setState(() {
       _thisColor = Color(color1);
     });
@@ -93,6 +95,10 @@ class _ListViewerState extends State<WednesdayList> {
                 child: DigitalClock(),
               ),
             ),
+            Positioned(
+              bottom: 24,
+              right: 15,
+              child: Icon(Icons.info,size: 20,),),
             Positioned(
               top: 20,
               left: 140,

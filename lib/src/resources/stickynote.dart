@@ -14,6 +14,8 @@ class StickyNote extends StatefulWidget {
     this.color1,
     this.noteColor,
     this.animate,
+    this.swap1,
+    this.swap2,
   }) : super(key: key);
 
   final String text;
@@ -21,6 +23,8 @@ class StickyNote extends StatefulWidget {
   final Color color1;
   final Color noteColor;
   final double animate;
+  final Function swap1;
+  final String swap2;
 
   @override
   _StickyNoteState createState() => _StickyNoteState();
@@ -102,6 +106,11 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
           onLongPress: () {
             noteController.forward();
             deleteController.forward();
+            Future.delayed(Duration(milliseconds: 750),
+                    (){
+                  widget.swap1(widget.swap2);
+                }
+            );
           },
           child: Stack(
             children: <Widget>[
