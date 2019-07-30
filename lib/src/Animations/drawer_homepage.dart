@@ -9,7 +9,6 @@ class _SlidingDrawerState extends State<SlidingDrawer> {
   double _width = 1;
   double _height = 50;
   Color _color = Colors.white.withOpacity(.8);
-  BorderRadiusGeometry _radius = BorderRadius.circular(5.0);
 
   @override
   Widget build(BuildContext context) {

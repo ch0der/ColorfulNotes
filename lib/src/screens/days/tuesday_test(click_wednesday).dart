@@ -7,8 +7,6 @@ import 'package:more_bloc_testing/src/resources/quote_generator.dart';
 import 'package:more_bloc_testing/src/resources/stickynote.dart';
 import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:random_color/random_color.dart';
-import 'dart:math';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
@@ -133,12 +131,6 @@ class _ListViewerState extends State<TuesdayList> {
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
         if (snapshot.hasData) {
-          double testnum;
-          if (snapshot.data.length != null) {
-            testnum = snapshot.data.length + 1.toDouble();
-          } else {
-            testnum = 0;
-          }
 
           return Column(
             children: <Widget>[

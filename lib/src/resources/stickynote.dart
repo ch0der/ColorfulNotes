@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:page_transition/page_transition.dart';
 import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
 import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
 import 'dart:async';
-import 'package:random_color/random_color.dart';
 
 class StickyNote extends StatefulWidget {
   StickyNote({
@@ -140,12 +138,15 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
                             ],
                           ),
                           child: Center(
-                            child: Text(
-                              widget.text,
-                              style: TextStyle(
-                                fontFamily: "Brownbag",
-                                fontSize: 65,
-                                height: 1,
+                            child: Opacity(
+                              opacity: 1,
+                              child: Text(
+                                widget.text,
+                                style: TextStyle(
+                                  fontFamily: "Brownbag",
+                                  fontSize: 65,
+                                  height: 1,
+                                ),
                               ),
                             ),
                           ),

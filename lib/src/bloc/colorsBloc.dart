@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:random_color/random_color.dart';
 import 'package:flutter/material.dart';
-import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:more_bloc_testing/src/resources/list_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,10 +52,10 @@ class ColorsBloc{
     _color4.sink.add(rndcolor);
 
   }
-  Future<void> changeColor5() async{
+  Future<void> changeColor5(String color) async{
     final prefs = await SharedPreferences.getInstance();
     final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
-    await prefs.setInt('color5', rndcolor);
+    await prefs.setInt(color, rndcolor);
     _color5.sink.add(rndcolor);
 
   }
@@ -106,7 +105,6 @@ class ColorsBloc{
     getColors();
   }
   Future getColors()async{
-    int color = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
 
     final prefs = await SharedPreferences.getInstance();
     final color1 = prefs.getInt('color1');
@@ -126,17 +124,7 @@ class ColorsBloc{
     _color7.sink.add(color7);
 
   }
-  Future startup()async{
-    final prefs = await SharedPreferences.getInstance();
-    final color1 = prefs.getInt('color1');
-    final color2 = prefs.getInt('color2');
-    if (color1 == null){
-      await prefs.setInt('color1', _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value);
-      await prefs.setInt('color2', _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value);
 
-    }else return null;
-
-  }
   deleteDay(String today){
     DBProvider.db.deleteADay2(today);
 

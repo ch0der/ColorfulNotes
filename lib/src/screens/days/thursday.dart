@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ThursdayList extends StatefulWidget {
   final String heroDay;
 
-  ThursdayList({this.heroDay});
+  ThursdayList({this.heroDay,});
 
   @override
   _ListViewerState createState() => _ListViewerState();
@@ -20,6 +20,8 @@ class ThursdayList extends StatefulWidget {
 
 class _ListViewerState extends State<ThursdayList> {
   Color _thisColor;
+  String prefsColor = 'color4';
+  String day = 'THU';
   @override
   void initState() {
     super.initState();
@@ -28,7 +30,7 @@ class _ListViewerState extends State<ThursdayList> {
   }
   Future<void>_getColor1() async{
     final prefs = await SharedPreferences.getInstance();
-    final color1 = prefs.getInt('color4'); // note color
+    final color1 = prefs.getInt(prefsColor); // note color
     setState(() {
       _thisColor = Color(color1);
     });
@@ -78,7 +80,7 @@ class _ListViewerState extends State<ThursdayList> {
               top: 25,
               child: IgnorePointer(
                 child: StickyNote(
-                  text: 'THU',
+                  text: day,
                   noteColor: _thisColor,
 
                 ),
@@ -130,12 +132,6 @@ class _ListViewerState extends State<ThursdayList> {
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
         if (snapshot.hasData) {
-          double testnum;
-          if (snapshot.data.length != null) {
-            testnum = snapshot.data.length + 1.toDouble();
-          } else {
-            testnum = 0;
-          }
 
           return Column(
             children: <Widget>[
@@ -377,3 +373,4 @@ class _ListViewerState extends State<ThursdayList> {
     );
   }
 }
+

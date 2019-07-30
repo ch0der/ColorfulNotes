@@ -3,20 +3,12 @@ import 'package:more_bloc_testing/src/Animations/drawer_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:more_bloc_testing/src/Animations/homepage_helper.dart';
 export 'package:more_bloc_testing/main.dart';
-import 'package:more_bloc_testing/src/screens/days/monday.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'package:more_bloc_testing/src/bloc/noteBloc.dart';
-import 'package:more_bloc_testing/src/screens/days/tuesday_test(click_wednesday).dart';
 import 'package:more_bloc_testing/src/resources/stickynote.dart';
-import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
-import 'package:more_bloc_testing/src/bloc/color_provider.dart';
 import 'package:random_color/random_color.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:more_bloc_testing/src/screens/home_screen_note.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,12 +35,12 @@ class _HomePageState extends State<HomePage> {
     colorsBloc.getColors();
   }
 
-  String _noteColor1 = 'bdb3c7';
   Color _testColor = Colors.black54;
   Color _buttonColor = Colors.lime[400];
   Color deleteAllColor = Colors.white;
   final _rnd = RandomColor();
   bool eraserVisible = false;
+  bool wedVis = true;
 
   @override
   Widget build(BuildContext context) {
@@ -397,71 +389,13 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3'),
+            Visibility(visible: wedVis,child: note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3')),
             notePaddingR(),
             notePaddingL(),
-            StreamBuilder(
-                stream: bloc2.color4,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor4('color4');
-                      },
-                      child: StickyNote(
-                        noteColor: Color(snapshot.data),
-                        text: 'THU',
-                        route: '/thursday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor4('color4');
-                      },
-                      child: StickyNote(
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'THU',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+            note2(bloc2,'THU',bloc2.color4,bloc2.changeColor4,'color4','/thursday',bloc2.changeColor4,'color4'),
             notePaddingR(),
             notePaddingL(),
-            StreamBuilder(
-                stream: bloc2.color5,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor5();
-                      },
-                      child: StickyNote(
-                        noteColor: Color(snapshot.data),
-                        text: 'FRI',
-                        route: '/tuesday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor5();
-                      },
-                      child: StickyNote(
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'FRI',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+            note2(bloc2,'FRI',bloc2.color5,bloc2.changeColor5,'color5','/friday',bloc2.changeColor5,'color5'),
           ],
         ),
         Row(
@@ -635,6 +569,7 @@ class _HomePageState extends State<HomePage> {
             onAccept:(data){
               bloc2.deleteDay('wednesday');
 
+
             } ,
           );
         } else
@@ -655,3 +590,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
