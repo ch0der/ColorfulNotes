@@ -100,6 +100,17 @@ class _FlareState extends State<FlareWriter> {
                 ignoring: _ignore,
                 child: GestureDetector(
                   onTap: () async {
+                    setState(() {
+                      _selected = false;
+                      _selected1 = false;
+                      _selected2 = false;
+                      _selected3 = false;
+                      _selected4 = false;
+                      _selected5 = false;
+                      _selected6 = false;
+
+                    });
+
                     if (_animaName == null) {
                       onTap();
                     } else {
@@ -108,13 +119,9 @@ class _FlareState extends State<FlareWriter> {
                     if (snapshot.hasData) {
                       bloc.add(_selected, _selected1, _selected2, _selected3,
                           _selected4, _selected5, _selected6, newNumber);
-                      setState(() {
-                        _selected = false;
-                      });
                     } else {}
                     newNumber = 0;
                     _defaultValue = 0;
-                    setState(() {});
                   },
                 ),
               ),
