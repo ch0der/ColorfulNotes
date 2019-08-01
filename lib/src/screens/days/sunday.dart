@@ -9,19 +9,19 @@ import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class TuesdayList extends StatefulWidget {
+class SundayList extends StatefulWidget {
   final String heroDay;
 
-  TuesdayList({this.heroDay});
+  SundayList({this.heroDay});
 
-  final String color = 'color2';
-  final String day = 'TUE';
+  final String color = 'color7';
+  final String day = 'SUN';
 
   @override
   _ListViewerState createState() => _ListViewerState();
 }
 
-class _ListViewerState extends State<TuesdayList> {
+class _ListViewerState extends State<SundayList> {
   Color _thisColor;
 
   @override
@@ -47,7 +47,7 @@ class _ListViewerState extends State<TuesdayList> {
     });
   }
 
-  final bloc = TuesdayBloc();
+  final bloc = SundayBloc();
   final colorBloc = ColorBloc();
   Stream stream;
 
@@ -133,7 +133,7 @@ class _ListViewerState extends State<TuesdayList> {
     );
   }
 
-  Widget viewerTest(TuesdayBloc bloc) {
+  Widget viewerTest(SundayBloc bloc) {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
@@ -352,7 +352,7 @@ class _ListViewerState extends State<TuesdayList> {
     }
   }
 
-  totals(TuesdayBloc bloc) {
+  totals(SundayBloc bloc) {
     bloc.totalTime();
 
     return StreamBuilder(

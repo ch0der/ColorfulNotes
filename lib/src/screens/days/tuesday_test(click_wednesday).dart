@@ -10,16 +10,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 //TODO look at newsapi and use his bloc setup instead of this garbage
 
-class TuesdayList extends StatefulWidget {
+class Random extends StatefulWidget {
   final String heroDay;
 
-  TuesdayList({this.heroDay});
+  Random({this.heroDay});
 
   @override
   _ListViewerState createState() => _ListViewerState();
 }
 
-class _ListViewerState extends State<TuesdayList> {
+class _ListViewerState extends State<Random> {
   Color _testColor;
   @override
   void initState() {

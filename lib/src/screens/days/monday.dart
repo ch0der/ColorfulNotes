@@ -1,25 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:more_bloc_testing/src/Animations/homepage_helper.dart';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/resources/list_model.dart';
 import 'dart:async';
 import 'package:more_bloc_testing/src/screens/clock_test.dart';
 import 'package:more_bloc_testing/src/resources/quote_generator.dart';
+import 'package:more_bloc_testing/src/resources/stickynote.dart';
+import 'package:more_bloc_testing/src/bloc/colorBloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-//TODO look at newsapi and use his bloc setup instead of this garbage
 
-class DayList extends StatefulWidget {
+class MondayList extends StatefulWidget {
   final String heroDay;
-  final String noteImg;
 
-  DayList({this.heroDay, this.noteImg});
+  MondayList({this.heroDay});
+
+  final String color = 'color1';
+  final String day = 'MON';
 
   @override
   _ListViewerState createState() => _ListViewerState();
 }
 
-class _ListViewerState extends State<DayList> {
+class _ListViewerState extends State<MondayList> {
+  Color _thisColor;
+
+  @override
+  void initState() {
+    super.initState();
+    _getColor1();
+
+  }
+  Future<void>_getColor1() async{
+    final prefs = await SharedPreferences.getInstance();
+    final color1 = prefs.getInt(widget.color); // note color
+    setState(() {
+      _thisColor = Color(color1);
+    });
+  }
+
   bool _isChecked = false;
+  int total = 0;
 
   void onChanged(bool value) {
     setState(() {
@@ -27,7 +47,8 @@ class _ListViewerState extends State<DayList> {
     });
   }
 
-  final bloc = TaskBloc();
+  final bloc = MondayBloc();
+  final colorBloc = ColorBloc();
   Stream stream;
 
   @override
@@ -57,26 +78,29 @@ class _ListViewerState extends State<DayList> {
               ],
             ),
             Positioned(
-                left: 25,
-                top: 25,
-                child: IgnorePointer(
-                  child: Hero(
-                      tag: widget.heroDay,
-                      child: DayNote(
-                        dayOf: widget.noteImg,
-                      )),
-                )),
-            Positioned(
-              bottom: 22,
-              left: 20,
-              child: Container(
-                height: 25,
-                child: FittedBox(
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                    child: DigitalClock()),
+              left: 25,
+              top: 25,
+              child: IgnorePointer(
+                child: StickyNote(
+                  text: widget.day,
+                  noteColor: _thisColor,
+
+                ),
               ),
             ),
+            Positioned(
+              bottom: 24,
+              left: 31,
+              child: Container(
+                height: 30,
+                width: 350,
+                child: DigitalClock(),
+              ),
+            ),
+            Positioned(
+              bottom: 24,
+              right: 15,
+              child: Icon(Icons.info,size: 20,),),
             Positioned(
               top: 20,
               left: 140,
@@ -109,18 +133,11 @@ class _ListViewerState extends State<DayList> {
     );
   }
 
-  Widget viewerTest(TaskBloc bloc) {
+  Widget viewerTest(MondayBloc bloc) {
     return StreamBuilder<List<ListModel>>(
       stream: bloc.tasks,
       builder: (BuildContext context, AsyncSnapshot<List<ListModel>> snapshot) {
         if (snapshot.hasData) {
-          double testnum;
-          if (snapshot.data.length != null) {
-            testnum = snapshot.data.length + 1.toDouble();
-          } else {
-            testnum = 0;
-          }
-
 
           return Column(
             children: <Widget>[
@@ -141,9 +158,9 @@ class _ListViewerState extends State<DayList> {
                   width: 375,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Container(
-                          height: 5.0,
-                          color: Colors.grey[200],
-                        ),
+                      height: 5.0,
+                      color: Colors.grey[200],
+                    ),
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     itemCount: snapshot.data.length,
@@ -153,7 +170,7 @@ class _ListViewerState extends State<DayList> {
                       Widget iscompleted;
 
                       Duration timeDuration =
-                          new Duration(minutes: item.duration);
+                      new Duration(minutes: item.duration);
                       if (item.completed == true) {
                         iscompleted = Container(
                           height: 25,
@@ -179,6 +196,7 @@ class _ListViewerState extends State<DayList> {
                         },
                         child: ListTile(
                           onLongPress: () {
+                            bloc.update2(item);
                           },
                           contentPadding: EdgeInsets.only(left: 0),
                           title: Text(
@@ -203,7 +221,7 @@ class _ListViewerState extends State<DayList> {
                                           fontSize: 20,
                                         ),
                                       ),
-                                      padding: EdgeInsets.only(left: 20),
+                                      padding: EdgeInsets.only(left: 0),
                                     ),
                                   ),
                                   Positioned(
@@ -214,7 +232,7 @@ class _ListViewerState extends State<DayList> {
                             ),
                           ),
                           trailing: Text(
-                            '${timeDuration.inHours}:${timeDuration.inMinutes % 60}',
+                            '${timeDuration.inHours}:${(timeDuration.inMinutes % 60).toString().padLeft(2,'0')}',
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -234,7 +252,13 @@ class _ListViewerState extends State<DayList> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  progressBar(1 / testnum),
+                  Container(
+                    height: 30,
+                    width: 293,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30),
+                  ),
                   Container(
                     height: 30,
                     width: 55,
@@ -251,8 +275,6 @@ class _ListViewerState extends State<DayList> {
           return Padding(
             padding: EdgeInsets.only(top: 300),
             child: Container(
-              height: 25,
-              width: 36,
               child: CircularProgressIndicator(),
             ),
           );
@@ -330,24 +352,30 @@ class _ListViewerState extends State<DayList> {
     }
   }
 
-  totals(TaskBloc bloc) {
+  totals(MondayBloc bloc) {
     bloc.totalTime();
 
     return StreamBuilder(
-        stream: bloc.sum,
-        builder: (context, snapshot) {
+      stream: bloc.sum,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
           Duration totalDuration = new Duration(minutes: snapshot.data);
-          if (snapshot.hasData) {
-            return Container(
-                child: Text(
-              '${totalDuration.inHours.toInt()}:${totalDuration.inMinutes.toInt() % 60}',
+          return Container(
+              child: Text(
+                '${totalDuration.inHours.toInt()}:${(totalDuration.inMinutes.toInt() % 60).toString().padLeft(2,'0')}',
+                textAlign: TextAlign.right,
+                style: TextStyle(fontSize: 20.0),
+              ));
+        } else {
+          return Container(
+            child: Text(
+              '0',
               textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 20.0),
-            ));
-          } else {
-            return Container(
-            );
-          }
-        });
+              style: TextStyle(fontSize: 20),
+            ),
+          );
+        }
+      },
+    );
   }
 }

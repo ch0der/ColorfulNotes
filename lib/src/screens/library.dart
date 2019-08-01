@@ -10,3 +10,7 @@ export 'package:more_bloc_testing/src/screens/days/tuesday_test(click_wednesday)
 export 'days/thursday.dart';
 export 'days/wednesday.dart';
 export 'days/friday.dart';
+export 'days/saturday.dart';
+export 'days/sunday.dart';
+export 'days/monday.dart';
+export 'days/tuesday.dart';

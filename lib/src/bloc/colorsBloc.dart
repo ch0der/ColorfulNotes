@@ -66,10 +66,10 @@ class ColorsBloc{
     _color6.sink.add(rndcolor);
 
   }
-  Future<void> changeColor7() async{
+  Future<void> changeColor7(String color) async{
     final prefs = await SharedPreferences.getInstance();
     final rndcolor = _randomColor.randomColor(colorSaturation: ColorSaturation.mediumSaturation,colorBrightness: ColorBrightness.light).value;
-    await prefs.setInt('color7', rndcolor);
+    await prefs.setInt(color, rndcolor);
     _color7.sink.add(rndcolor);
 
   }

@@ -346,123 +346,35 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1'),
+            note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1','monday'),
             notePaddingR(),
             Visibility(
               child: eraseTarget(),
               visible: eraserVisible,
             ),
             notePaddingL(),
-            StreamBuilder(
-              stream: bloc2.color2,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onDoubleTap: () {
-                      bloc2.changeColor2('color2');
-                    },
-                    child: StickyNote(
-                      noteColor: Color(snapshot.data),
-                      text: 'TUE',
-                      route: '/tuesday',
-                    ),
-                  );
-                } else
-                  return GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onDoubleTap: () {
-                      bloc2.changeColor2('color2');
-                    },
-                    child: StickyNote(
-                      noteColor: _rnd.randomColor(
-                          colorSaturation: ColorSaturation.mediumSaturation,
-                          colorBrightness: ColorBrightness.light),
-                      text: 'TUE',
-                      route: '/tuesday',
-                    ),
-                  );
-              },
-            ),
+            note2(bloc2,'TUE',bloc2.color2,bloc2.changeColor2,'color2','/tuesday',bloc2.changeColor2,'color2','tuesday'),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Visibility(visible: wedVis,child: note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3')),
+            Visibility(visible: wedVis,child: note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3','wednesday')),
             notePaddingR(),
             notePaddingL(),
-            note2(bloc2,'THU',bloc2.color4,bloc2.changeColor4,'color4','/thursday',bloc2.changeColor4,'color4'),
+            note2(bloc2,'THU',bloc2.color4,bloc2.changeColor4,'color4','/thursday',bloc2.changeColor4,'color4','thursday'),
             notePaddingR(),
             notePaddingL(),
-            note2(bloc2,'FRI',bloc2.color5,bloc2.changeColor5,'color5','/friday',bloc2.changeColor5,'color5'),
+            note2(bloc2,'FRI',bloc2.color5,bloc2.changeColor5,'color5','/friday',bloc2.changeColor5,'color5','friday'),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            StreamBuilder(
-                stream: bloc2.color6,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor6('color6');
-                      },
-                      child: StickyNote(
-                        noteColor: Color(snapshot.data),
-                        text: 'SAT',
-                        route: '/tuesday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor6('color6');
-                      },
-                      child: StickyNote(
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'SAT',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+            note2(bloc2,'SAT',bloc2.color6,bloc2.changeColor6,'color6','/saturday',bloc2.changeColor6,'color6','saturday'),
             notePaddingR(),
             notePaddingL(),
-            StreamBuilder<Object>(
-                stream: bloc2.color7,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor7();
-                      },
-                      child: StickyNote(
-                        noteColor: Color(snapshot.data),
-                        text: 'SUN',
-                        route: '/tuesday',
-                      ),
-                    );
-                  } else
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onDoubleTap: () {
-                        bloc2.changeColor7();
-                      },
-                      child: StickyNote(
-                        noteColor: _rnd.randomColor(
-                            colorSaturation: ColorSaturation.mediumSaturation,
-                            colorBrightness: ColorBrightness.light),
-                        text: 'TST',
-                        route: '/tuesday',
-                      ),
-                    );
-                }),
+            note2(bloc2,'SUN',bloc2.color7,bloc2.changeColor7,'color7','/sunday',bloc2.changeColor7,'color7','sunday'),
           ],
         ),
       ],
@@ -531,7 +443,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route,Function swap1, String swap2){
+  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route,Function swap1, String swap2, String delete){
     return StreamBuilder(
       stream: stream,
       builder: (context, AsyncSnapshot snapshot) {
@@ -567,7 +479,7 @@ class _HomePageState extends State<HomePage> {
               return data == 1;
             },
             onAccept:(data){
-              bloc2.deleteDay('wednesday');
+              bloc2.deleteDay(delete);
 
 
             } ,

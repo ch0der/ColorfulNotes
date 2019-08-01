@@ -21,11 +21,13 @@ void main() {
         '/third':(context) => BuildList(),
         '/fourth':(context) => ListViewer(),
         '/fifth':(context) => NoteAdder(),
-        '/monday':(context) => DayList(),
-        '/tuesday':(context) => TuesdayList(heroDay: 'wednesday',),
-        '/wednesday':(context) => WednesdayList(heroDay: 'wednesday',),
-        '/thursday':(context) => ThursdayList(heroDay: 'thursday',),
+        '/monday':(context) => MondayList(),
+        '/tuesday':(context) => TuesdayList(),
+        '/wednesday':(context) => WednesdayList(),
+        '/thursday':(context) => ThursdayList(),
         '/friday':(context) => FridayList(),
+        '/saturday':(context) => SaturdayList(),
+        '/sunday':(context) => SundayList(),
         '/temp':(context) => LogoScreen(),
         // When we navigate to the "/second" route, build the SecondScreen Widget
 
