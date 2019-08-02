@@ -35,6 +35,8 @@ class _FlareState extends State<FlareWriter> {
 
   @override
   Widget build(BuildContext context) {
+
+
     final bloc = Provider.of(context).taskBloc;
     return Column(
       children: <Widget>[
@@ -198,7 +200,7 @@ class _FlareState extends State<FlareWriter> {
           ),
           color: _selected == false ? Colors.blue[100] : Colors.blue[400],
           highlightColor: Colors.transparent,
-          onPressed: () async {
+          onPressed: (){
             setState(() {
               _selected = !_selected;
             });
@@ -230,6 +232,7 @@ class _FlareState extends State<FlareWriter> {
       ),
     );
   }
+
 
   Widget dayButton2(TaskBloc bloc, String day) {
     return Container(
@@ -339,6 +342,30 @@ class _FlareState extends State<FlareWriter> {
           onPressed: () async {
             setState(() {
               _selected6 = !_selected6;
+            });
+          },
+        ),
+      ),
+    );
+  }
+  buttonHelper(String day, bool select){
+    bool localBool = select;
+    return Container(
+      padding: EdgeInsets.only(left: 2.5, right: 2.5),
+      child: ButtonTheme(
+        minWidth: 50.0,
+        height: 50.0,
+        child: FlatButton(
+          child: Text(
+            day,
+            style: TextStyle(fontSize: 20.0),
+          ),
+          color: localBool == false ? Colors.blue[100] : Colors.blue[400],
+          highlightColor: Colors.transparent,
+          onPressed: () {
+            setState(() {
+              select = !select;
+              print(localBool);
             });
           },
         ),

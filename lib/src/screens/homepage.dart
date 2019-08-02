@@ -16,10 +16,14 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   double deleteColor1 = 0;
   final double deleteColor2 = 0;
   //Color _color = Colors.indigo[50];
+  Animation<double> deleteAnimation;
+  AnimationController deleteController;
+  double value1 = 1;
+  double value2 = 0;
 
   final bloc = NoteBloc();
   final colorsBloc = ColorsBloc();
@@ -33,6 +37,24 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     colorsBloc.getColors();
+
+    deleteController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+    deleteAnimation = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController, curve: Curves.easeInOut),
+    );
+    deleteAnimation.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController.reverse();
+        } else {}
+      },
+    );
   }
 
   Color _testColor = Colors.black54;
@@ -459,12 +481,20 @@ class _HomePageState extends State<HomePage> {
                 onDoubleTap: () {
                   color(color2);
                 },
-                child: StickyNote(
-                  noteColor: noteColor,
-                  text: text,
-                  route: route,
-                  swap1: swap1,
-                  swap2: swap2,
+                child: AnimatedBuilder(
+                  animation: deleteAnimation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: deleteAnimation.value,
+                      child: StickyNote(
+                        noteColor: noteColor,
+                        text: text,
+                        route: route,
+                        swap1: swap1,
+                        swap2: swap2,
+                      ),
+                    );
+                  },
                 ),
               );
             },
@@ -479,6 +509,8 @@ class _HomePageState extends State<HomePage> {
               return data == 1;
             },
             onAccept:(data){
+
+              deleteController.forward();
               bloc2.deleteDay(delete);
 
 
