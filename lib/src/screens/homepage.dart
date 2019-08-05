@@ -40,13 +40,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     deleteController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 500),
     );
     deleteAnimation = Tween(
       begin: value1,
       end: value2,
     ).animate(
-      CurvedAnimation(parent: deleteController, curve: Curves.easeInOut),
+      CurvedAnimation(parent: deleteController, curve: Curves.ease,reverseCurve: Curves.elasticOut),
     );
     deleteAnimation.addStatusListener(
           (status) {
@@ -368,7 +368,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1','monday'),
+            AnimatedBuilder(
+                animation: deleteAnimation,
+                builder: (context, child) {
+                  return Transform.scale(
+                    scale: deleteAnimation.value,
+                    child: child
+                  );
+                },
+                child: note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1','monday')),
             notePaddingR(),
             Visibility(
               child: eraseTarget(),
@@ -481,21 +489,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 onDoubleTap: () {
                   color(color2);
                 },
-                child: AnimatedBuilder(
-                  animation: deleteAnimation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: deleteAnimation.value,
-                      child: StickyNote(
+                child:  StickyNote(
                         noteColor: noteColor,
                         text: text,
                         route: route,
                         swap1: swap1,
                         swap2: swap2,
                       ),
-                    );
-                  },
-                ),
               );
             },
             onLeave: (data) {
