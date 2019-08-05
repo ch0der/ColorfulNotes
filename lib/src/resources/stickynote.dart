@@ -14,6 +14,7 @@ class StickyNote extends StatefulWidget {
     this.animate,
     this.swap1,
     this.swap2,
+    this.delete,
   }) : super(key: key);
 
   final String text;
@@ -23,6 +24,7 @@ class StickyNote extends StatefulWidget {
   final double animate;
   final Function swap1;
   final String swap2;
+  final bool delete;
 
   @override
   _StickyNoteState createState() => _StickyNoteState();
@@ -37,7 +39,7 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
   double value1 = 0.0;
   double value2 = pi * .075;
   double valueD1 = 1.0;
-  double valueD2 = 10.0;
+  double valueD2 = 0;
 
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
     return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
@@ -76,10 +78,11 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
     );
     deleteAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Future.delayed(Duration(seconds: 2), () {
-          deleteController.reverse();
-        });
+        deleteController.reverse();
       } else {}
+      if (widget.delete == true){
+        deleteController.forward();
+      }
     });
   }
 
@@ -94,94 +97,102 @@ class _StickyNoteState extends State<StickyNote> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Container(
-        width: 105,
-        height: 129,
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, widget.route);
-          },
-          onLongPress: () {
-            noteController.forward();
-            deleteController.forward();
-            Future.delayed(Duration(milliseconds: 750),
-                    (){
-                  widget.swap1(widget.swap2);
-                }
-            );
-          },
-          child: Stack(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 100,
-                    height: 13,
-                    color: Colors.transparent,
-                  ),
-                  AnimatedBuilder(
-                    animation: noteAnimation,
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: widget.noteColor,
-                            //hexToColor('#9eb1cd'),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(.8),
-                                offset: Offset.fromDirection(5.0, -4.0),
-                                blurRadius: 3.0,
-                              ),
-                            ],
-                          ),
-                          child: Center(
-                            child: Opacity(
-                              opacity: 1,
-                              child: Text(
-                                widget.text,
-                                style: TextStyle(
-                                  fontFamily: "Brownbag",
-                                  fontSize: 65,
-                                  height: 1,
-                                ),
+      child: AnimatedBuilder(
+        animation: deleteAnimation,
+        child: buildNote(),
+        builder: (context,child){
+          return Transform.scale(scale: deleteAnimation.value,child: child);
+        },
+      ),
+    );
+  }
+  Widget buildNote(){
+    return Container(
+      width: 105,
+      height: 129,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, widget.route);
+        },
+        onLongPress: () {
+          noteController.forward();
+          Future.delayed(Duration(milliseconds: 750),
+                  (){
+                widget.swap1(widget.swap2);
+              }
+          );
+        },
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 100,
+                  height: 13,
+                  color: Colors.transparent,
+                ),
+                AnimatedBuilder(
+                  animation: noteAnimation,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: widget.noteColor,
+                          //hexToColor('#9eb1cd'),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(.8),
+                              offset: Offset.fromDirection(5.0, -4.0),
+                              blurRadius: 3.0,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Opacity(
+                            opacity: 1,
+                            child: Text(
+                              widget.text,
+                              style: TextStyle(
+                                fontFamily: "Brownbag",
+                                fontSize: 65,
+                                height: 1,
                               ),
                             ),
                           ),
                         ),
-                        Container(
-                          width: 100,
-                          height: 15,
-                          decoration: BoxDecoration(
-                            backgroundBlendMode: BlendMode.srcATop,
-                            color: Colors.black.withOpacity(.2),
-                          ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 15,
+                        decoration: BoxDecoration(
+                          backgroundBlendMode: BlendMode.srcATop,
+                          color: Colors.black.withOpacity(.2),
                         ),
-                      ],
-                    ),
-                    builder: (context, child) {
-                      return Transform.rotate(
-                        angle: noteAnimation.value,
-                        child: child,
-                        alignment: Alignment(0.0, -.5),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Positioned(
-                left: 45,
-                bottom: 97,
-                child: Container(
-                  child: thumbtack(
-                    color: Colors.lime[400],
-                  ),
+                  builder: (context, child) {
+                    return Transform.rotate(
+                      angle: noteAnimation.value,
+                      child: child,
+                      alignment: Alignment(0.0, -.5),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Positioned(
+              left: 45,
+              bottom: 97,
+              child: Container(
+                child: thumbtack(
+                  color: Colors.lime[400],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

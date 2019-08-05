@@ -122,5 +122,8 @@ class ColorBloc{
 
 
   }
+  deleteAnimate(){
+
+  }
 
 }

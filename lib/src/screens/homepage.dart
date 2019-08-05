@@ -21,7 +21,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final double deleteColor2 = 0;
   //Color _color = Colors.indigo[50];
   Animation<double> deleteAnimation;
+  Animation<double> deleteAnimation2;
+  Animation<double> deleteAnimation3;
+  Animation<double> deleteAnimation4;
+  Animation<double> deleteAnimation5;
+  Animation<double> deleteAnimation6;
+  Animation<double> deleteAnimation7;
   AnimationController deleteController;
+  AnimationController deleteController2;
+  AnimationController deleteController3;
+  AnimationController deleteController4;
+  AnimationController deleteController5;
+  AnimationController deleteController6;
+  AnimationController deleteController7;
+
   double value1 = 1;
   double value2 = 0;
 
@@ -40,18 +53,103 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     deleteController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 750),
     );
+    deleteController2 = AnimationController(vsync: this,duration: Duration(milliseconds: 750),);
+    deleteController3 = AnimationController(vsync: this,duration: Duration(milliseconds: 750),);
+    deleteController4 = AnimationController(vsync: this,duration: Duration(milliseconds: 750),);
+    deleteController5 = AnimationController(vsync: this,duration: Duration(milliseconds: 750),);
+    deleteController6 = AnimationController(vsync: this,duration: Duration(milliseconds: 750),);
+    deleteController7 = AnimationController(vsync: this,duration: Duration(milliseconds: 750),);
+
     deleteAnimation = Tween(
       begin: value1,
       end: value2,
     ).animate(
-      CurvedAnimation(parent: deleteController, curve: Curves.ease,reverseCurve: Curves.elasticOut),
+      CurvedAnimation(parent: deleteController, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
     );
     deleteAnimation.addStatusListener(
           (status) {
         if (status == AnimationStatus.completed) {
           deleteController.reverse();
+        } else {}
+      },
+    );
+    deleteAnimation2 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController2, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
+    );
+    deleteAnimation2.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController2.reverse();
+        } else {}
+      },
+    );
+    deleteAnimation3 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController3, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
+    );
+    deleteAnimation3.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController3.reverse();
+        } else {}
+      },
+    );
+    deleteAnimation4 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController4, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
+    );
+    deleteAnimation4.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController4.reverse();
+        } else {}
+      },
+    );
+    deleteAnimation5 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController5, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
+    );
+    deleteAnimation5.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController5.reverse();
+        } else {}
+      },
+    );
+    deleteAnimation6 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController6, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
+    );
+    deleteAnimation6.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController6.reverse();
+        } else {}
+      },
+    );
+    deleteAnimation7 = Tween(
+      begin: value1,
+      end: value2,
+    ).animate(
+      CurvedAnimation(parent: deleteController7, curve: Curves.slowMiddle,reverseCurve: Curves.fastLinearToSlowEaseIn),
+    );
+    deleteAnimation7.addStatusListener(
+          (status) {
+        if (status == AnimationStatus.completed) {
+          deleteController7.reverse();
         } else {}
       },
     );
@@ -368,43 +466,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AnimatedBuilder(
-                animation: deleteAnimation,
-                builder: (context, child) {
-                  return Transform.scale(
-                    scale: deleteAnimation.value,
-                    child: child
-                  );
-                },
-                child: note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1','monday')),
+            noteAnimation(deleteAnimation,note2(bloc2,'MON',bloc2.color1,bloc2.changeColor1,'color1','/monday',bloc2.changeColor1,'color1','monday',deleteController)),
             notePaddingR(),
             Visibility(
               child: eraseTarget(),
               visible: eraserVisible,
             ),
             notePaddingL(),
-            note2(bloc2,'TUE',bloc2.color2,bloc2.changeColor2,'color2','/tuesday',bloc2.changeColor2,'color2','tuesday'),
+            AnimatedBuilder(
+                animation: deleteAnimation2,
+                builder: (context, child) {
+                  return Transform.scale(
+                      scale: deleteAnimation2.value,
+                      child: child
+                  );
+                },
+                child: note2(bloc2,'TUE',bloc2.color2,bloc2.changeColor2,'color2','/tuesday',bloc2.changeColor2,'color2','tuesday',deleteController2)),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Visibility(visible: wedVis,child: note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3','wednesday')),
+            noteAnimation(deleteAnimation3,note2(bloc2,'WED',bloc2.color3,bloc2.changeColor3,'color3','/wednesday',bloc2.changeColor3,'color3','wednesday',deleteController3)),
             notePaddingR(),
             notePaddingL(),
-            note2(bloc2,'THU',bloc2.color4,bloc2.changeColor4,'color4','/thursday',bloc2.changeColor4,'color4','thursday'),
+            noteAnimation(deleteAnimation4, note2(bloc2,'THU',bloc2.color4,bloc2.changeColor4,'color4','/thursday',bloc2.changeColor4,'color4','thursday',deleteController4)),
             notePaddingR(),
             notePaddingL(),
-            note2(bloc2,'FRI',bloc2.color5,bloc2.changeColor5,'color5','/friday',bloc2.changeColor5,'color5','friday'),
+            noteAnimation(deleteAnimation5,note2(bloc2,'FRI',bloc2.color5,bloc2.changeColor5,'color5','/friday',bloc2.changeColor5,'color5','friday',deleteController5)),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            note2(bloc2,'SAT',bloc2.color6,bloc2.changeColor6,'color6','/saturday',bloc2.changeColor6,'color6','saturday'),
+            noteAnimation(deleteAnimation6,note2(bloc2,'SAT',bloc2.color6,bloc2.changeColor6,'color6','/saturday',bloc2.changeColor6,'color6','saturday',deleteController6)),
             notePaddingR(),
             notePaddingL(),
-            note2(bloc2,'SUN',bloc2.color7,bloc2.changeColor7,'color7','/sunday',bloc2.changeColor7,'color7','sunday'),
+            noteAnimation(deleteAnimation7,note2(bloc2,'SUN',bloc2.color7,bloc2.changeColor7,'color7','/sunday',bloc2.changeColor7,'color7','sunday',deleteController7)),
           ],
         ),
       ],
@@ -466,14 +564,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return child;
       },
       onWillAccept: (data) {
-        print('hello');
         color1 = Colors.redAccent;
         text = 'DEL';
         return data == 1;
       },
     );
   }
-  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route,Function swap1, String swap2, String delete){
+  Widget note2(ColorsBloc bloc2, String day, Stream stream, Function color, String color2,String route,Function swap1, String swap2, String delete,AnimationController controller){
     return StreamBuilder(
       stream: stream,
       builder: (context, AsyncSnapshot snapshot) {
@@ -505,12 +602,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             onWillAccept: (data) {
               print('hello');
               noteColor = Colors.redAccent;
-              text = 'DEL';
               return data == 1;
             },
             onAccept:(data){
 
-              deleteController.forward();
+              controller.forward();
               bloc2.deleteDay(delete);
 
 
@@ -533,5 +629,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
     );
   }
+  Widget noteAnimation(Animation animation,Widget child2){
+    return AnimatedBuilder(animation:animation, builder: (context, child) {
+      return Transform.scale(
+          scale: animation.value,
+          child: child2
+      );
+    },
+    );
+  }
+
 }
 
