@@ -272,6 +272,7 @@ class _FlareState extends State<FlareWriter> {
           highlightColor: Colors.transparent,
           onPressed: () async {
             setState(() {
+              _animaName = 'greenlight';
               _selected3 = !_selected3;
             });
           },

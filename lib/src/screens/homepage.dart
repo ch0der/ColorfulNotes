@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ],
                     )),
                 Positioned(
-                  left: 300,
+                  left: 330,
                   child: addButton(),
                 ),
               ],
@@ -549,7 +549,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       onAccept: (data) {
         bloc.erase();
         bloc3.deleteALL();
-        print('working');
+        deleteController.forward();
+        deleteController2.forward();
+        deleteController3.forward();
+        deleteController4.forward();
+        deleteController5.forward();
+        deleteController6.forward();
+        deleteController7.forward();
         setState(() {
           deleteAllColor = Colors.white;
         });
