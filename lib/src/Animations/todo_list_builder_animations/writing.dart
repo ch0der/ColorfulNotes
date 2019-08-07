@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:more_bloc_testing/src/bloc/taskBloc.dart';
 import 'package:more_bloc_testing/src/bloc/provider.dart';
 import 'package:more_bloc_testing/src/Animations/plane.dart';
+import 'package:flutter/rendering.dart';
 
 class FlareWriter extends StatefulWidget {
   @override
@@ -29,66 +30,86 @@ class _FlareState extends State<FlareWriter> {
   double stepValue;
   int newNumber = 0;
   int newNumber2 = 0;
-  int _defaultValue = 0;//for timeSelector
+  int _defaultValue = 0; //for timeSelector
   bool _ignore = false;
+  TextEditingController _controllerText = TextEditingController();
+  @override
+  void initState(){
+    super.initState();
+    Future.delayed(Duration(milliseconds: 400),
+            (){
+          setState(() {
+            _animaName = 'greenlight';
+          });
+        }
+    );
 
+  }
 
   @override
   Widget build(BuildContext context) {
-
-
     final bloc = Provider.of(context).taskBloc;
-    return Column(
-      children: <Widget>[
-        Row(
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover, image: AssetImage('assets/tree1-2.jpg'))),
+        child: Column(
           children: <Widget>[
-            padder(),
-            dayButton(bloc, "S"),
-            dayButton1(bloc, "M"),
-            dayButton2(bloc, "T"),
-            dayButton3(bloc, "W"),
-            dayButton4(bloc, "T"),
-            dayButton5(bloc, "F"),
-            dayButton6(bloc, "S"),
+            Padding(padding: EdgeInsets.only(top: 30)),
+            doListViewer(bloc),
+            Padding(padding: EdgeInsets.only(top: 20.0)),
+            Row(
+              children: <Widget>[
+                padder(),
+                dayButton(bloc, "S"),
+                dayButton1(bloc, "M"),
+                dayButton2(bloc, "T"),
+                dayButton3(bloc, "W"),
+                dayButton4(bloc, "T"),
+                dayButton5(bloc, "F"),
+                dayButton6(bloc, "S"),
+              ],
+            ),
+            Padding(padding: EdgeInsets.only(top: 10.0)),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 15.0),
+                ),
+                box(5),
+                box(15),
+                box(30),
+                box(45),
+                box(60),
+                Padding(
+                  padding: EdgeInsets.only(left: 2.5),
+                ),
+                counter(),
+              ],
+            ),
+            Stack(
+              overflow: Overflow.visible,
+              children: <Widget>[
+                Center(
+                  child: Stack(
+                    children: <Widget>[
+                      flareWriter(),
+                      submit(bloc),
+                    ],
+                  ),
+                ),
+                Plane(),
+              ],
+            ),
           ],
         ),
-        Padding(padding: EdgeInsets.only(top: 10.0)),
-        Row(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 15.0),
-            ),
-            box(5),
-            box(15),
-            box(30),
-            box(45),
-            box(60),
-            Padding(
-              padding: EdgeInsets.only(left: 2.5),
-            ),
-            counter(),
-          ],
-        ),
-        Stack(
-          overflow: Overflow.visible,
-          children: <Widget>[
-            Center(
-              child: Stack(
-                children: <Widget>[
-                  flareWriter(),
-                  submit(bloc),
-                ],
-              ),
-            ),
-            Plane(),
-          ],
-        ),
-      ],
+      ),
     );
   }
 
   Widget submit(TaskBloc bloc) {
-
     return StreamBuilder(
         stream: bloc.description,
         builder: (context, snapshot) {
@@ -107,6 +128,8 @@ class _FlareState extends State<FlareWriter> {
                     } else {
                       //return nothing
                     }
+                    if(_animaName == 'greenlight')
+                      {onTap();}else{}
                     if (snapshot.hasData) {
                       bloc.add(_selected, _selected1, _selected2, _selected3,
                           _selected4, _selected5, _selected6, newNumber);
@@ -128,7 +151,8 @@ class _FlareState extends State<FlareWriter> {
               ),
             ),
           );
-        });
+        },
+    );
   }
 
   Widget flareWriter() {
@@ -173,12 +197,12 @@ class _FlareState extends State<FlareWriter> {
     setState(() {
       _ignore = true;
       _animaName = "animation2";
+      _controllerText.clear();
     });
-    await Future.delayed(Duration(seconds: 2));
-    setState(() {
+    await Future.delayed(Duration(seconds: 2),(){ setState(() {
       _animaName = null;
       _ignore = false;
-    });
+    });});
   }
 
   Widget padder() {
@@ -200,7 +224,7 @@ class _FlareState extends State<FlareWriter> {
           ),
           color: _selected == false ? Colors.blue[100] : Colors.blue[400],
           highlightColor: Colors.transparent,
-          onPressed: (){
+          onPressed: () {
             setState(() {
               _selected = !_selected;
             });
@@ -232,7 +256,6 @@ class _FlareState extends State<FlareWriter> {
       ),
     );
   }
-
 
   Widget dayButton2(TaskBloc bloc, String day) {
     return Container(
@@ -272,7 +295,6 @@ class _FlareState extends State<FlareWriter> {
           highlightColor: Colors.transparent,
           onPressed: () async {
             setState(() {
-              _animaName = 'greenlight';
               _selected3 = !_selected3;
             });
           },
@@ -349,7 +371,8 @@ class _FlareState extends State<FlareWriter> {
       ),
     );
   }
-  buttonHelper(String day, bool select){
+
+  buttonHelper(String day, bool select) {
     bool localBool = select;
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
@@ -423,19 +446,57 @@ class _FlareState extends State<FlareWriter> {
   Widget counter() {
     Duration timeDuration = new Duration(minutes: newNumber);
 
-
-
-
     return Container(
       decoration: BoxDecoration(color: Colors.white70),
       height: 50.0,
       width: 105.0,
       child: Center(
         child: Text(
-          '${timeDuration.inHours}:${(timeDuration.inMinutes % 60).toString().padLeft(2,'0')}',
+          '${timeDuration.inHours}:${(timeDuration.inMinutes % 60).toString().padLeft(2, '0')}',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 35.0),
         ),
+      ),
+    );
+  }
+
+  Widget doListViewer(TaskBloc bloc) {
+    return StreamBuilder<Object>(
+        stream: bloc.description,
+        builder: (context, snapshot) {
+          return Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white70),
+            height: 75.0,
+            width: 380.0,
+            child: Theme(
+              data: ThemeData(
+                  primaryColor: Colors.green, primaryColorDark: Colors.purple),
+              child: TextField(
+                controller: _controllerText,
+                onChanged: bloc.addTask,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  Widget title() {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 5),
+      child: Text(
+        'New Task',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
       ),
     );
   }

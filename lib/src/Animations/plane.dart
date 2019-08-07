@@ -15,14 +15,19 @@ class _PlaneState extends State<Plane> {
   @override
   void initState(){
     super.initState();
-    Future.delayed(Duration(seconds: 2),
+    if(isPaused == true )
+    Future.delayed(Duration(seconds: 20),
         (){
       setState(() {
-        isPaused =! isPaused;
+        isPaused = false;
       });
 
-        }
+      }
     );
+    if(isPaused == false )
+            setState(() {
+              isPaused = true;
+            });
   }
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class _PlaneState extends State<Plane> {
       await Future.delayed(Duration(seconds: 8),
           (){
         setState(() {
-          isPaused =! isPaused;
+          isPaused = true;
         });
           }
       );

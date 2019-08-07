@@ -18,7 +18,7 @@ void main() {
         // When we navigate to the "/" route, build the FirstScreen Widget
         '/': (context) => MyApp(),
         '/second':(context) => HomePage(),
-        '/third':(context) => BuildList(),
+        '/third':(context) => FlareWriter(),
         '/fourth':(context) => ListViewer(),
         '/fifth':(context) => NoteAdder(),
         '/monday':(context) => MondayList(),
