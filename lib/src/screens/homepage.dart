@@ -306,9 +306,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             top: 15,
             left: 15,
             child: Container(
-              height: 110,
+              height: 130,
               width: 290,
-              child: noteViewer(bloc),
+              child: Padding(padding: EdgeInsets.only(top: 20),child: noteViewer(bloc),)
             ),
           ),
         ],
@@ -323,13 +323,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         builder: (BuildContext context,
             AsyncSnapshot<List<HomeScreenNote>> snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  HomeScreenNote item = snapshot.data[index];
-                  return Text(item.note);
-                });
+            return Theme(
+              data: ThemeData(accentColor: _rnd.randomColor(colorSaturation: ColorSaturation.lowSaturation,colorBrightness: ColorBrightness.light)),
+              child: ListView.builder(
+                controller: ScrollController(),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    HomeScreenNote item = snapshot.data[index];
+                    return Text(item.note);
+                  }),
+            );
           } else {
             return Container();
           }

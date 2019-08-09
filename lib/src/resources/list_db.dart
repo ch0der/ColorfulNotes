@@ -280,6 +280,11 @@ class DBProvider{
     var res = await db.query("HomeScreenNote", where: "id2 = ?", whereArgs: [id2]);
     return res.isNotEmpty ? HomeScreenNote.fromMap(res.first) : null;
   }
+  defaultValue()async{
+    final db = await database;
+    var res = await db.rawQuery("SELECT note FROM HomeScreenNote WHERE id2 = 0");
+    return res.toString();
+  }
   updateNote(HomeScreenNote newNote) async {
     final db = await database;
     var res = await db.update("HomeScreenNote", newNote.toMap(),

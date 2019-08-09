@@ -21,7 +21,7 @@ class _QuoterState extends State<Quoter> {
       stream: Firestore.instance.collection('Quotes').where('#',isEqualTo: rndNum).limit(1).snapshots(),
       builder: (context, snapshot) {
 
-        if (!snapshot.hasData) return LinearProgressIndicator();
+        if (!snapshot.hasData) return Container();
 
         return _buildList(context, snapshot.data.documents);
       },

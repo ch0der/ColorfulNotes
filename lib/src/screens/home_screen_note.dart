@@ -7,6 +7,8 @@ class NoteAdder extends StatefulWidget {
   @override
   _NoteAdderState createState() => _NoteAdderState();
 }
+TextEditingController _controller = TextEditingController(text: 'test');
+String noteText;
 
 class _NoteAdderState extends State<NoteAdder> {
   @override
