@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         SlidingDrawer(),
                         Positioned(
                           top: 5,
-                          left: 150,
+                          left: 40,
                           child: eraser(),
                         ),
                       ],
@@ -609,7 +609,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               noteColor = Color(snapshot.data);
             },
             onWillAccept: (data) {
-              print('hello');
               noteColor = Colors.redAccent;
               return data == 1;
             },

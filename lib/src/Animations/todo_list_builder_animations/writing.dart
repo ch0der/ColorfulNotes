@@ -45,6 +45,10 @@ class _FlareState extends State<FlareWriter> {
     );
 
   }
+  @override
+  void dispose(){
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -38,16 +38,10 @@ class NoteBloc{
     DBProvider.db.newNote(item);
     getNote();
   }
-  submitTask(){
-    final validTask = _description.value;
-
-    print('item is $validTask');
-  }
   getThis(int id2){
     DBProvider.db.getTheNote(id2);
   }
   defaultValue(){
-    print(note);
   }
   update(String str, int id2){
     HomeScreenNote item = HomeScreenNote(id2: id2, note: str);

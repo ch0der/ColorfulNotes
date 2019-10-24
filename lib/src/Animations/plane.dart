@@ -30,6 +30,10 @@ class _PlaneState extends State<Plane> {
             });
   }
   @override
+  void dispose(){
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return planeAnimation();
   }
