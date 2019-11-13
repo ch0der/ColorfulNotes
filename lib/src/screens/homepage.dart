@@ -630,8 +630,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               noteColor: _rnd.randomColor(
                   colorSaturation: ColorSaturation.mediumSaturation,
                   colorBrightness: ColorBrightness.light),
-              text: 'SUN',
-              route: '/tuesday',
+              text: day,
+              route: route,
             ),
           );
       },

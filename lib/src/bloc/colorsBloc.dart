@@ -115,6 +115,7 @@ class ColorsBloc{
     final color6 = prefs.getInt('color6');
     final color7 = prefs.getInt('color7');
 
+
     _color1.sink.add(color1);
     _color2.sink.add(color2);
     _color3.sink.add(color3);
@@ -122,6 +123,9 @@ class ColorsBloc{
     _color5.sink.add(color5);
     _color6.sink.add(color6);
     _color7.sink.add(color7);
+
+  }
+  Future getFirstColors() async{
 
   }
 

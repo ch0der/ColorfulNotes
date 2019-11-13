@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:more_bloc_testing/src/bloc/colorsBloc.dart';
 import 'src/screens/homepage.dart';
 import 'src/bloc/provider.dart';
 import 'package:more_bloc_testing/src/screens/library.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'src/bloc/colorsBloc.dart';
 
 void main() {
   debugPaintSizeEnabled=false;
@@ -43,6 +47,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  final bloc = ColorsBloc();
+
+  Future<void> startupColor()async{
+    final prefs = await SharedPreferences.getInstance();
+    final color1 = prefs.getInt('color1');
+
+    if(color1 == null){
+      bloc.changeColor1('color1');
+      bloc.changeColor1('color2');
+      bloc.changeColor1('color3');
+      bloc.changeColor1('color4');
+      bloc.changeColor1('color5');
+      bloc.changeColor1('color6');
+      bloc.changeColor1('color7');
+
+
+    }else{}
+  }
 
 
 
@@ -50,6 +72,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    startupColor();
 
   }
 
