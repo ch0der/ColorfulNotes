@@ -64,17 +64,19 @@ class _FlareState extends State<FlareWriter> {
             Padding(padding: EdgeInsets.only(top: 30)),
             doListViewer(bloc),
             Padding(padding: EdgeInsets.only(top: 20.0)),
-            Row(
-              children: <Widget>[
-                padder(),
-                dayButton(bloc, "S"),
-                dayButton1(bloc, "M"),
-                dayButton2(bloc, "T"),
-                dayButton3(bloc, "W"),
-                dayButton4(bloc, "T"),
-                dayButton5(bloc, "F"),
-                dayButton6(bloc, "S"),
-              ],
+            Container(
+              child: Row(
+                children: <Widget>[
+                  padder(),
+                  dayButton(bloc, "S"),
+                  dayButton1(bloc, "M"),
+                  dayButton2(bloc, "T"),
+                  dayButton3(bloc, "W"),
+                  dayButton4(bloc, "T"),
+                  dayButton5(bloc, "F"),
+                  dayButton6(bloc, "S"),
+                ],
+              ),
             ),
             Padding(padding: EdgeInsets.only(top: 10.0)),
             Row(
@@ -82,11 +84,11 @@ class _FlareState extends State<FlareWriter> {
                 Padding(
                   padding: EdgeInsets.only(left: 15.0),
                 ),
-                box(5),
-                box(15),
-                box(30),
-                box(45),
-                box(60),
+                box(5,MediaQuery.of(context).size.width*.135,),
+                box(15,MediaQuery.of(context).size.width*.135,),
+                box(30,MediaQuery.of(context).size.width*.135,),
+                box(45,MediaQuery.of(context).size.width*.135,),
+                box(60,MediaQuery.of(context).size.width*.135,),
                 Padding(
                   padding: EdgeInsets.only(left: 2.5),
                 ),
@@ -219,7 +221,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -242,7 +244,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -265,7 +267,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -288,7 +290,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -311,7 +313,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -334,7 +336,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -357,7 +359,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -381,7 +383,7 @@ class _FlareState extends State<FlareWriter> {
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       child: ButtonTheme(
-        minWidth: 50.0,
+        minWidth: MediaQuery.of(context).size.width*.11,
         height: 50.0,
         child: FlatButton(
           child: Text(
@@ -401,14 +403,14 @@ class _FlareState extends State<FlareWriter> {
     );
   }
 
-  Widget box(sDuration) {
+  Widget box(sDuration,width) {
     final int tick = sDuration;
     newNumber2 = sDuration;
 
     return Container(
       padding: EdgeInsets.only(left: 2.5, right: 2.5),
       height: 50.0,
-      width: 55.0,
+      width: width,
       child: FlatButton(
           child: Text(
             "$sDuration",
