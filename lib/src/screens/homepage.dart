@@ -181,43 +181,45 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget buildHomePage(context) {
     return Container(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 25),
-          ),
-          notes(colorsBloc),
-          Padding(
-            padding: EdgeInsets.only(bottom: 12),
-          ),
-          whiteBoard(),
-          Padding(
-            padding: EdgeInsets.only(top: 14),
-          ),
-          Container(
-            height: 65,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                    top: 10,
-                    child: Stack(
-                      children: <Widget>[
-                        SlidingDrawer(),
-                        Positioned(
-                          top: 5,
-                          left: 40,
-                          child: eraser(),
-                        ),
-                      ],
-                    )),
-                Positioned(
-                  left: 330,
-                  child: addButton(),
-                ),
-              ],
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 75),
             ),
-          ),
-        ],
+            notes(colorsBloc),
+            Padding(
+              padding: EdgeInsets.only(bottom: 12),
+            ),
+            whiteBoard(),
+            Padding(
+              padding: EdgeInsets.only(top: 25),
+            ),
+            Container(
+              height: 65,
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
+                      top: 10,
+                      child: Stack(
+                        children: <Widget>[
+                          SlidingDrawer(),
+                          Positioned(
+                            top: 5,
+                            left: 40,
+                            child: eraser(),
+                          ),
+                        ],
+                      )),
+                  Positioned(
+                    left: 330,
+                    child: addButton(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ class SlidingDrawer extends StatefulWidget {
 class _SlidingDrawerState extends State<SlidingDrawer> {
   double _width = 1;
   double _height = 50;
-  Color _color = Colors.white.withOpacity(.8);
+  Color _color = Colors.redAccent.withOpacity(.8);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _SlidingDrawerState extends State<SlidingDrawer> {
               child: Container(
                 height: 20,
                 width: 50,
-                color: Colors.white.withOpacity(.8),
+                color: _color,
               ),
             ),
           ),
