@@ -103,14 +103,14 @@ class _ListViewerState extends State<TuesdayList> {
               child: Icon(Icons.info,size: 20,),),
             Positioned(
               top: 20,
-              left: 140,
+              left: 128,
               child: QuoteBuddy(),
             ),
             Positioned(
               top: 145,
               child: Container(
                 height: 20,
-                width: 411,
+                width: 390,
                 child: ListTile(
                   leading: Text(
                     '     #',
@@ -152,10 +152,10 @@ class _ListViewerState extends State<TuesdayList> {
                 height: 25,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5, top: 40),
+                padding: EdgeInsets.only(left: 0, top: 40),
                 child: Container(
                   height: 375,
-                  width: 375,
+                  width: 360,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Container(
                       height: 5.0,
@@ -243,7 +243,7 @@ class _ListViewerState extends State<TuesdayList> {
               ),
               Container(
                 height: 4,
-                width: 374,
+                width: 369,
                 color: Colors.grey.withOpacity(.5),
               ),
               Padding(
@@ -257,7 +257,7 @@ class _ListViewerState extends State<TuesdayList> {
                     width: 293,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 30),
+                    padding: EdgeInsets.only(left: 10),
                   ),
                   Container(
                     height: 30,

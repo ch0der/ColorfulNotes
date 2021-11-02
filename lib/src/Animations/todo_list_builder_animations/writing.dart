@@ -54,7 +54,7 @@ class _FlareState extends State<FlareWriter> {
   Widget build(BuildContext context) {
     final bloc = Provider.of(context).taskBloc;
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(

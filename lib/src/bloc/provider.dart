@@ -9,7 +9,7 @@ class Provider extends InheritedWidget{
 
   bool updateShouldNotify(_) => true; //the underscore means i dont care about this arguement for this particular function
   static MasterBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(Provider) as Provider)
+    return (context.dependOnInheritedWidgetOfExactType<Provider>() as Provider)
         .bloc; //as Provider tells dart the type being returned, which is an instance of Provider and not an inheritedWidget
     //adding .bloc means we want to pull bloc out of the 'of' function
   }

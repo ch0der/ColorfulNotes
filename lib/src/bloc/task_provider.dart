@@ -11,7 +11,7 @@ class TaskProvider extends InheritedWidget{
 
   bool updateShouldNotify(_) => true;
   static TaskBloc of(BuildContext context){
-    return(context.inheritFromWidgetOfExactType(TaskProvider)
+    return(context.dependOnInheritedWidgetOfExactType<TaskProvider>()
     as TaskProvider)
         .bloc;
   }

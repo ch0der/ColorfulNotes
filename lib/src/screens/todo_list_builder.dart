@@ -20,7 +20,7 @@ class _BuildListState extends State<BuildList> {
     final taskBloc = Provider.of(context).taskBloc;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(
           fit: BoxFit.cover,

@@ -11,7 +11,7 @@ class NoteProvider extends InheritedWidget{
 
   bool updateShouldNotify(_) => true;
   static NoteBloc of(BuildContext context){
-    return(context.inheritFromWidgetOfExactType(NoteProvider)
+    return(context.dependOnInheritedWidgetOfExactType<NoteProvider>()
     as NoteProvider)
         .bloc;
   }
