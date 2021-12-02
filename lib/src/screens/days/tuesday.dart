@@ -98,10 +98,6 @@ class _ListViewerState extends State<TuesdayList> {
               ),
             ),
             Positioned(
-              bottom: 24,
-              right: 15,
-              child: Icon(Icons.info,size: 20,),),
-            Positioned(
               top: 20,
               left: 128,
               child: QuoteBuddy(),

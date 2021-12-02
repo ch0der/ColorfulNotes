@@ -88,7 +88,7 @@ class _ListViewerState extends State<ThursdayList> {
             ),
             Positioned(
               bottom: 24,
-              left: 31,
+              left: 22,
               child: Container(
                 height: 30,
                 width: 350,
@@ -97,14 +97,14 @@ class _ListViewerState extends State<ThursdayList> {
             ),
             Positioned(
               top: 20,
-              left: 140,
+              left: 128,
               child: QuoteBuddy(),
             ),
             Positioned(
               top: 145,
               child: Container(
                 height: 20,
-                width: 411,
+                width: 390,
                 child: ListTile(
                   leading: Text(
                     '     #',
@@ -146,10 +146,10 @@ class _ListViewerState extends State<ThursdayList> {
                 height: 25,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5, top: 40),
+                padding: EdgeInsets.only(left: 1, top: 40),
                 child: Container(
                   height: 375,
-                  width: 375,
+                  width: 350,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Container(
                           height: 5.0,
@@ -237,7 +237,7 @@ class _ListViewerState extends State<ThursdayList> {
               ),
               Container(
                 height: 4,
-                width: 374,
+                width: 370,
                 color: Colors.grey.withOpacity(.5),
               ),
               Padding(
@@ -251,11 +251,11 @@ class _ListViewerState extends State<ThursdayList> {
                     width: 293,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 30),
+                    padding: EdgeInsets.only(left: 20),
                   ),
                   Container(
                     height: 30,
-                    width: 55,
+                    width: 45,
                     child: totals(bloc),
                   ),
                 ],
